@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.RequestDispatcher;
 import model.User;
-import utils.AppUtils;
 import utils.DataDao;
+import utils.UserDb;
 
 /**
  * Servlet implementation class LoginPageServlet
@@ -19,6 +21,7 @@ import utils.DataDao;
 public class LoginPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static String index = "/WEB-INF/view/login.jsp";
+	private CopyOnWriteArrayList<User> users;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -35,6 +38,7 @@ public class LoginPageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+    	users = new CopyOnWriteArrayList<>(); // create ThreadSafety array, no memory leak
 		req.getRequestDispatcher(index).forward(req, resp); // we give login.jsp to PC-user
 	}
 
@@ -50,9 +54,12 @@ public class LoginPageServlet extends HttpServlet {
         String password = req.getParameter("password");
         System.out.println("введенный пароль");
         System.out.println(password);
-        User user = DataDao.findUser(login, password);
+        //User user = DataDao.findUser(login, password);
+        //User user = DataDao.findUser(login, password);
+        UserDb.select();
+        users.add(new User(UserDb.selectone(0)));
  
-        if (user == null) {
+        if (users == null) {
             String errorMessage = "Invalid userName or Password";
             System.out.println("Юзераккаунт нулевой");
             req.setAttribute("errorMessage", errorMessage);
@@ -64,15 +71,17 @@ public class LoginPageServlet extends HttpServlet {
             return;
         }
  
-        AppUtils.storeLoginedUser(req.getSession(), user);
         System.out.println("создаем сессию Юзераккаунт ");
-        // 
+        
+        req.getRequestDispatcher(index).forward(req, resp);
+        /* 
         int redirectId = -1;
         try {
             redirectId = Integer.parseInt(req.getParameter("redirectId"));
         } catch (Exception e) {
         }
-        String requestUri = AppUtils.getRedirectAfterLoginUrl(req.getSession(), redirectId);
+        */
+/*
         if (requestUri != null) {
             resp.sendRedirect(requestUri);
         } else {
@@ -82,7 +91,7 @@ public class LoginPageServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/UserInfoServlet");
             System.out.println("перенаправляем ");
         }
- 
+*/ 
     
 	}
 

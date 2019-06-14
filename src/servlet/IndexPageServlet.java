@@ -50,7 +50,7 @@ public class IndexPageServlet extends HttpServlet {
     }
 	
 	
-	  private CopyOnWriteArrayList<User> users;
+	  
 	  
 	  @Override 
 	  public void init() throws ServletException{ 
@@ -71,6 +71,7 @@ public class IndexPageServlet extends HttpServlet {
 	            throws ServletException, IOException {
 
 	    	req.setCharacterEncoding("UTF-8"); // set using codepage
+/*	    	
 	    	final String id = req.getParameter("id"); // data from input form
 	        final String name = req.getParameter("name"); // data from input form 
 	        final String second = req.getParameter("second"); // data from input form
@@ -81,7 +82,7 @@ public class IndexPageServlet extends HttpServlet {
 	        		second, login, password,
 	        		Integer.valueOf(id_department)); // create new user
 	        users.add(user);
-	        
+	        */
 	    	doGet(req,resp);
 	    	System.out.println("*************do Get**************");
 	    }

@@ -85,22 +85,30 @@ public class UserDb extends HttpServlet {
                 String login = resultset.getString(4);
                 String password = resultset.getString(5);
                 int id_department = resultset.getInt(6);
-                String stringArray = resultset.getString(7);
+                Array role = resultset.getArray(7);
+                
+				//ArrayList<String> list = new ArrayList<String>(role);
+				Array array = conn.createArrayOf("VARCHAR", role.toArray());
+				//preparedStatement.setArray(6, array);
+                //String stringArray = resultset.getString(7);
         		//String[] stringArray = { "a", "b", "c", "d", "e" };
-        		ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(stringArray));
-        		String[] stringArr = new String[arrayList.size()];
-        		arrayList.toArray(stringArr);
+        		//ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(stringArray));
+        		//String[] stringArr = new String[arrayList.size()];
+        		//arrayList.toArray(stringArr);
         		//1306 for (String s : stringArr)
         			//1306 System.out.println(s);
         		//System.out.println(arrayList);
-
-                String[] roles =  stringArr;
-                User user = new User(id, name, second, login, password, id_department, roles);
+                //String[] roles =  stringArr;
+                
+                User user = new User(id, name, second, login, password, id_department, role);
                 //User user = new User(id, name, second, login, password, id_department);
                 users.add(user);
 					
-			    System.out.println(arrayList+"\t Номер в базе #" + resultset.getInt("id")
-			            + "\t" + resultset.getString("name"));
+			    System.out.println(//arrayList+
+			    		"\t Номер в базе #" + 
+			    resultset.getInt("id")
+			            + "\t" + resultset.getString("name")
+			            + "\t" + resultset.getString("role"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

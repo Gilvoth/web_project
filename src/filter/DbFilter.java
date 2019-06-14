@@ -51,8 +51,8 @@ public class DbFilter implements Filter {
         // Избегать открытие Connection для обычноых запросов
         // (Например image, css, javascript,... )
         if (servletPath.contains("/LoginPageServlet") )//|| servletPath.contains("/specialPath2")) 
-        	{System.out.println("address is loginpage!");
-
+        	{System.out.println("address is loginpage!");}
+/*
             //1.Statement: используется для простых случаев без параметров
             Statement statement = null;
 
@@ -87,7 +87,7 @@ public class DbFilter implements Filter {
 									}        	       	
 	    }		
 		
-		
+*/		
 		
 		System.out.println("DB Filter has been finished!");
 		// pass the request along the filter chain
@@ -107,8 +107,7 @@ public class DbFilter implements Filter {
 		{System.out.println("Операционная система Windows 7!");
 		String url = "jdbc:postgresql://127.0.0.1:5432/web_db";
         String username = "admin";
-        String password = "web_pg";
-        //Connection conn = null;        
+        String password = "web_pg";               
         System.out.println("connect 127.0.0.1 ");
     	//////////////////////////////////////////////////////////////////////////////////
         try {
@@ -116,7 +115,6 @@ public class DbFilter implements Filter {
         System.out.println("PostgreSQL JDBC Driver successfully connected");
         // Создать объект Connection подключенный к database.
         conn = DriverManager.getConnection(url, username, password);
-        //Statement statement = null;
         } catch (ClassNotFoundException e) {
 			System.out.println("Connection Failed ClassNotFoundException");
 			e.printStackTrace();
@@ -132,8 +130,7 @@ public class DbFilter implements Filter {
 			System.out.println("Операционная система Windows 10!");
 	    	String url = "jdbc:postgresql://10.72.0.128:5432/web_db";
 	        String username = "admin";
-	        String password = "web_pg";
-	        //Connection conn = null;        
+	        String password = "web_pg";      
 	        System.out.println("connect 10.72.0.128 ");
 	    	//////////////////////////////////////////////////////////////////////////////////
 	        try {
@@ -141,18 +138,17 @@ public class DbFilter implements Filter {
 	        System.out.println("PostgreSQL JDBC Driver successfully connected");
 	        // Создать объект Connection подключенный к database.
 	        conn = DriverManager.getConnection(url, username, password);
-	        //Statement statement = null;
 	        } catch (ClassNotFoundException e) {
 				System.out.println("Connection Failed ClassNotFoundException");
 				e.printStackTrace();
 	        } catch (SQLException e) {
 				System.out.println("Connection Failed SQLException");
 				e.printStackTrace();
-				return;// conn;
+				return;
 	        }finally {       	
 	         }			
 		}
-		//return null;
+		
 	}
     public static Connection getConn() { 
         return conn;
