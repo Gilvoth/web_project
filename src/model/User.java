@@ -11,7 +11,8 @@ public class User {
 	private String login;
 	private String password;
     private int id_department;
-    private List<String> roles;
+    //private List<String> roles;
+    private ArrayList<String> roles;
 
 
     public User() {}    //как в Metanit инициализируем   
@@ -48,7 +49,21 @@ public class User {
               this.roles.add(r); }
            }
            
-    }    
+    } 
+    
+    public User(String name, String second, String login, String password, int id_department, ArrayList<String> roles) {
+    	this.name = name;
+    	this.second = second;
+    	this.login = login;
+    	this.password = password;
+        this.id_department = id_department; 
+        
+        this.roles = new ArrayList<String>(); // aka ROLES
+        if (roles != null) {
+           for (String r : roles) {
+              this.roles.add(r); }
+           }          
+    }   
     
     public int getId() { // getname => name // rule = JSTL convert getMethod in Method
         return id;
@@ -100,11 +115,21 @@ public class User {
         this.id_department = id_department;
     }    
     
+    public ArrayList<String> getRoles() {
+        return roles;
+     }
+   /*
     public List<String> getRoles() {
         return roles;
      }
-   
+	*/
+/*   
      public void setRoles(List<String> roles) {
+        this.roles = roles;
+     }
+*/
+    
+    public void setRoles(ArrayList<String> roles) {
         this.roles = roles;
      }
     

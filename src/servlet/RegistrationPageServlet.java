@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import filter.DbFilter;
+import model.User;
+import utils.UserDb;
 
 
 /**
@@ -99,7 +103,13 @@ public class RegistrationPageServlet extends HttpServlet {
         String login = req.getParameter("login");//read login from html form
         String pass = req.getParameter("pass");//read pass from html form
         Integer id_department = Integer.parseInt((req.getParameter("id_department")));//read department from html form + convert to Integer
-
+        String role_srt = req.getParameter("role");//read role from html form
+        ArrayList<String> role_arr = new ArrayList<String>();
+        if (role_arr != null) {
+            for (String r : role_arr) {
+               role_arr.add(r); }
+            }
+        
         if (name.isEmpty()==true | second.isEmpty()==true | login.isEmpty()==true | pass.isEmpty()==true ) 
         {
         System.out.println("Введите обязательные поля!!!"); 
@@ -130,6 +140,14 @@ public class RegistrationPageServlet extends HttpServlet {
     	    	
     	    } else 
 
+    	    try{
+    	    	//Connection conn = DbFilter.getConn();
+    	    	//ArrayList<String> users = new ArrayList<>();
+    	    	User user = new User(name,second,login,pass,id_department, role_arr);
+    	    	UserDb.insert(user);
+    	    	
+    	    }catch(Exception ex){ex.printStackTrace();} 
+    	    	/*
 		        try{  
 		            PreparedStatement ps=conn.prepareStatement(  
 	    		            "insert into users (id, name, second, login, pass, id_department)"+
@@ -145,7 +163,7 @@ public class RegistrationPageServlet extends HttpServlet {
 		            conn.close();  
 		        }catch(Exception ex){ex.printStackTrace();}  
     
-
+*/
         PrintWriter writer = resp.getWriter();
         writer.println("<p>Пользователь с этими данными успешно зарегистрирован в системе!"+"</p>");
         writer.println("<p>Имя: " + name + "</p>");

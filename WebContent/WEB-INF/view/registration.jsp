@@ -36,7 +36,11 @@
             <tr>
                <td>Отдел</td>
                <td><input type="text" name="id_department" value= "${user.id_department}" /> </td>
-            </tr>                       
+            </tr>           
+            <tr>
+               <td>Роль</td>
+               <td><input type="text" name="role" value= "${user.role}" /> </td>
+            </tr>                          
             <tr>
                <td colspan ="2">
                   <input type="submit" value= "Зарегистрировать" />

@@ -88,7 +88,7 @@ public class UserDb extends HttpServlet {
                 Array role = resultset.getArray(7);
                 
 				//ArrayList<String> list = new ArrayList<String>(role);
-				Array array = conn.createArrayOf("VARCHAR", role.toArray());
+				//1406 Array array = conn.createArrayOf("VARCHAR", role.toArray());
 				//preparedStatement.setArray(6, array);
                 //String stringArray = resultset.getString(7);
         		//String[] stringArray = { "a", "b", "c", "d", "e" };
@@ -100,15 +100,17 @@ public class UserDb extends HttpServlet {
         		//System.out.println(arrayList);
                 //String[] roles =  stringArr;
                 
-                User user = new User(id, name, second, login, password, id_department, role);
+                //1406 User user = new User(id, name, second, login, password, id_department, role);
                 //User user = new User(id, name, second, login, password, id_department);
-                users.add(user);
+                //1406 users.add(user);
 					
 			    System.out.println(//arrayList+
 			    		"\t Номер в базе #" + 
 			    resultset.getInt("id")
 			            + "\t" + resultset.getString("name")
-			            + "\t" + resultset.getString("role"));
+			            +"\t" + second
+			            + "\t" + resultset.getString("role")
+			            +"\t" + role);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -176,7 +178,7 @@ public class UserDb extends HttpServlet {
 					//List<String> user2=user.getRoles();
 					//preparedStatement.setArray(6, (Array) user.getRoles());//(6, user.getRoles());
 					ArrayList<String> list = new ArrayList<String>(user.getRoles());
-					Array array = conn.createArrayOf("VARCHAR", list.toArray());
+					Array array = conn.createArrayOf("text[]", list.toArray());
 					preparedStatement.setArray(6, array);					
 					preparedStatement.setInt(7, user.getId());
 
@@ -227,12 +229,17 @@ public class UserDb extends HttpServlet {
             ps.setString(3, user.getLogin());  
             ps.setString(4, user.getPassword());  
             ps.setInt(5, user.getId_department());
-            ps.setArray(6, (Array) user.getRoles());
+            ArrayList<String> list = new ArrayList<String>(user.getRoles());
+            Array array = conn.createArrayOf("text", list.toArray()); //This is Postgre feature Особенность реализации, преобразуем массив понятный Постгре 
+			ps.setArray(6, array);					
+			//preparedStatement.setInt(7, user.getId());
               
-            		ps.executeUpdate();  
+            ps.executeUpdate();  
     		        System.out.println("запрос выполнен успешно!!!");
     		 
-        }catch(Exception ex){ex.printStackTrace();}  
+        }catch(Exception ex){
+        	//ex.printStackTrace();
+        	System.out.println(ex);}  
                                   
 
         
