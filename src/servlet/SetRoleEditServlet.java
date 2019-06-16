@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -67,10 +68,15 @@ public class SetRoleEditServlet extends HttpServlet {
             String password = request.getParameter("password");
             int id_department = Integer.parseInt(request.getParameter("id_department"));
             //String roles = request.getParameter("roles");
-            String[] roles = request.getParameterValues("roles");
+            //1606 String[] roles = request.getParameterValues("roles");
+            
+            String[] role = {""};
+            role = request.getParameterValues("role");//read role from html form input (name role)
+            ArrayList<String> role_arr = new ArrayList<String>(Arrays.asList(role));
+            
             //ArrayList<String> roles = request.getParameter("roles");
             
-            User user = new User(id, name, second, login, password, id_department, roles);
+            User user = new User(id, name, second, login, password, id_department, role_arr);
             //User user = new User (int id, String name, String second, String login, String password, int id_department, ArrayList<String> roles);
             
             UserDb.update(user);

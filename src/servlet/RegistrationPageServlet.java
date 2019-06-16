@@ -2,12 +2,14 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.servlet.ServletException;
@@ -97,18 +99,22 @@ public class RegistrationPageServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
-        Connection conn = DbFilter.getConn();
-        String name = req.getParameter("name");//read name from html form
-        String second = req.getParameter("second");//read second from html form
-        String login = req.getParameter("login");//read login from html form
-        String pass = req.getParameter("pass");//read pass from html form
-        Integer id_department = Integer.parseInt((req.getParameter("id_department")));//read department from html form + convert to Integer
-        String role_srt = req.getParameter("role");//read role from html form
-        ArrayList<String> role_arr = new ArrayList<String>();
-        if (role_arr != null) {
-            for (String r : role_arr) {
-               role_arr.add(r); }
-            }
+        String name = null; // init 
+        String second =  null; // init 
+        String login =  null; // init 
+        String pass =  null; // init 
+        Integer id_department = null; // init 
+        ArrayList<String> role_arr = null; // init 
+        try {
+        name = req.getParameter("name");//read name from html form
+        second = req.getParameter("second");//read second from html form
+        login = req.getParameter("login");//read login from html form
+        pass = req.getParameter("pass");//read pass from html form
+        id_department = Integer.parseInt((req.getParameter("id_department")));//read department from html form + convert to Integer
+        String[] role = {""};
+        role = req.getParameterValues("role");//read role from html form input (name role)
+        role_arr = new ArrayList<String>(Arrays.asList(role));
+        }catch(Exception ex){ex.printStackTrace();} 
         
         if (name.isEmpty()==true | second.isEmpty()==true | login.isEmpty()==true | pass.isEmpty()==true ) 
         {
@@ -121,49 +127,22 @@ public class RegistrationPageServlet extends HttpServlet {
         else {
         	if (java.lang.System.getProperty("os.name").equals("Windows 7"))
     	    {
-    	            //1.Statement: используется для простых случаев без параметров
+    	            
     		        try{  
-    		            PreparedStatement ps=conn.prepareStatement(  
-    	    		            "insert into users (id, name, second, login, pass, id_department)"+
-    	    		            "values (nextval('seq_pk_id_users'),?,?,?,?,?)");  
-				        
-    		            ps.setString(1, name);  
-    		            ps.setString(2, second);  
-    		            ps.setString(3, login);  
-    		            ps.setString(4, pass);  
-    		            ps.setInt(5, id_department);
-    		              
-    		            		ps.executeUpdate();  
-    		    		        System.out.println("запрос выполнен успешно!!!");
-    		            conn.close();  
+    	    	    	User user = new User(name,second,login,pass,id_department, role_arr);
+    	    	    	UserDb.insert(user);
     		        }catch(Exception ex){ex.printStackTrace();}  
     	    	
     	    } else 
 
     	    try{
-    	    	//Connection conn = DbFilter.getConn();
+    	    	
     	    	//ArrayList<String> users = new ArrayList<>();
     	    	User user = new User(name,second,login,pass,id_department, role_arr);
     	    	UserDb.insert(user);
     	    	
     	    }catch(Exception ex){ex.printStackTrace();} 
-    	    	/*
-		        try{  
-		            PreparedStatement ps=conn.prepareStatement(  
-	    		            "insert into users (id, name, second, login, pass, id_department)"+
-	    		            "values (nextval('seq_pk_id_users'),?,?,?,?,?)");  
-			        
-		            ps.setString(1, name);  
-		            ps.setString(2, second);  
-		            ps.setString(3, login);  
-		            ps.setString(4, pass);  
-		            ps.setInt(5, id_department);
-       		            		ps.executeUpdate();  
-			    		        System.out.println("запрос выполнен успешно!!!");
-		            conn.close();  
-		        }catch(Exception ex){ex.printStackTrace();}  
-    
-*/
+
         PrintWriter writer = resp.getWriter();
         writer.println("<p>Пользователь с этими данными успешно зарегистрирован в системе!"+"</p>");
         writer.println("<p>Имя: " + name + "</p>");

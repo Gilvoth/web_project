@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -79,13 +80,35 @@ public class UserDb extends HttpServlet {
         System.out.println("Выводим statement");
         try {
 			while (resultset.next()) {
-                int id = resultset.getInt(1);
+				int id = resultset.getInt(1);
                 String name = resultset.getString(2);
                 String second = resultset.getString(3);
                 String login = resultset.getString(4);
                 String password = resultset.getString(5);
                 int id_department = resultset.getInt(6);
                 Array role = resultset.getArray(7);
+                //System.out.println("role");
+                //ArrayList<String> role_arraylist= new ArrayList<String>();
+                //1606 ArrayList<String> role_arraylist = (ArrayList<String>) role.getArray(); // get Arraylist
+                //ArrayList<String> role_arraylist= new ArrayList<String>(Arrays.asList(role));
+                
+                String[] role_arr = (String[])role.getArray();
+                ArrayList<String> role_arraylist= new ArrayList<String>();
+                Collections.addAll(role_arraylist, role_arr);
+                //System.out.println("отработала коллекция");
+                
+                
+                //for (int i=0; i<role_arraylist.size(); i++) {
+                //	role_arraylist.add(i,role[i]);}
+               
+                
+                //for (int i=0; i<role_arraylist.size(); i++) {
+                //System.out.println(role_arraylist.addAll(i));
+                //Array cities = rs.getArray(2);
+                //String[] str_cities = (String[])cities.getArray();
+                //for (int i=0; i<str_cities.length; i++) {
+               // System.out.println(str_cities[i]);
+                //}
                 
 				//ArrayList<String> list = new ArrayList<String>(role);
 				//1406 Array array = conn.createArrayOf("VARCHAR", role.toArray());
@@ -100,16 +123,14 @@ public class UserDb extends HttpServlet {
         		//System.out.println(arrayList);
                 //String[] roles =  stringArr;
                 
-                //1406 User user = new User(id, name, second, login, password, id_department, role);
-                //User user = new User(id, name, second, login, password, id_department);
-                //1406 users.add(user);
+                User user = new User(id, name, second, login, password, id_department, role_arraylist);
+                users.add(user);
 					
 			    System.out.println(//arrayList+
 			    		"\t Номер в базе #" + 
 			    resultset.getInt("id")
-			            + "\t" + resultset.getString("name")
+			            + "\t" + name
 			            +"\t" + second
-			            + "\t" + resultset.getString("role")
 			            +"\t" + role);
 			}
 		} catch (SQLException e) {
@@ -175,15 +196,10 @@ public class UserDb extends HttpServlet {
 					preparedStatement.setString(3, user.getLogin());
 					preparedStatement.setString(4, user.getPassword());
 					preparedStatement.setInt(5, user.getId_department());
-					//List<String> user2=user.getRoles();
-					//preparedStatement.setArray(6, (Array) user.getRoles());//(6, user.getRoles());
-					ArrayList<String> list = new ArrayList<String>(user.getRoles());
-					Array array = conn.createArrayOf("text[]", list.toArray());
+					ArrayList<String> list = new ArrayList<String>(user.getRoles());// realization feature PG JDBC 
+					Array array = conn.createArrayOf("text", list.toArray());// realization feature PG JDBC
 					preparedStatement.setArray(6, array);					
 					preparedStatement.setInt(7, user.getId());
-
-					
-
  
                     return  preparedStatement.executeUpdate();
                     
@@ -196,19 +212,16 @@ public class UserDb extends HttpServlet {
     }	
     
     
-    public static int delete(int id) {
-    	
+    public static int delete(int id) { 	
     	Connection conn = DbFilter.getConn();
                
-            try {
-                  
+            try {                  
                 String sql = "DELETE FROM users WHERE id = ?";
                 try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){
                     preparedStatement.setInt(1, id);
                       
                     return  preparedStatement.executeUpdate();
-                }
-            
+                }            
         }
         catch(Exception ex){
             System.out.println(ex);
@@ -232,7 +245,6 @@ public class UserDb extends HttpServlet {
             ArrayList<String> list = new ArrayList<String>(user.getRoles());
             Array array = conn.createArrayOf("text", list.toArray()); //This is Postgre feature Особенность реализации, преобразуем массив понятный Постгре 
 			ps.setArray(6, array);					
-			//preparedStatement.setInt(7, user.getId());
               
             ps.executeUpdate();  
     		        System.out.println("запрос выполнен успешно!!!");
@@ -245,7 +257,7 @@ public class UserDb extends HttpServlet {
         
         return 0;
     }    
-    
+/*    
     public static User selectUser() {
     	User users = new User();
 
@@ -280,7 +292,6 @@ public class UserDb extends HttpServlet {
                 String password = resultset.getString(5);
                 int id_department = resultset.getInt(6);
                 String stringArray = resultset.getString(7);
-        		//String[] stringArray = { "a", "b", "c", "d", "e" };
         		ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(stringArray));
         		String[] stringArr = new String[arrayList.size()];
         		arrayList.toArray(stringArr);
@@ -304,6 +315,7 @@ public class UserDb extends HttpServlet {
     	return users;
     	
     }	
+*/    
 //--------------------------------------------------------------------------------------------------------------------------
     
     
