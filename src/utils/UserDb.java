@@ -8,9 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
+
 
 import javax.servlet.ServletException;
 //import javax.servlet.annotation.WebServlet;
@@ -87,51 +86,22 @@ public class UserDb extends HttpServlet {
                 String password = resultset.getString(5);
                 int id_department = resultset.getInt(6);
                 Array role = resultset.getArray(7);
-                //System.out.println("role");
-                //ArrayList<String> role_arraylist= new ArrayList<String>();
-                //1606 ArrayList<String> role_arraylist = (ArrayList<String>) role.getArray(); // get Arraylist
-                //ArrayList<String> role_arraylist= new ArrayList<String>(Arrays.asList(role));
                 
                 String[] role_arr = (String[])role.getArray();
                 ArrayList<String> role_arraylist= new ArrayList<String>();
                 Collections.addAll(role_arraylist, role_arr);
                 //System.out.println("отработала коллекция");
-                
-                
-                //for (int i=0; i<role_arraylist.size(); i++) {
-                //	role_arraylist.add(i,role[i]);}
-               
-                
-                //for (int i=0; i<role_arraylist.size(); i++) {
-                //System.out.println(role_arraylist.addAll(i));
-                //Array cities = rs.getArray(2);
-                //String[] str_cities = (String[])cities.getArray();
-                //for (int i=0; i<str_cities.length; i++) {
-               // System.out.println(str_cities[i]);
-                //}
-                
-				//ArrayList<String> list = new ArrayList<String>(role);
-				//1406 Array array = conn.createArrayOf("VARCHAR", role.toArray());
-				//preparedStatement.setArray(6, array);
-                //String stringArray = resultset.getString(7);
-        		//String[] stringArray = { "a", "b", "c", "d", "e" };
-        		//ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(stringArray));
-        		//String[] stringArr = new String[arrayList.size()];
-        		//arrayList.toArray(stringArr);
-        		//1306 for (String s : stringArr)
-        			//1306 System.out.println(s);
-        		//System.out.println(arrayList);
-                //String[] roles =  stringArr;
+
                 
                 User user = new User(id, name, second, login, password, id_department, role_arraylist);
                 users.add(user);
+
 					
 			    System.out.println(//arrayList+
 			    		"\t Номер в базе #" + 
 			    resultset.getInt("id")
 			            + "\t" + name
-			            +"\t" + second
-			            +"\t" + role);
+			            +"\t" + second);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -142,36 +112,40 @@ public class UserDb extends HttpServlet {
     	
     }	
 //--------------------------------------------------------------------------------------------------------------------------
-    public static User selectone(int id) {
+    public static User selectone(String login) {
     	User user = null;
 		Connection conn = DbFilter.getConn();
 
 		//Выполним запрос
-		String sqlquery = "SELECT * FROM users WHERE id = ?";
+		String sqlquery = "SELECT * FROM users WHERE login = ?";
         try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
-            preparedStatement.setInt(1, id);
+            preparedStatement.setString(1, login);
             ResultSet resultset = preparedStatement.executeQuery();
-			if (resultset.next()) {
-                int user_id = resultset.getInt(1);
+			if (resultset.next())
+				{
+                int id = resultset.getInt(1);
                 String name = resultset.getString(2);
                 String second = resultset.getString(3);
-                String login = resultset.getString(4);
+                login = resultset.getString(4);
                 String password = resultset.getString(5);
                 int id_department = resultset.getInt(6);
-                String stringArray = resultset.getString(7);
-        		//String[] stringArray = { "a", "b", "c", "d", "e" };
-        		ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(stringArray));
-        		String[] stringArr = new String[arrayList.size()];
-        		arrayList.toArray(stringArr);
-        		//for (String s : stringArr)
-        			//System.out.println(s);
-        		System.out.println(arrayList);
-
-                String[] roles =  stringArr;
-                //User user = new User(user_id, name, second, login, password, id_department, roles);
-                user = new User(user_id, name, second, login, password, id_department, roles);
-                }
+                Array role = resultset.getArray(7);
+                String[] role_arr = (String[])role.getArray();
+                ArrayList<String> role_arraylist= new ArrayList<String>();
+                Collections.addAll(role_arraylist, role_arr);
                 
+                
+	                user = new User(id, name, second, login, password, id_department, role_arraylist);
+	                //users.add(user);
+						
+				    System.out.println(//arrayList+
+				    		"\t Номер в базе #" + 
+				    resultset.getInt("id")+"t" +
+				    name + "\t" + second + 
+				             "\t" + login
+				            +"\t" + password);
+				}
+          
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -257,24 +231,41 @@ public class UserDb extends HttpServlet {
         
         return 0;
     }    
-/*    
-    public static User selectUser() {
-    	User users = new User();
-
+   
+    public static User selectone(int id) {
+    	User user = null;
 		Connection conn = DbFilter.getConn();
 
-        Statement statement = null;
-		try {
-			statement  = ((Connection) conn).createStatement();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        //Выполним запрос
-        ResultSet resultset = null;
-		try {
-			resultset = statement.executeQuery(
-			        "SELECT * FROM users ORDER BY id");
+		//Выполним запрос
+		String sqlquery = "SELECT * FROM users WHERE id = ?";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
+            preparedStatement.setInt(1, id);
+            ResultSet resultset = preparedStatement.executeQuery();
+			if (resultset.next())
+				{
+                id = resultset.getInt(1);
+                String name = resultset.getString(2);
+                String second = resultset.getString(3);
+                String login = resultset.getString(4);
+                String password = resultset.getString(5);
+                int id_department = resultset.getInt(6);
+                Array role = resultset.getArray(7);
+                String[] role_arr = (String[])role.getArray();
+                ArrayList<String> role_arraylist= new ArrayList<String>();
+                Collections.addAll(role_arraylist, role_arr);
+                
+                
+	                user = new User(id, name, second, login, password, id_department, role_arraylist);
+	                //users.add(user);
+						
+				    System.out.println(//arrayList+
+				    		"\t Номер в базе #" + 
+				    resultset.getInt("id")+"t" +
+				    name + "\t" + second + 
+				             "\t" + login
+				            +"\t" + password);
+				}
+          
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -282,40 +273,12 @@ public class UserDb extends HttpServlet {
         //result это указатель на первую строку с выборки
         //чтобы вывести данные мы будем использовать 
         //метод next() , с помощью которого переходим к следующему элементу
-        System.out.println("Выводим statement");
-        try {
-			while (resultset.next()) {
-                int id = resultset.getInt(1);
-                String name = resultset.getString(2);
-                String second = resultset.getString(3);
-                String login = resultset.getString(4);
-                String password = resultset.getString(5);
-                int id_department = resultset.getInt(6);
-                String stringArray = resultset.getString(7);
-        		ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(stringArray));
-        		String[] stringArr = new String[arrayList.size()];
-        		arrayList.toArray(stringArr);
-        		//1306 for (String s : stringArr)
-        			//1306 System.out.println(s);
-        		//System.out.println(arrayList);
-
-                String[] roles =  stringArr;
-                User user = new User(id, name, second, login, password, id_department, roles);
-                //User user = new User(id, name, second, login, password, id_department);
-                //users.add(user);
-					
-			    System.out.println(arrayList+"\t Номер в базе #" + resultset.getInt("id")
-			            + "\t" + resultset.getString("name"));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-								} 		    	
+		    	
     	
-    	return users;
+    	return user;
     	
-    }	
-*/    
+    }
+  
 //--------------------------------------------------------------------------------------------------------------------------
     
     

@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList; //for roles
-import java.util.List; // for roles
 
 public class User {
 	private int id;
@@ -11,7 +10,6 @@ public class User {
 	private String login;
 	private String password;
     private int id_department;
-    //private List<String> roles;
     private ArrayList<String> roles;
 
 
@@ -63,7 +61,7 @@ public class User {
            for (String r : roles) {
               this.roles.add(r); }
            }          
-    }   
+    } 
     
     public int getId() { // getname => name // rule = JSTL convert getMethod in Method
         return id;
@@ -118,16 +116,7 @@ public class User {
     public ArrayList<String> getRoles() {
         return roles;
      }
-   /*
-    public List<String> getRoles() {
-        return roles;
-     }
-	*/
-/*   
-     public void setRoles(List<String> roles) {
-        this.roles = roles;
-     }
-*/
+
     
     public void setRoles(ArrayList<String> roles) {
         this.roles = roles;

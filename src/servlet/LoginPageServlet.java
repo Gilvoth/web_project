@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.RequestDispatcher;
 import model.User;
+import utils.AuthUtil;
 import utils.DataDao;
 import utils.UserDb;
 
@@ -56,10 +57,24 @@ public class LoginPageServlet extends HttpServlet {
         System.out.println(password);
         //User user = DataDao.findUser(login, password);
         //User user = DataDao.findUser(login, password);
-        UserDb.select();
-        users.add(new User(UserDb.selectone(0)));
- 
-        if (users == null) {
+        //UserDb.select();
+//        users.add(new User(UserDb.selectone(login)));
+        User user = new User(UserDb.selectone(login));
+        //users.add(user);
+        System.out.println("Создан пользователь!!");
+        //User loginedUser = AuthUtil.getLoginedUser(req.getSession());
+        /*
+        if (loginedUser != null) {
+            // User Name
+            String name = loginedUser.getName();
+            System.out.println("userName");            
+            System.out.println(name);        
+        } 
+        */
+        
+        AuthUtil.storeLoginedUser(req.getSession(), user);
+        /*
+         if (users == null) {
             String errorMessage = "Invalid userName or Password";
             System.out.println("Юзераккаунт нулевой");
             req.setAttribute("errorMessage", errorMessage);
@@ -70,7 +85,7 @@ public class LoginPageServlet extends HttpServlet {
             dispatcher.forward(req, resp);
             return;
         }
- 
+ 		*/
         System.out.println("создаем сессию Юзераккаунт ");
         
         req.getRequestDispatcher(index).forward(req, resp);
