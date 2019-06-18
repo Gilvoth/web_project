@@ -10,11 +10,15 @@
  
      <jsp:include page="_menu.jsp"></jsp:include>
  
-      <h3>Hello: ${loginedUser.name}</h3>
- 
-      User Name: <b>${loginedUser.name}</b>
+      <h3>Личный кабинет пользователя:</h3>
+
+${loginedUser}
+${loginedUserSecond}
+<%--  
+      User Name: <b>${loginedUser}</b>
+      User Name: <b>${name}</b> --%>
       <br />
-<%--       Gender: ${loginedUser.gender } <br /> --%>
+
  
  
    </body>

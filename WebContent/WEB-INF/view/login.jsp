@@ -34,13 +34,8 @@
             </tr>
          </table>
       </form>
- 
-      <p style="color:blue;">Login with:</p>
-       
-      employee1/123 <br>
-      manager1/123 <br>
-      Анатолий Николаевич<br> 1 <br>
-      Наталья Алексеевна<br> 3 <br>
+
+
 <br>
 <br>
 <br>

@@ -7,6 +7,8 @@
 <title>Edit product</title>
 </head>
 <body>
+     <jsp:include page="_menu.jsp"></jsp:include>
+<br><br><br><br>
 <h3>Edit product</h3>
 <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/SetRoleEditServlet">
 <input type="hidden" value="${user.id}" name="id" />

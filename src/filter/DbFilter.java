@@ -15,6 +15,11 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import model.User;
+import utils.UserDb;
 
 /**
  * Servlet Filter implementation class DbFilter
@@ -45,6 +50,7 @@ public class DbFilter implements Filter {
 		// place your code here
 		connectDb (); // read Connection conn
         HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse resp = (HttpServletResponse) response;
         String servletPath = req.getServletPath();
         // Открыть Connection (соединение) только для request со специальной ссылкой
         // (Например ссылка к servlet, jsp, ..)
@@ -88,7 +94,33 @@ public class DbFilter implements Filter {
 	    }		
 		
 */		
-		
+        if (servletPath.contains("/AsupTaskServlet") )//|| servletPath.contains("/specialPath2")) 
+    	{System.out.println("address is ASUPpage!");
+        
+    	// получаем сессию
+        HttpSession session = req.getSession();
+        //// получаем объект login
+        String login = (String) session.getAttribute("login");
+        //// получаем объект logineduser
+        String loginedUser = (String) session.getAttribute("loginedUser");
+        System.out.println("Здравствуйте   " + loginedUser + "!! Вы зашли в кабинет администратора");
+        User user = UserDb.selectone(login);
+        try {
+			        if (user.getLogin().equals("1"))
+			        	{
+			        	System.out.println("Администратор зашёл");
+			        	}
+			        else
+			        {
+			            //resp.sendRedirect(req.getContextPath() + "/LoginPageServlet");
+			            //System.out.println("перенаправляем ");
+			        }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(); 	       
+
+    	}
+    	}
 		System.out.println("DB Filter has been finished!");
 		// pass the request along the filter chain
 		chain.doFilter(request, response);

@@ -8,6 +8,8 @@
 <title>Страница настройки прав пользователей</title>
 </head>
 <body>
+     <jsp:include page="_menu.jsp"></jsp:include>
+<br><br><br>
 Страница настройки прав пользователей
 <br>
 <br>

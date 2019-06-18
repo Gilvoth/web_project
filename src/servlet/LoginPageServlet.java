@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.servlet.ServletException;
@@ -8,7 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 import javax.servlet.RequestDispatcher;
 import model.User;
 import utils.AuthUtil;
@@ -59,20 +60,55 @@ public class LoginPageServlet extends HttpServlet {
         //User user = DataDao.findUser(login, password);
         //UserDb.select();
 //        users.add(new User(UserDb.selectone(login)));
-        User user = new User(UserDb.selectone(login));
+        //User user = new User(UserDb.selectone(login));
+        User user = UserDb.selectone(login);
         //users.add(user);
         System.out.println("Создан пользователь!!");
-        //User loginedUser = AuthUtil.getLoginedUser(req.getSession());
-        /*
-        if (loginedUser != null) {
+        
+          //User loginedUserstatus = AuthUtil.getLoginedUser(req.getSession());
+          //AuthUtil.storeLoginedUser(req.getSession(), user);  
+  
+/*
+        if (loginedUserstatus != null) {
             // User Name
-            String name = loginedUser.getName();
+            String name = loginedUserstatus.getName();
+            String loginedUser = loginedUserstatus.getName();
             System.out.println("userName");            
             System.out.println(name);        
         } 
-        */
+*/
         
-        AuthUtil.storeLoginedUser(req.getSession(), user);
+        // получаем сессию
+        HttpSession session = req.getSession();
+        //// получаем объект name
+        String name = (String) session.getAttribute("name");
+//        String second = (String) session.getAttribute("second");
+         
+        //PrintWriter out = resp.getWriter();
+        try {
+            // если объект ранее не установлен
+            if(name == null) {
+                // устанавливаем объект с ключом name
+                session.setAttribute("login", login);
+                session.setAttribute("loginedUser", user.getName());
+                session.setAttribute("loginedUserSecond", user.getSecond());
+                //out.println("Session data are set");
+                System.out.println(user.getName());
+                System.out.println(user.getSecond());
+                
+            }
+            else {
+                //out.println("Name: " + name);
+                // удаляем объект с ключом name
+                //session.removeAttribute("name");
+            }
+        }
+        finally {
+            //out.close();
+        }
+        
+        
+        //AuthUtil.storeLoginedUser(req.getSession(), user);
         /*
          if (users == null) {
             String errorMessage = "Invalid userName or Password";
