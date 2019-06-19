@@ -75,7 +75,7 @@ public class DbFilter implements Filter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();    }
         
-        if (login == null ) {System.out.println("Зайдите пользователем!!"); chain.doFilter(request, response);} 
+        if (login == null ) {System.out.println("Зайдите пользователем!!");} //chain.doFilter(request, response);} 
         else
         {System.out.println("Здравствуйте   " + loginedUser + "!! Вы зашли в кабинет администратора");
         User user = UserDb.selectone(login);
@@ -83,11 +83,14 @@ public class DbFilter implements Filter {
 			        if (user.getLogin().equals("1"))
 			        	{
 			        	System.out.println("Администратор зашёл");
+			        	//chain.doFilter(request, response);
 			        	}
 			        else
 			        {
+			        	//req.getRequestDispatcher(req.getContextPath() + "/LoginPageServlet").forward(req, resp);
+			        	//chain.doFilter(request, response);
 			            //resp.sendRedirect(req.getContextPath() + "/LoginPageServlet");
-			            //System.out.println("перенаправляем ");
+			            System.out.println("перенаправить?? ");
 			        }
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -96,7 +99,8 @@ public class DbFilter implements Filter {
     }
 		System.out.println("DB Filter has been finished!");
 		// pass the request along the filter chain
-		chain.doFilter(request, response);
+		//chain.doFilter(request, response);
+		chain.doFilter(req, resp);
 	}
 
 	/**

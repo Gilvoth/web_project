@@ -81,7 +81,7 @@ public class LoginPageServlet extends HttpServlet {
         // получаем сессию
         HttpSession session = req.getSession();
         //// получаем объект name
-        String name = (String) session.getAttribute("name");
+        String name = (String) session.getAttribute("login");
 //        String second = (String) session.getAttribute("second");
          
         //PrintWriter out = resp.getWriter();

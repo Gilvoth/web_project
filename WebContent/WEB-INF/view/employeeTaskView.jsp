@@ -12,7 +12,10 @@
        
       <h3>Employee Task</h3>
        
-      Hello, This is a EMP protected page!
+  <form>
+   <p>Выберите дату: <input type="date" name="calendar" value="${st_date}">
+   <input type="submit" value="Отправить"></p>
+  </form>
        
    </body>
 </html>

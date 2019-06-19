@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class AsupTaskServlet
@@ -30,10 +31,29 @@ public class AsupTaskServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-	      RequestDispatcher dispatcher //
-          = this.getServletContext()//
-                .getRequestDispatcher("/WEB-INF/view/asupTaskView.jsp");
+		RequestDispatcher dispatcher = null;
+    	dispatcher //
+        = this.getServletContext()//
+        .getRequestDispatcher("/WEB-INF/view/employeeTaskView.jsp");
+    	String login = null;
+		try {// получаем сессию
+        HttpSession session = request.getSession();
+        //// получаем объект name
+        login = (String) session.getAttribute("login");
+        System.out.println("Зашёл " + login);
 
+        
+		} catch (Exception e) {e.printStackTrace();
+	    }
+		
+        while (login != null)
+        {   	
+	        if (login.equals("1"))
+	        {		dispatcher //
+	            = this.getServletContext()//
+	            .getRequestDispatcher("/WEB-INF/view/asupTaskView.jsp");}
+        }
+	
     dispatcher.forward(request, response);		
 	}
 
