@@ -58,52 +58,26 @@ public class DbFilter implements Filter {
         // (Например image, css, javascript,... )
         if (servletPath.contains("/LoginPageServlet") )//|| servletPath.contains("/specialPath2")) 
         	{System.out.println("address is loginpage!");}
-/*
-            //1.Statement: используется для простых случаев без параметров
-            Statement statement = null;
 
-            try {
-            	statement = conn.createStatement(); 
- 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            //Execute query
-            ResultSet result1 = null;
-			try {
-				result1 = statement.executeQuery(
-				        "SELECT * FROM users where id >0");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            //result это указатель на первую строку с выборки
-            //чтобы вывести данные мы будем использовать 
-            //метод next() , с помощью которого переходим к следующему элементу
-            System.out.println("Выводим statement");
-            try {
-				while (result1.next()) {
-				    System.out.println("Номер в выборке #" + result1.getRow()
-				            + "\t Номер в базе #" + result1.getInt("id")
-				            + "\t" + result1.getString("name"));
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-									}        	       	
-	    }		
-		
-*/		
         if (servletPath.contains("/AsupTaskServlet") )//|| servletPath.contains("/specialPath2")) 
     	{System.out.println("address is ASUPpage!");
-        
-    	// получаем сессию
-        HttpSession session = req.getSession();
+    	String login = null;
+    	String loginedUser = null;
+
+        try {
+        	// получаем сессию
+            HttpSession session = req.getSession();
         //// получаем объект login
-        String login = (String) session.getAttribute("login");
+        login = (String) session.getAttribute("login");
         //// получаем объект logineduser
-        String loginedUser = (String) session.getAttribute("loginedUser");
-        System.out.println("Здравствуйте   " + loginedUser + "!! Вы зашли в кабинет администратора");
+        loginedUser = (String) session.getAttribute("loginedUser");
+        }catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();    }
+        
+        if (login == null ) {System.out.println("Зайдите пользователем!!"); chain.doFilter(request, response);} 
+        else
+        {System.out.println("Здравствуйте   " + loginedUser + "!! Вы зашли в кабинет администратора");
         User user = UserDb.selectone(login);
         try {
 			        if (user.getLogin().equals("1"))
@@ -117,10 +91,9 @@ public class DbFilter implements Filter {
 			        }
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace(); 	       
-
-    	}
-    	}
+			e.printStackTrace();    }
+        }
+    }
 		System.out.println("DB Filter has been finished!");
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
