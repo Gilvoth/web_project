@@ -161,7 +161,7 @@ public class UserDb extends HttpServlet {
         //result это указатель на первую строку с выборки
         //чтобы вывести данные мы будем использовать 
         //метод next() , с помощью которого переходим к следующему элементу
-        finally 
+/*        finally 
         {try {
 			conn.close();
 		} catch (SQLException e) {
@@ -169,7 +169,7 @@ public class UserDb extends HttpServlet {
 			e.printStackTrace();
 		}
 		} 			    	
-    	
+*/    	
     	return user;
     	
     }	

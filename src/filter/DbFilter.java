@@ -76,13 +76,15 @@ public class DbFilter implements Filter {
         loginedUser = (String) session.getAttribute("loginedUser");
         System.out.println("полученный логин из сессии" + login);
         System.out.println("полученный логинUser из сессии" + loginedUser);
+        
         if (login == null ) {System.out.println("Зайдите пользователем!!"); 
-        String path = req.getContextPath() + "/LoginPageServlet";
-        resp.sendRedirect(path);
-        chain.doFilter(req, resp);
+        //String path = req.getContextPath() + "/LoginPageServlet";
+        //resp.sendRedirect(path);
+        //chain.doFilter(req, resp);
         
         
-        return; }  
+        //return; 
+        }  
           else
           	{System.out.println("Здравствуйте   " + loginedUser + "!! Вы зашли в кабинет администратора");
           	User user = UserDb.selectone(login);
@@ -98,10 +100,19 @@ public class DbFilter implements Filter {
 	              
 	                System.out.println("ArrayList пользователя contains ROLE_ASUP");
 		        	//req.getRequestDispatcher(req.getContextPath() + "/SetRoleServlet");
+	                //resp.sendRedirect(req.getContextPath() + "/SetRoleServlet");
 		        	
 		            //String path = req.getContextPath() + "/SetRoleServlet";
 		            //resp.sendRedirect(path);
+	                //String contextPath = req.getContextPath();
+	                
+	                // ==> /ServletTutorial/showMe
+	                //resp.sendRedirect(contextPath + "/SetRoleServlet");
+	                
+	                
+	                
 		            //chain.doFilter(req, resp);
+		            //return;
 	            }
           	
           	
