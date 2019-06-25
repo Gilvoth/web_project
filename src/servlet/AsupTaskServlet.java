@@ -34,9 +34,10 @@ public class AsupTaskServlet extends HttpServlet {
 		RequestDispatcher dispatcher = null;
     	dispatcher //
         = this.getServletContext()//
-        .getRequestDispatcher("/WEB-INF/view/employeeTaskView.jsp");
-    	String login = null;
-		try {// получаем сессию
+        .getRequestDispatcher("/WEB-INF/view/asupTaskView.jsp");
+    	//String login = null;
+		/*
+    	try {// получаем сессию
         HttpSession session = request.getSession();
         //// получаем объект name
         login = (String) session.getAttribute("login");
@@ -53,7 +54,7 @@ public class AsupTaskServlet extends HttpServlet {
 	            = this.getServletContext()//
 	            .getRequestDispatcher("/WEB-INF/view/asupTaskView.jsp");}
         }
-	
+	*/
     dispatcher.forward(request, response);		
 	}
 

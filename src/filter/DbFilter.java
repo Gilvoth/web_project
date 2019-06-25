@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -56,10 +57,12 @@ public class DbFilter implements Filter {
         // (Например ссылка к servlet, jsp, ..)
         // Избегать открытие Connection для обычноых запросов
         // (Например image, css, javascript,... )
-        if (servletPath.contains("/LoginPageServlet") )//|| servletPath.contains("/specialPath2")) 
+        if (servletPath.contains("/LoginPageServlet") )
         	{System.out.println("address is loginpage!");}
+        
+        
 
-        if (servletPath.contains("/AsupTaskServlet") )//|| servletPath.contains("/specialPath2")) 
+        if (servletPath.contains("/AsupTaskServlet") ) 
     	{System.out.println("address is ASUPpage!");
     	String login = null;
     	String loginedUser = null;
@@ -71,35 +74,45 @@ public class DbFilter implements Filter {
         login = (String) session.getAttribute("login");
         //// получаем объект logineduser
         loginedUser = (String) session.getAttribute("loginedUser");
+        System.out.println("полученный логин из сессии" + login);
+        System.out.println("полученный логинUser из сессии" + loginedUser);
+        if (login == null ) {System.out.println("Зайдите пользователем!!"); 
+        String path = req.getContextPath() + "/LoginPageServlet";
+        resp.sendRedirect(path);
+        chain.doFilter(req, resp);
+        
+        
+        return; }  
+          else
+          	{System.out.println("Здравствуйте   " + loginedUser + "!! Вы зашли в кабинет администратора");
+          	User user = UserDb.selectone(login);
+          	System.out.println("Доступные роли пользователя"+user.getRoles());
+          	ArrayList<String> roles = user.getRoles();
+            //перебор элементов массива
+	          	for(String role : roles){
+	                
+	                System.out.println(role);
+	            }
+	            // проверяем наличие элемента
+	            if(roles.contains("ROLE_ASUP")){
+	              
+	                System.out.println("ArrayList пользователя contains ROLE_ASUP");
+		        	//req.getRequestDispatcher(req.getContextPath() + "/SetRoleServlet");
+		        	
+		            //String path = req.getContextPath() + "/SetRoleServlet";
+		            //resp.sendRedirect(path);
+		            //chain.doFilter(req, resp);
+	            }
+          	
+          	
+          	}        
         }catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();    }
-        
-        if (login == null ) {System.out.println("Зайдите пользователем!!");} //chain.doFilter(request, response);} 
-        else
-        {System.out.println("Здравствуйте   " + loginedUser + "!! Вы зашли в кабинет администратора");
-        User user = UserDb.selectone(login);
-        try {
-			        if (user.getLogin().equals("1"))
-			        	{
-			        	System.out.println("Администратор зашёл");
-			        	//chain.doFilter(request, response);
-			        	}
-			        else
-			        {
-			        	//req.getRequestDispatcher(req.getContextPath() + "/LoginPageServlet").forward(req, resp);
-			        	//chain.doFilter(request, response);
-			            //resp.sendRedirect(req.getContextPath() + "/LoginPageServlet");
-			            System.out.println("перенаправить?? ");
-			        }
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();    }
-        }
-    }
-		System.out.println("DB Filter has been finished!");
+    	}
+
+        System.out.println("DB Filter has been finished!");
 		// pass the request along the filter chain
-		//chain.doFilter(request, response);
 		chain.doFilter(req, resp);
 	}
 
@@ -130,7 +143,7 @@ public class DbFilter implements Filter {
         } catch (SQLException e) {
 			System.out.println("Connection Failed SQLException");
 			e.printStackTrace();
-			return;// conn;
+			return;
         }finally {       	
          }			
 		

@@ -106,7 +106,15 @@ public class UserDb extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-								} 		    	
+		}
+        finally 
+	        {try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			} 		    	
     	
     	return users;
     	
@@ -153,7 +161,14 @@ public class UserDb extends HttpServlet {
         //result это указатель на первую строку с выборки
         //чтобы вывести данные мы будем использовать 
         //метод next() , с помощью которого переходим к следующему элементу
-		    	
+        finally 
+        {try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		} 			    	
     	
     	return user;
     	
@@ -178,10 +193,20 @@ public class UserDb extends HttpServlet {
                     return  preparedStatement.executeUpdate();
                     
             
-        } catch(Exception ex){
+        } catch(SQLException ex){
             System.out.println(ex);
-        }
+        }        
+                finally 
+    	        {try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+    			} 	
+                
                 System.out.println("Запрос выполнен!!");
+              
         return 0;
     }	
     
@@ -197,9 +222,18 @@ public class UserDb extends HttpServlet {
                     return  preparedStatement.executeUpdate();
                 }            
         }
-        catch(Exception ex){
+        catch(SQLException ex){
             System.out.println(ex);
-        }
+                }
+            
+            finally 
+	        {try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			} 	            
         return 0;
     }    
 
@@ -270,6 +304,14 @@ public class UserDb extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        finally 
+        {try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		} 	
         //result это указатель на первую строку с выборки
         //чтобы вывести данные мы будем использовать 
         //метод next() , с помощью которого переходим к следующему элементу
