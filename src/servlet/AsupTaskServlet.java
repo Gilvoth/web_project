@@ -81,7 +81,7 @@ public class AsupTaskServlet extends HttpServlet {
 		RequestDispatcher dispatcher = null;
     	dispatcher //
         = this.getServletContext()//
-        .getRequestDispatcher("/WEB-INF/view/notfound.jsp");
+        .getRequestDispatcher("/WEB-INF/view/accessDenied.jsp");
 
     dispatcher.forward(request, response);	
 	            	
@@ -90,18 +90,7 @@ public class AsupTaskServlet extends HttpServlet {
 	        }catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();    }
-		
-		
-		
-		
-		
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-/*		RequestDispatcher dispatcher = null;
-    	dispatcher //
-        = this.getServletContext()//
-        .getRequestDispatcher("/WEB-INF/view/asupTaskView.jsp");
 
-    dispatcher.forward(request, response);	*/	
 	}
 
 	/**
