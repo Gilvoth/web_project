@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,20 +12,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Doc;
+import model.Type_docs;
+import utils.Calendar;
 import utils.DocDb;
-
+import utils.Type_docsDb;
 
 /**
- * Servlet implementation class UserInfoServlet
+ * Servlet implementation class NewType_docsServlet
  */
-@WebServlet("/UserInfoServlet")
-public class UserInfoServlet extends HttpServlet {
+@WebServlet("/NewType_docsServlet")
+public class NewType_docsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserInfoServlet() {
+    public NewType_docsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,12 +37,9 @@ public class UserInfoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		ArrayList<Doc> docs = DocDb.select();
-		request.setAttribute("docs", docs);
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	      RequestDispatcher dispatcher //
-          = this.getServletContext().getRequestDispatcher("/WEB-INF/view/userInfoView.jsp");
+          = this.getServletContext()//
+                .getRequestDispatcher("/WEB-INF/view/newtype_docs.jsp");
 
     dispatcher.forward(request, response);
 	}
@@ -49,7 +49,31 @@ public class UserInfoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        int id = 0;
+        String name =  null;
+       
+        try {
+        name = request.getParameter("name");//read from html form
+        
+        }catch(Exception ex){ex.printStackTrace();} 
+        
+        if (name.isEmpty()==true) 
+        {
+        System.out.println("Введите обязательные поля!!!"); 		
+              
 		doGet(request, response);
-	}
+        }
+        else {
+    	    try{
+    	    	Type_docs type_docs = new Type_docs (id, name);
+    	    	Type_docsDb.insert(type_docs);
+    	    	
+    	    }catch(Exception ex){ex.printStackTrace();}         
+        		}
+
+			}
 
 }

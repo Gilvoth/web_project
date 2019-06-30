@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,21 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Doc;
-import utils.DocDb;
-
+import model.Type_docs;
+import model.Urgency;
+import utils.Type_docsDb;
+import utils.UrgencyDb;
 
 /**
- * Servlet implementation class UserInfoServlet
+ * Servlet implementation class NewUrgencyServlet
  */
-@WebServlet("/UserInfoServlet")
-public class UserInfoServlet extends HttpServlet {
+@WebServlet("/NewUrgencyServlet")
+public class NewUrgencyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserInfoServlet() {
+    public NewUrgencyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,12 +34,9 @@ public class UserInfoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		ArrayList<Doc> docs = DocDb.select();
-		request.setAttribute("docs", docs);
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	      RequestDispatcher dispatcher //
-          = this.getServletContext().getRequestDispatcher("/WEB-INF/view/userInfoView.jsp");
+          = this.getServletContext()//
+                .getRequestDispatcher("/WEB-INF/view/newurgency.jsp");
 
     dispatcher.forward(request, response);
 	}
@@ -49,7 +46,32 @@ public class UserInfoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        int id = 0;
+        String name =  null;
+       
+        try {
+        name = request.getParameter("name");//read from html form
+        
+        }catch(Exception ex){ex.printStackTrace();} 
+        
+        if (name.isEmpty()==true) 
+        {
+        System.out.println("Введите обязательные поля!!!"); 		
+              
 		doGet(request, response);
-	}
+        }
+        else {
+    	    try{
+    	    	Urgency urgency = new Urgency (id, name);
+    	    	UrgencyDb.insert(urgency);
+    	    	
+    	    }catch(Exception ex){ex.printStackTrace();}         
+        		}
+
+			}
+	
 
 }

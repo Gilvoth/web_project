@@ -23,7 +23,13 @@ public Calendar() {
         System.out.print(c.getTime());
         String str_c = c.getTime().toString();
         return  str_c;
-
-
 }
+    public static Date Date_data()
+    {
+        // календарь на текущую дату
+        GregorianCalendar c = new GregorianCalendar();
+        Date date = c.getTime();
+        return  date;
+}
+    
 }

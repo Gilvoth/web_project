@@ -16,7 +16,7 @@
  <!-- set codepage input data -->
       <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/LoginPageServlet">
          <input type="hidden" name="redirectId" value="${param.redirectId}" />
-         <table border="1">
+         <table>
             <tr>
                <td>Имя пользователя</td>
                <td><input type="text" name="login" value= "${user.login}" /> </td>
