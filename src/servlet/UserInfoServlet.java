@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Doc;
+import model.Fdoc;
 import utils.DocDb;
 
 
@@ -35,7 +36,7 @@ public class UserInfoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		ArrayList<Doc> docs = DocDb.select();
+		ArrayList<Fdoc> docs = DocDb.select();
 		request.setAttribute("docs", docs);
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	      RequestDispatcher dispatcher //

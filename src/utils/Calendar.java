@@ -1,6 +1,6 @@
 package utils;
 
-import java.io.IOException;
+//import java.io.IOException;
 import java.util.Date;
 //import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -17,19 +17,23 @@ public Calendar() {
 	
     public static String Date()
     {
+    	//текущая дата рус формата
+    	Date currentDate = new Date();
+        SimpleDateFormat dateFormat = null;
+        
+        dateFormat = new SimpleDateFormat();
+        
+        String str_c = dateFormat.format( currentDate );
+        return  str_c;
+    }
+    public static String Date_data()
+    {
         // календарь на текущую дату
         GregorianCalendar c = new GregorianCalendar();
-        //java.util.Date st_c = c.getTime();
         System.out.print(c.getTime());
         String str_c = c.getTime().toString();
         return  str_c;
 }
-    public static Date Date_data()
-    {
-        // календарь на текущую дату
-        GregorianCalendar c = new GregorianCalendar();
-        Date date = c.getTime();
-        return  date;
-}
+
     
 }

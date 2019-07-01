@@ -37,13 +37,13 @@ private int current_dep;
         this.status_finished = status_finished;
         this.rec_date = rec_date;
         
-        this.receiver_list = new ArrayList<String>(); // aka ROLES
+        this.receiver_list = new ArrayList<String>(); // aka 
         if (receiver_list != null) {
            for (String r : receiver_list) {
               this.receiver_list.add(r); }
            }
         
-        this.sender_list = new ArrayList<String>(); // aka ROLES
+        this.sender_list = new ArrayList<String>(); // aka 
         if (sender_list != null) {
            for (String r : sender_list) {
               this.sender_list.add(r); }
@@ -68,13 +68,13 @@ private int current_dep;
         this.status_finished = status_finished;
         this.rec_date = rec_date;
         
-        this.receiver_list = new ArrayList<String>(); // aka ROLES
+        this.receiver_list = new ArrayList<String>(); // 
         if (receiver_list != null) {
            for (String r : receiver_list) {
               this.receiver_list.add(r); }
            }
         
-        this.sender_list = new ArrayList<String>(); // aka ROLES
+        this.sender_list = new ArrayList<String>(); // 
         if (sender_list != null) {
            for (String r : sender_list) {
               this.sender_list.add(r); }
@@ -83,6 +83,7 @@ private int current_dep;
         this.current_dep = current_dep;
         
 	}	
+
 	
 	public int getId() {
 		return id;

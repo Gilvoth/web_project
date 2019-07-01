@@ -11,6 +11,7 @@ import java.util.Collections;
 
 import filter.DbFilter;
 import model.Doc;
+import model.Fdoc;
 
 public class DocDb {
 
@@ -68,8 +69,9 @@ public class DocDb {
     }   
 
 	
-    public static ArrayList<Doc> select() {
-    	ArrayList<Doc> docs = new ArrayList<Doc>();
+    public static ArrayList<Fdoc> select() {
+    	//ArrayList<Doc> docs = new ArrayList<Doc>();
+    	ArrayList<Fdoc> fdocs = new ArrayList<Fdoc>();
 
 		Connection conn = DbFilter.getConn();
 
@@ -84,7 +86,29 @@ public class DocDb {
         ResultSet resultset = null;
 		try {
 			resultset = statement.executeQuery(
-			        "SELECT * FROM documents ORDER BY id");
+			        //"SELECT * FROM documents ORDER BY id"
+					"SELECT \r\n" + 
+					"documents.id as \"id\",\r\n" + 
+					"type_docs.name as \"type\",\r\n" + 
+					"contractor.name as \"contractor\",\r\n" + 
+					"documents.name as \"name\",\r\n" + 
+					"documents.content as \"content\",\r\n" + 
+					"users.name as \"creator_name\",\r\n" + 
+					"users.second as \"creator_second\",\r\n" + 
+					"urgency.name as \"urgency\",\r\n" + 
+					"documents.date_cre,\r\n" + 
+					"documents.status_finished,\r\n" + 
+					"documents.rec_date,\r\n" + 
+					"documents.receiver_list,\r\n" + 
+					"documents.sender_list,\r\n" + 
+					"departments.name as \"dep\"\r\n" + 
+					"FROM documents\r\n" + 
+					"LEFT JOIN contractor ON documents.id_contractor = contractor.id \r\n" + 
+					"LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id\r\n" + 
+					"LEFT JOIN users ON documents.creator = users.id\r\n" + 
+					"LEFT JOIN urgency ON documents.id_urgency = urgency.id\r\n" + 
+					"LEFT JOIN departments ON departments.id = documents.current_dep;"
+					);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -96,13 +120,14 @@ public class DocDb {
         try {
 			while (resultset.next()) {
 		        int id = resultset.getInt("id");
-		        int id_type =  resultset.getInt("id_type_docs");
-		        int id_contractor =  resultset.getInt("id_contractor");
-		        byte[] blob =  resultset.getBytes("blob");
+		        String type =  resultset.getString("type");
+		        String contractor =  resultset.getString("contractor");
+		        //byte[] blob =  resultset.getBytes("blob");
 		        String name =  resultset.getString("name");
 		        String content =  resultset.getString("content");
-		        int creator =  resultset.getInt("creator");
-		        int id_urgency =  resultset.getInt("id_urgency");
+		        String creator_name =  resultset.getString("creator_name");
+		        String creator_second =  resultset.getString("creator_second");
+		        String urgency =  resultset.getString("urgency");
 		        String date_cre =  resultset.getString("date_cre");
 		        int status_finished =  resultset.getInt("status_finished");
 		        String rec_date =  resultset.getString("rec_date");
@@ -120,13 +145,15 @@ public class DocDb {
                 Collections.addAll(sender_arraylist, sender_arr);
                 System.out.println("отработала коллекция");
         
-		        int current_dep =  resultset.getInt("current_dep");
+                String dep =  resultset.getString("dep");
 
                 
-                Doc doc = new Doc (id, id_type, id_contractor, name, content, creator, 
-    	    			id_urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, current_dep);
-                docs.add(doc);
-
+                //0107 Doc doc = new Doc (id, id_type, id_contractor, name, content, creator, 
+    	    			//id_urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, current_dep);
+                //0107 docs.add(doc);
+                Fdoc fdoc = new Fdoc (id, type, contractor, name, content, creator_name,creator_second, 
+    	    			urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep);
+                fdocs.add(fdoc);
 					
 			    /*System.out.println(//arrayList+
 			    		"\t Номер в базе #" + 
@@ -147,7 +174,7 @@ public class DocDb {
 			}
 			} 		    	
     	
-    	return docs;
+    	return fdocs;
     	
     }	
 //--------------------------------------------------------------------------------------------------------------------------    

@@ -17,7 +17,7 @@
 </style>
 
 <a class="hyper" href="${pageContext.request.contextPath}/EmployeeTaskServlet">
-  Employee Task
+  Создание документов |Employee Task
 </a>
 <!-- || -->
 <a class="hyper" href="${pageContext.request.contextPath}/JurTaskServlet">
@@ -29,7 +29,7 @@
 </a>
 <!-- || -->
 <a class="hyper" href="${pageContext.request.contextPath}/UserInfoServlet">
-  User Info
+  Документы пользователя | User Info
 </a>       
 <!-- || -->
 <a class="hyper" href="${pageContext.request.contextPath}/LoginPageServlet">
