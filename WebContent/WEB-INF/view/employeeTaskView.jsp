@@ -36,5 +36,9 @@
 </form>
 <br>
 
+<br>
+<form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/">
+<input type="submit" value="На главную страницу">  
+</form>  
    </body>
 </html>

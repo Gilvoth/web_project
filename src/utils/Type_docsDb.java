@@ -3,7 +3,10 @@ package utils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import filter.DbFilter;
 import model.Type_docs;
@@ -32,17 +35,105 @@ public class Type_docsDb {
         	ex.printStackTrace();
         	System.out.println(ex);}  
         
-        finally 
-        {try {
-			conn.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        finally {
+        	try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}                                   
 
         
         return 0;
     } 	
-	
+
+    public static ArrayList<String> select() {
+    	Connection conn = DbFilter.getConn(); 
+    	ArrayList<String> type_docs = new ArrayList<String>();
+
+	        Statement statement = null;
+			try {
+				statement  = ((Connection) conn).createStatement();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+                   
+
+            try {
+          	
+            	ResultSet resultSet = statement.executeQuery("Select name FROM type_docs");
+    			while (resultSet.next()) {
+    		        
+    		        String name =  resultSet.getString("name");
+    		        
+    		        type_docs.add(name);
+    		        
+    		        System.out.println("тип документа " + name);
+    		        
+    			}
+    		        System.out.println("запрос выполнен успешно!!!");
+    		        
+        }catch(SQLException ex){
+        	ex.printStackTrace();
+        	System.out.println(ex);}
+        
+        finally {
+        /*	try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
+		}                                   
+
+        
+        return type_docs;
+    } 	
+//*****************************************************************************************************************
+    public static ArrayList<Type_docs> selectType_docs() {
+    	Connection conn = DbFilter.getConn(); 
+    	ArrayList<Type_docs>  type_docs = new ArrayList<Type_docs> ();
+
+        	ResultSet resultSet = null;  
+        	Statement statement = null;
+            
+			try {
+				resultSet = statement.executeQuery
+						("Select * FROM type_docs");
+	            //ps.executeUpdate();  
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}  
+	                   
+
+            try {
+    			while (resultSet.next()) {
+    		        int id = resultSet.getInt("id");
+    		        String name =  resultSet.getString("name");
+    		        Type_docs type_doc = new Type_docs(id, name);
+    		        type_docs.add(type_doc);
+    		        
+    		        
+    			}
+    		        System.out.println("запрос выполнен успешно!!!");
+    		        
+        }catch(Exception ex){
+        	ex.printStackTrace();
+        	System.out.println(ex);}  
+        
+        finally {
+        	try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}                                   
+
+        
+        return type_docs;
+    } 	
 }

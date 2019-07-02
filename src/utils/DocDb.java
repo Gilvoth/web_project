@@ -12,7 +12,7 @@ import java.util.Collections;
 import filter.DbFilter;
 import model.Doc;
 import model.Fdoc;
-import model.User;
+
 
 public class DocDb {
 
@@ -138,12 +138,13 @@ public class DocDb {
 			e.printStackTrace();
 		}
         finally 
-	        {try {
+	        {
+/*        	try {
 				conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				e.printStackTrace();		
+			}							*/
 			} 		    	
     	
     	return fdoc;
@@ -152,9 +153,10 @@ public class DocDb {
 //********************************************************************************************************************************
 	
     public static ArrayList<Fdoc> select() {
-    	//ArrayList<Doc> docs = new ArrayList<Doc>();
     	ArrayList<Fdoc> fdocs = new ArrayList<Fdoc>();
 
+    	
+    	
 		Connection conn = DbFilter.getConn();
 
         Statement statement = null;
@@ -229,19 +231,10 @@ public class DocDb {
         
                 String dep =  resultset.getString("dep");
 
-                
-                //0107 Doc doc = new Doc (id, id_type, id_contractor, name, content, creator, 
-    	    			//id_urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, current_dep);
-                //0107 docs.add(doc);
                 Fdoc fdoc = new Fdoc (id, type, contractor, name, content, creator_name,creator_second, 
     	    			urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep);
                 fdocs.add(fdoc);
-					
-			    /*System.out.println(//arrayList+
-			    		"\t Номер в базе #" + 
-			    resultset.getInt("id")
-			            + "\t" + name
-			            +"\t" + content);*/
+
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

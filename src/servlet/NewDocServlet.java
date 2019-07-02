@@ -51,10 +51,10 @@ public class NewDocServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
-        int id = 0;
+        //int id = 0;
         int id_type =  0;
         int id_contractor =  0;
-        byte[] blob =  null;
+        //byte[] blob =  null;
         String name =  null;
         String content =  null;
         int creator =  0;

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Doc;
+
 import model.Fdoc;
 import utils.DocDb;
 
@@ -38,7 +38,6 @@ public class UserInfoServlet extends HttpServlet {
 
 		ArrayList<Fdoc> docs = DocDb.select();
 		request.setAttribute("docs", docs);
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	      RequestDispatcher dispatcher //
           = this.getServletContext().getRequestDispatcher("/WEB-INF/view/userInfoView.jsp");
 

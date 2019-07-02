@@ -1,8 +1,7 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,10 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Doc;
+
 import model.Type_docs;
-import utils.Calendar;
-import utils.DocDb;
+
 import utils.Type_docsDb;
 
 /**

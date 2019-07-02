@@ -1,17 +1,23 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Doc;
+
+
 import model.Fdoc;
-import model.User;
+
 import utils.DocDb;
-import utils.UserDb;
+import utils.Type_docsDb;
+import utils.UrgencyDb;
+
+import utils.ContractorDb;
 
 /**
  * Servlet implementation class DocEditServlet
@@ -33,11 +39,22 @@ public class DocEditServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//ArrayList<String> type_docs =  Type_docsDb.select();
 	       try {
 	            int id = Integer.parseInt(request.getParameter("id"));
+	            
 	            Fdoc doc = DocDb.selectone(id);
+	            ArrayList<String> type_docs =  Type_docsDb.select();
+	            ArrayList<String> contractors =  ContractorDb.select();
+	            ArrayList<String> urgencies =  UrgencyDb.select();
+	            //ArrayList<String> contractors = СontractorDb.select();
+	            //ArrayList<Type_docs> type_docs =  Type_docsDb.selectType_docs();
 	            if(doc!=null) {
 	                request.setAttribute("doc", doc);
+	              
+	                request.setAttribute("type_docs", type_docs);
+	                request.setAttribute("contractors", contractors);
+	                request.setAttribute("urgencies", urgencies);
 	                getServletContext().getRequestDispatcher("/WEB-INF/view/docedit.jsp").forward(request, response);
 	            }
 	            else {
@@ -49,6 +66,13 @@ public class DocEditServlet extends HttpServlet {
 	        }	
 	}
 
+	  @Override 
+	  public void init() throws ServletException{ 
+
+		  System.out.println("*************SERVLET IS INIT DocEditServlet**************");
+		  
+	  }	
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

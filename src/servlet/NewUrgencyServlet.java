@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Type_docs;
+
 import model.Urgency;
-import utils.Type_docsDb;
+
 import utils.UrgencyDb;
 
 /**

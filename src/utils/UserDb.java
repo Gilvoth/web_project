@@ -157,7 +157,7 @@ public class UserDb extends HttpServlet {
     	return user;
     	
     }	
-	
+//**********************************************************************************************************************************************	
     public static int update(User user) {
     	Connection conn = DbFilter.getConn();       
         String sql = "UPDATE users SET name = ?, second = ?, login = ?, pass = ?, "
