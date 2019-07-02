@@ -47,9 +47,7 @@ public class SetRoleEditServlet extends HttpServlet {
 	        catch(Exception ex) {
 	            getServletContext().getRequestDispatcher("/WEB-INF/view/notfound.jsp").forward(request, response);
 	        }		
-		
-	    //req.getRequestDispatcher(index).forward(req, resp);
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+
 	}
 
 	/**
@@ -73,11 +71,9 @@ public class SetRoleEditServlet extends HttpServlet {
             String[] role = {""};
             role = request.getParameterValues("role");//read role from html form input (name role)
             ArrayList<String> role_arr = new ArrayList<String>(Arrays.asList(role));
-            
-            //ArrayList<String> roles = request.getParameter("roles");
+
             
             User user = new User(id, name, second, login, password, id_department, role_arr);
-            //User user = new User (int id, String name, String second, String login, String password, int id_department, ArrayList<String> roles);
             
             UserDb.update(user);
             response.sendRedirect(request.getContextPath() + "/SetRoleServlet");

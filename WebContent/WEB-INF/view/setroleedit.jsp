@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Edit product</title>
+<title>Редактирование пользователя</title>
 </head>
 <body>
      <jsp:include page="_menu.jsp"></jsp:include>
 <br><br><br><br>
-<h3>Edit product</h3>
+<h3>Редактирование пользователя</h3>
 <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/SetRoleEditServlet">
 <input type="hidden" value="${user.id}" name="id" />
 <label>Имя Отчество</label><br>

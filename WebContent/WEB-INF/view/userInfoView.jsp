@@ -16,7 +16,7 @@
 <h4>Документы пользователя:</h4>      
 <table border="2">
 
-<tr><th>id</th><th>Тип</th><th>Контрагент</th><th>Имя</th><th>Содержание</th><th>Автор имя</th><th>Автор фамилия</th>
+<tr><th>id</th><th>Тип</th><th>Контрагент</th><th>Имя</th><th>Содержание</th><th>Автор</th>
 <th>Статус актуальности</th><th>Дата создания</th><th>Закончен ли</th><th>Рек. дата</th><th>Получатели</th><th>Отправители</th><th>Текущий отдел</th>
 </tr>
 <c:forEach var="doc" items="${docs}">
@@ -26,8 +26,8 @@
 	<td>${doc.id_contractor}</td>
     <td>${doc.name}</td>
     <td>${doc.content}</td>
-    <td>${doc.creator_name}</td>
-    <td>${doc.creator_second}</td>
+    <td>${doc.creator_name} 
+    ${doc.creator_second}</td>
     <td>${doc.urgency}</td>
     <td>${doc.date_cre}</td>
     <td>${doc.status_finished}</td>
@@ -36,7 +36,7 @@
     <td>${doc.sender_list}</td>
     <td>${doc.dep}</td>
     <td>
-    <a href='<c:url value="/SetRoleEditServlet?id=${user.id}" />'>Редактировать</a>
+    <a href='<c:url value="/DocEditServlet?id=${doc.id}" />'>Редактировать</a>
     <form method="post" action='<c:url value="/DelUserServlet" />' style="display:inline;">
 <%--         <input type="hidden" name="id" value="${user.id}">
         <input type="submit" value="Удалить"> --%>
