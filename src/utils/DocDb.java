@@ -26,15 +26,6 @@ public class DocDb {
     
     public static int insert(Doc doc) throws FileNotFoundException {
     	Connection conn = DbFilter.getConn(); 
-    	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        //PreparedStatement ps = conn.prepareStatement("INSERT INTO images VALUES (?, ?)");
-        //ps.setString(1, file.getName());
-        //ps.setBinaryStream(2, fis, (int)file.length());
-        //ps.executeUpdate();
-        //ps.close();
-        //fis.close();
-    	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     	
         try{
             File file = new File("C:\\tmp\\0001.png");

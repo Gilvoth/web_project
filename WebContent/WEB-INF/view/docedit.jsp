@@ -51,6 +51,12 @@
 <label>Отдел</label><br>
 <input name="dep" value="${doc.dep}" /><br><br>			
 <img src="${doc.blob}" alt="не могу отобразить">
+<img alt="не могу отобразить" src="<%=request.getParameter("${doc.blob}")%>">
+<img alt="не могу отобразить" src="<%=request.getAttribute("${doc.blob}")%>">
+<img alt="не могу отобразить" src="<%=request.getAttribute("blob")%>">
+<img alt="не могу отобразить" src="<%=request.getAttribute("image")%>">
+<img alt="не могу отобразить" src="data:image/jpg;base64,${doc.blob}" width="240" height="300"/>
+
 <input type="submit" value="Send" />
 
 <%-- <label>${type_docs}</label><br>  
