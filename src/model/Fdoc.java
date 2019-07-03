@@ -9,7 +9,7 @@ public class Fdoc {
 private	int id;
 private String id_type;
 private String id_contractor;
-//private byte[] blob;
+private byte[] blob;
 private String name;
 private String content;
 private String creator_name;
@@ -21,6 +21,16 @@ private String rec_date;
 private ArrayList<String> receiver_list;
 private ArrayList<String> sender_list;
 private String dep;
+
+
+public byte[] getBlob() {
+	return blob;
+}
+
+
+public void setBlob(byte[] blob) {
+	this.blob = blob;
+}
 
 
 //jsp looking for getter and setter 
@@ -196,6 +206,37 @@ public void setSender_list(ArrayList<String> sender_list) {
         
 	}	
 	
-
+	public Fdoc(int id, String id_type, String id_contractor, String name, String content, String creator_name, String creator_second, String urgency,
+			String date_cre, int status_finished, String rec_date, ArrayList<String> receiver_list,
+			ArrayList<String> sender_list, String dep, byte[] blob) {
+		// TODO Auto-generated constructor stub
+		this.setId(id);
+		this.setId_type(id_type);
+    	this.setId_contractor(id_contractor);
+    	this.setName(name);
+    	this.setContent(content);
+        this.setCreator_name(creator_name);
+        this.setCreator_second(creator_second);
+        this.setUrgency(urgency); 
+        this.setDate_cre(date_cre);
+        this.setStatus_finished(status_finished);
+        this.setRec_date(rec_date);
+        
+        this.receiver_list = new ArrayList<String>(); // 
+        if (receiver_list != null) {
+           for (String r : receiver_list) {
+              this.receiver_list.add(r); }
+           }
+        
+        this.sender_list = new ArrayList<String>(); // 
+        if (sender_list != null) {
+           for (String r : sender_list) {
+              this.sender_list.add(r); }
+           } 
+        
+        this.setDep(dep);
+        this.setBlob(blob);
+        
+	}	
 
 }

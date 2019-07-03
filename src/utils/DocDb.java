@@ -1,5 +1,8 @@
 package utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,14 +24,26 @@ public class DocDb {
         // TODO Auto-generated constructor stub
     }
     
-    public static int insert(Doc doc) {
+    public static int insert(Doc doc) throws FileNotFoundException {
     	Connection conn = DbFilter.getConn(); 
+    	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        //PreparedStatement ps = conn.prepareStatement("INSERT INTO images VALUES (?, ?)");
+        //ps.setString(1, file.getName());
+        //ps.setBinaryStream(2, fis, (int)file.length());
+        //ps.executeUpdate();
+        //ps.close();
+        //fis.close();
+    	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     	
-        try{  
+        try{
+            File file = new File("C:\\tmp\\0001.png");
+            FileInputStream fis = new FileInputStream(file);
+            
             PreparedStatement ps=conn.prepareStatement(  
 		            "insert into documents (id, id_type_docs, id_contractor, name, "
-		            + "content, creator, id_urgency, date_cre, status_finished, rec_date, receiver_list, sender_list, current_dep)"+
-		            "values (nextval('seq_pk_id_docs'),?,?,?,?,?,?, ?, ?, ?, ?, ?, ?)");  
+		            + "content, creator, id_urgency, date_cre, status_finished, rec_date, receiver_list, sender_list, current_dep, blob)"+
+		            "values (nextval('seq_pk_id_docs'),?,?,?,?,?,?, ?, ?, ?, ?, ?, ?, ?)");  
 	        
             ps.setInt(1, doc.getId_type());
             ps.setInt(2, doc.getId_contractor());
@@ -48,8 +63,10 @@ public class DocDb {
             Array array2 = conn.createArrayOf("text", list2.toArray()); //This is Postgre feature Особенность реализации, преобразуем массив понятный Постгре 
 			ps.setArray(11, array2);
 			
-			ps.setInt(12, doc.getCurrent_dep());              
+			ps.setInt(12, doc.getCurrent_dep()); 
+			ps.setBinaryStream(13, fis, (int)file.length()); // BLOB
             ps.executeUpdate();  
+            fis.close();
     		        System.out.println("запрос выполнен успешно!!!");
     		 
         }catch(Exception ex){
@@ -58,7 +75,9 @@ public class DocDb {
         
         finally 
         {try {
+        	
 			conn.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -253,5 +272,90 @@ public class DocDb {
     	
     }	
 //--------------------------------------------------------------------------------------------------------------------------    
-    
+  //***********************************************************************************************************************************
+    //with BLOB
+    public static Fdoc selectone2(int id) {
+		Connection conn = DbFilter.getConn();
+    	Fdoc fdoc = null;
+		//Выполним запрос
+		String sqlquery =					
+				"SELECT \r\n" + 
+				"(SELECT documents.id FROM documents WHERE documents.id=?) as \"id\",\r\n" + 
+				"type_docs.name as \"type\",\r\n" + 
+				"contractor.name as \"contractor\",\r\n" + 
+				"documents.name as \"name\",\r\n" + 
+				"documents.content as \"content\",\r\n" + 
+				"users.name as \"creator_name\",\r\n" + 
+				"users.second as \"creator_second\",\r\n" + 
+				"urgency.name as \"urgency\",\r\n" + 
+				"documents.date_cre,\r\n" + 
+				"documents.status_finished,\r\n" + 
+				"documents.rec_date,\r\n" + 
+				"documents.receiver_list,\r\n" + 
+				"documents.sender_list,\r\n" + 
+				"departments.name as \"dep\"\r\n"+
+				"documents.blob as \"blob\"\r\n" + 
+				"FROM documents\r\n" +
+				"LEFT JOIN contractor ON documents.id_contractor = contractor.id \r\n" + 
+				"LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id\r\n" + 
+				"LEFT JOIN users ON documents.creator = users.id\r\n" + 
+				"LEFT JOIN urgency ON documents.id_urgency = urgency.id\r\n" + 
+				"LEFT JOIN departments ON departments.id = documents.current_dep\r\n";
+		
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
+            preparedStatement.setInt(1, id);
+            ResultSet resultset = preparedStatement.executeQuery();		
+			if (resultset.next()) {
+		        int id_doc = resultset.getInt("id");
+		        String type =  resultset.getString("type");
+		        String contractor =  resultset.getString("contractor");
+		        //byte[] blob =  resultset.getBytes("blob");
+		        String name =  resultset.getString("name");
+		        String content =  resultset.getString("content");
+		        String creator_name =  resultset.getString("creator_name");
+		        String creator_second =  resultset.getString("creator_second");
+		        String urgency =  resultset.getString("urgency");
+		        String date_cre =  resultset.getString("date_cre");
+		        int status_finished =  resultset.getInt("status_finished");
+		        String rec_date =  resultset.getString("rec_date");
+		        
+		        Array receiver = resultset.getArray("receiver_list");
+                String[] receiver_arr = (String[])receiver.getArray();
+                ArrayList<String> receiver_arraylist= new ArrayList<String>();
+                Collections.addAll(receiver_arraylist, receiver_arr);
+                System.out.println("отработала коллекция");
+		        
+		        
+		        Array sender = resultset.getArray("sender_list");
+                String[] sender_arr = (String[])sender.getArray();
+                ArrayList<String> sender_arraylist= new ArrayList<String>();
+                Collections.addAll(sender_arraylist, sender_arr);
+                System.out.println("отработала коллекция");
+        
+                String dep =  resultset.getString("dep");
+                byte[] blob =  resultset.getBytes("blob");
+
+
+                fdoc = new Fdoc (id_doc, type, contractor, name, content, creator_name,creator_second, 
+    	    			urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob);
+                
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        finally 
+	        {
+/*        	try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();		
+			}							*/
+			} 		    	
+    	
+    	return fdoc;
+    	
+    }	
+//********************************************************************************************************************************    
 }

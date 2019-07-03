@@ -1,5 +1,7 @@
 package servlet;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,9 +68,14 @@ public class NewDocServlet extends HttpServlet {
         ArrayList<String> sender_list =  null;
         int current_dep =  0;
         
+
+        
+        
         try {
         id_type = Integer.parseInt(request.getParameter("id_type"));//read from html form
         id_contractor = Integer.parseInt(request.getParameter("id_contractor"));//read from html form
+        //InputStream is = part.getInputStream();
+        //blob = request.getInputStream();
         name = request.getParameter("name");//read from html form
         content = request.getParameter("content");//read from html form
         creator = Integer.parseInt((request.getParameter("creator")));//read from html form + convert to Integer

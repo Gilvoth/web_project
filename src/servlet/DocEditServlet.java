@@ -43,7 +43,7 @@ public class DocEditServlet extends HttpServlet {
 	       try {
 	            int id = Integer.parseInt(request.getParameter("id"));
 	            
-	            Fdoc doc = DocDb.selectone(id);
+	            Fdoc doc = DocDb.selectone(id); // Заменить на селектван2
 	            ArrayList<String> type_docs =  Type_docsDb.select();
 	            ArrayList<String> contractors =  ContractorDb.select();
 	            ArrayList<String> urgencies =  UrgencyDb.select();
