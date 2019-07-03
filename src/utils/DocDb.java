@@ -94,7 +94,7 @@ public class DocDb {
     	Fdoc fdoc = null;
 		//Выполним запрос
 		String sqlquery =					
-				"SELECT \r\n" + 
+				/*"SELECT \r\n" + 
 				"(SELECT documents.id FROM documents WHERE documents.id=?) as \"id\",\r\n" + 
 				"type_docs.name as \"type\",\r\n" + 
 				"contractor.name as \"contractor\",\r\n" + 
@@ -114,7 +114,29 @@ public class DocDb {
 				"LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id\r\n" + 
 				"LEFT JOIN users ON documents.creator = users.id\r\n" + 
 				"LEFT JOIN urgency ON documents.id_urgency = urgency.id\r\n" + 
-				"LEFT JOIN departments ON departments.id = documents.current_dep\r\n";
+				"LEFT JOIN departments ON departments.id = documents.current_dep\r\n";*/
+				"SELECT \r\n" + 
+				"documents.id as \"id\",\r\n" + 
+				"type_docs.name as \"type\",\r\n" + 
+				"contractor.name as \"contractor\",\r\n" + 
+				"documents.name as \"name\",\r\n" + 
+				"documents.content as \"content\",\r\n" + 
+				"users.name as \"creator_name\",\r\n" + 
+				"users.second as \"creator_second\",\r\n" + 
+				"urgency.name as \"urgency\",\r\n" + 
+				"documents.date_cre,\r\n" + 
+				"documents.status_finished,\r\n" + 
+				"documents.rec_date,\r\n" + 
+				"documents.receiver_list,\r\n" + 
+				"documents.sender_list,\r\n" + 
+				"departments.name as \"dep\"\r\n" + 
+				"FROM documents\r\n" +
+				"LEFT JOIN contractor ON documents.id_contractor = contractor.id \r\n" + 
+				"LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id\r\n" + 
+				"LEFT JOIN users ON documents.creator = users.id\r\n" + 
+				"LEFT JOIN urgency ON documents.id_urgency = urgency.id\r\n" + 
+				"LEFT JOIN departments ON departments.id = documents.current_dep\r\n" +
+				"WHERE documents.id = ?";
 		
         try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
             preparedStatement.setInt(1, id);
@@ -293,7 +315,7 @@ public class DocDb {
 				"documents.rec_date,\r\n" + 
 				"documents.receiver_list,\r\n" + 
 				"documents.sender_list,\r\n" + 
-				"departments.name as \"dep\"\r\n"+
+				"departments.name as \"dep\",\r\n"+
 				"documents.blob as \"blob\"\r\n" + 
 				"FROM documents\r\n" +
 				"LEFT JOIN contractor ON documents.id_contractor = contractor.id \r\n" + 

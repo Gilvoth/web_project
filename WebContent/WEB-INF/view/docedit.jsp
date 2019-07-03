@@ -50,7 +50,7 @@
 
 <label>Отдел</label><br>
 <input name="dep" value="${doc.dep}" /><br><br>			
-<img src="${doc.blob}">
+<img src="${doc.blob}" alt="не могу отобразить">
 <input type="submit" value="Send" />
 
 <%-- <label>${type_docs}</label><br>  
