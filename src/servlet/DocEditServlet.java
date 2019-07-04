@@ -12,11 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import model.Fdoc;
-
 import utils.DocDb;
 import utils.Type_docsDb;
 import utils.UrgencyDb;
-
 import utils.ContractorDb;
 
 /**
@@ -47,32 +45,12 @@ public class DocEditServlet extends HttpServlet {
 	            ArrayList<String> type_docs =  Type_docsDb.select();
 	            ArrayList<String> contractors =  ContractorDb.select();
 	            ArrayList<String> urgencies =  UrgencyDb.select();
-	            //ArrayList<String> contractors = СontractorDb.select();
-	            //ArrayList<Type_docs> type_docs =  Type_docsDb.selectType_docs();
+
 	            if(doc!=null) {
 	                request.setAttribute("doc", doc);
-	                request.setAttribute("image", "C:\\tmp\\0001.png");
+	                //request.setAttribute("image", "C:\\tmp\\0001.png");
 	                
-	                //*******************
-	               /* try{
-	                    String fileName = request.getParameter("image");             
-	                    FileInputStream fis = new FileInputStream(new File("d:\\"+fileName));
-	                    BufferedInputStream bis = new BufferedInputStream(fis);             
-	                    response.setContentType(contentType);
-	                    BufferedOutputStream output = new BufferedOutputStream(response.getOutputStream());
-	                    for (int data; (data = bis.read()) > -1;) {
-	                      output.write(data);
-	                    }             
-	                 }
-	                 catch(IOException e){
-
-	                 }finally{
-	                     // close the streams
-	                 }
-	                //*************
-	                */
-	                
-	                //request.setAttribute("image", doc.getBlob()); 
+	                request.setAttribute("image", doc.getBlob()); 
 	                request.setAttribute("type_docs", type_docs);
 	                request.setAttribute("contractors", contractors);
 	                request.setAttribute("urgencies", urgencies);

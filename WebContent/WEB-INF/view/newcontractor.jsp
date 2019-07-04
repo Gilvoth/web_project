@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,6 +11,21 @@
      <jsp:include page="_menu.jsp"></jsp:include>
 <br>
 <h3>Создание нового контрагента</h3>
+
+<table border = "1">
+<tr><th>Контрагент</th></tr>
+<c:forEach var="contractor2" items="${contractors}">
+ <tr>
+
+	<td>${contractor2}</td>
+
+</tr>
+</c:forEach>
+</table>
+<br>
+<br>
+
+
 <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/NewContractorServlet">
 <input type="hidden" value="${contractor.id}" name="id" />
 <label>Имя нового контрагента</label><br>

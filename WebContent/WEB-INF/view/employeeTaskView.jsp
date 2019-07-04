@@ -22,7 +22,8 @@
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/NewDocServlet">
 <input type="submit" value="Загрузить новый документ">  
 </form>
-<br>       
+<br>       <br>
+<br>
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/NewType_docsServlet">
 <input type="submit" value="Создать новый тип документов">  
 </form>
@@ -35,7 +36,7 @@
 <input type="submit" value="Создать новые виды актуальности документов">  
 </form>
 <br>
-
+<br>
 <br>
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/">
 <input type="submit" value="На главную страницу">  

@@ -1,7 +1,7 @@
 package servlet;
 
 import java.io.IOException;
-
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import model.Type_docs;
-
+import model.User;
 import utils.Type_docsDb;
+import utils.UserDb;
 
 /**
  * Servlet implementation class NewType_docsServlet
@@ -35,7 +36,13 @@ public class NewType_docsServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	      RequestDispatcher dispatcher //
+	    
+		ArrayList<String> type_docs2 = Type_docsDb.select();
+		request.setAttribute("type_docs2", type_docs2);
+        
+		//request.getRequestDispatcher("/WEB-INF/view/newtype_docs.jsp").forward(request, response); // we give SetRole.jsp to PC-user
+		
+		RequestDispatcher dispatcher //
           = this.getServletContext()//
                 .getRequestDispatcher("/WEB-INF/view/newtype_docs.jsp");
 

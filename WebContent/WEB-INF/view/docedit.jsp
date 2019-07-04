@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +11,13 @@
 <body>
 <jsp:include page="_menu.jsp"></jsp:include>
 <br><br>
-<h3>Редактирование документа</h3>
+<a href='<c:url value="/UserInfoServlet" />'>Назад к списку документов </a> 
 
+<h3>Редактирование документа</h3>
+<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/ViewImageServlet?id=${doc.id}">
+<input type="submit" value="Просмотр изображения документа">  
+</form>
+<br>
 <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/DocEditServlet">
 <label>ID</label><br>
 <input value="${doc.id}" name="id" /><br><br>
@@ -49,29 +55,20 @@
 <br>
 
 <label>Отдел</label><br>
-<input name="dep" value="${doc.dep}" /><br><br>			
-<img src="${doc.blob}" alt="не могу отобразить">
+<input name="dep" value="${doc.dep}" /><br><br>		
+
+
+
+<%-- <img src="${doc.blob}" alt="не могу отобразить">
 <img alt="не могу отобразить" src="<%=request.getParameter("${doc.blob}")%>">
 <img alt="не могу отобразить" src="<%=request.getAttribute("${doc.blob}")%>">
 <img alt="не могу отобразить" src="<%=request.getAttribute("blob")%>">
 <img alt="не могу отобразить" src="<%=request.getAttribute("image")%>">
-<img alt="не могу отобразить" src="data:image/jpg;base64,${doc.blob}" width="240" height="300"/>
-
+<img alt="не могу отобразить" src="data:image/jpg;base64,${doc.blob}" width="240" height="300"/> --%>
 <input type="submit" value="Send" />
-
-<%-- <label>${type_docs}</label><br>  
-<table border="1">
-<c:forEach var="type_doc" items="${type_docs}">
- 	<tr><td><c:out value="${type_doc}" /> </td></tr>
-</c:forEach>
-</table>
---%>
-
-
- 
-
 </form>
-
+<br>
+<br>	
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UserInfoServlet">
 <input type="submit" value="На главную страницу">  
 </form>

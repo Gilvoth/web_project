@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import model.Urgency;
-
+import utils.ContractorDb;
 import utils.UrgencyDb;
 
 /**
@@ -34,7 +35,10 @@ public class NewUrgencyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	      RequestDispatcher dispatcher //
+		ArrayList<String> urgencies = UrgencyDb.select();
+		request.setAttribute("urgencies", urgencies);  
+		
+		RequestDispatcher dispatcher //
           = this.getServletContext()//
                 .getRequestDispatcher("/WEB-INF/view/newurgency.jsp");
 

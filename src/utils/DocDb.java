@@ -293,7 +293,8 @@ public class DocDb {
 		//Выполним запрос
 		String sqlquery =					
 				"SELECT \r\n" + 
-				"(SELECT documents.id FROM documents WHERE documents.id=?) as \"id\",\r\n" + 
+				"documents.id as \"id\",\r\n" +
+				
 				"type_docs.name as \"type\",\r\n" + 
 				"contractor.name as \"contractor\",\r\n" + 
 				"documents.name as \"name\",\r\n" + 
@@ -313,7 +314,8 @@ public class DocDb {
 				"LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id\r\n" + 
 				"LEFT JOIN users ON documents.creator = users.id\r\n" + 
 				"LEFT JOIN urgency ON documents.id_urgency = urgency.id\r\n" + 
-				"LEFT JOIN departments ON departments.id = documents.current_dep\r\n";
+				"LEFT JOIN departments ON departments.id = documents.current_dep\r\n" +
+				"WHERE documents.id = ?";
 		
         try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
             preparedStatement.setInt(1, id);

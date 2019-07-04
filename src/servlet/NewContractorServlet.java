@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Contractor;
 import utils.ContractorDb;
+import utils.Type_docsDb;
 
 
 /**
@@ -33,7 +35,12 @@ public class NewContractorServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	      RequestDispatcher dispatcher //
+
+	    
+		ArrayList<String> contractors = ContractorDb.select();
+		request.setAttribute("contractors", contractors);		
+		
+		RequestDispatcher dispatcher //
           = this.getServletContext()//
                 .getRequestDispatcher("/WEB-INF/view/newcontractor.jsp");
 
