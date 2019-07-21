@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -78,7 +79,16 @@ public class NewType_docsServlet extends HttpServlet {
     	    	
     	    }catch(Exception ex){ex.printStackTrace();}         
         		}
-
+        PrintWriter writer = response.getWriter();
+        writer.println("<p>Тип документа с этими данными успешно зарегистрирован в системе!"+"</p>");
+        writer.println("<p>Имя: " + name + "</p>");
+        writer.println("<a href=/web_app>Главная страница</a>");
+        writer.println("<br>");        
+        writer.println("<form method=[GET] "+
+    		 "accept-charset=[UTF-8] "+
+    				"action=EmployeeTaskServlet>"+
+    						"<input type=\"submit\" value=\"Назад\">"+
+    						 "</form>"); 
 			}
 
 }

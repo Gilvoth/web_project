@@ -33,7 +33,7 @@
 </form>
 <br>
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/NewUrgencyServlet">
-<input type="submit" value="Создать новые виды актуальности документов">  
+<input type="submit" value="Создать новые типы актуальности документов">  
 </form>
 <br>
 <br>

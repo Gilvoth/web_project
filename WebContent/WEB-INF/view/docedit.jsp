@@ -20,12 +20,13 @@
 <br>
 <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/DocEditServlet">
 <label>ID</label><br>
-<input value="${doc.id}" name="id" /><br><br>
+<input value="${doc.id}" name="id" readonly title="нельзя редактировать" /><br><br>
 <label>Тип документа</label><br>
 <input value="${doc.id_type}" name="id_type" />
                         <select name = "id_type">
                         <c:forEach var="type_doc" items="${type_docs}">
-                            <option value="<c:out value="${type_doc}" />"><c:out value="${type_doc}" /></option>
+                            <%-- <option value="<c:out value="${type_doc}"/>"     ${doc.id_type == type_doc ? 'selected' : ' '} ><c:out value="${type_doc}" /></option> --%>
+                            <option value="<c:out value="${type_doc}"/>"     ${doc.id_type == type_doc ? 'selected' : ' '} ><c:out value="${type_doc}" /></option>
                             </c:forEach>
                         </select><br>
 <br>
@@ -33,7 +34,7 @@
 <input value="${doc.id_contractor}" name="id_contractor" />
                         <select name = "id_type">
                         <c:forEach var="contractor" items="${contractors}">
-                            <option value="<c:out value="${contractor}" />"><c:out value="${contractor}" /></option>
+                            <option value="<c:out value="${contractor}" />"  ${doc.id_contractor == contractor ? 'selected' : ' '}  ><c:out value="${contractor}" /></option>
                             </c:forEach>
                         </select><br>
 <br>
@@ -45,26 +46,21 @@
 <input name="creator_name" value="${doc.creator_name}" /><br><br>
 <label>Автор Фамилия</label><br>
 <input name="creator_second" value="${doc.creator_second}" /><br><br>
+
 <label>Статус актуальности</label><br>
-<input name="urgency" value="${doc.urgency}" />
-                        <select name = "id_type">
+<input name="urgency222" value="${doc.urgency}" /> <!-- поменять имя и принять параметр в метод пост -->
+                        <select name = "urgency">
                         <c:forEach var="urgency" items="${urgencies}">
-                            <option value="<c:out value="${urgency}" />"><c:out value="${urgency}" /></option>
+                            <option value="${urgency}" ${doc.urgency == urgency ? 'selected' : ' '}><c:out value="${urgency}" /></option>
                             </c:forEach>
+                            
                         </select><br>
 <br>
 
 <label>Отдел</label><br>
-<input name="dep" value="${doc.dep}" /><br><br>		
+<input name="dep" value="${doc.dep}" readonly title="нельзя редактировать"/><br><br>		
 
 
-
-<%-- <img src="${doc.blob}" alt="не могу отобразить">
-<img alt="не могу отобразить" src="<%=request.getParameter("${doc.blob}")%>">
-<img alt="не могу отобразить" src="<%=request.getAttribute("${doc.blob}")%>">
-<img alt="не могу отобразить" src="<%=request.getAttribute("blob")%>">
-<img alt="не могу отобразить" src="<%=request.getAttribute("image")%>">
-<img alt="не могу отобразить" src="data:image/jpg;base64,${doc.blob}" width="240" height="300"/> --%>
 <input type="submit" value="Send" />
 </form>
 <br>

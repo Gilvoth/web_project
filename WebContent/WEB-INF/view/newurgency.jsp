@@ -14,7 +14,7 @@
 
 
 <table border = "1">
-<tr><th>Контрагент</th></tr>
+<tr><th>Имя типа статуса документа</th></tr>
 <c:forEach var="urgency2" items="${urgencies}">
  <tr>
 
@@ -27,8 +27,8 @@
 <br>
 
 <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/NewUrgencyServlet">
-<input type="hidden" value="${urgency.id}" name="id" />
-<label>Имя нового типа документа</label><br>
+<input  value="${urgency.id}" name="id" />
+<label>Имя нового типа статуса документа</label><br>
 <input name="name" value="${urgency.name}" /><br><br>
 
 <input type="submit" value="Send" />

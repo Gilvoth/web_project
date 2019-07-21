@@ -77,7 +77,25 @@ public class DocEditServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
+		
+        try {
+        	int id = Integer.parseInt(request.getParameter("id"));
+            String urgency222 = request.getParameter("urgency222");
+            String urgency = request.getParameter("urgency");
+            System.out.println("Имя статуса с поля - " + urgency222);
+            System.out.println("Имя статуса со списка - " + urgency);
+            
+            doGet(request, response);
+        }catch (Exception ex)
+        {
+        	
+        }
+		
+		
 	}
 
 }

@@ -15,6 +15,7 @@ import java.util.Collections;
 import filter.DbFilter;
 import model.Doc;
 import model.Fdoc;
+import model.User;
 
 
 public class DocDb {
@@ -217,7 +218,8 @@ public class DocDb {
 					"documents.rec_date,\r\n" + 
 					"documents.receiver_list,\r\n" + 
 					"documents.sender_list,\r\n" + 
-					"departments.name as \"dep\"\r\n" + 
+					"departments.name as \"dep\",\r\n"+ 
+					"documents.blob as \"blob\" \r\n"+
 					"FROM documents\r\n" + 
 					"LEFT JOIN contractor ON documents.id_contractor = contractor.id \r\n" + 
 					"LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id\r\n" + 
@@ -238,7 +240,7 @@ public class DocDb {
 		        int id = resultset.getInt("id");
 		        String type =  resultset.getString("type");
 		        String contractor =  resultset.getString("contractor");
-		        //byte[] blob =  resultset.getBytes("blob");
+		        
 		        String name =  resultset.getString("name");
 		        String content =  resultset.getString("content");
 		        String creator_name =  resultset.getString("creator_name");
@@ -262,9 +264,9 @@ public class DocDb {
                 System.out.println("отработала коллекция");
         
                 String dep =  resultset.getString("dep");
-
+                byte[] blob =  resultset.getBytes("blob"); // 05072019
                 Fdoc fdoc = new Fdoc (id, type, contractor, name, content, creator_name,creator_second, 
-    	    			urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep);
+    	    			urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob);
                 fdocs.add(fdoc);
 
 			}
@@ -372,5 +374,43 @@ public class DocDb {
     	return fdoc;
     	
     }	
-//********************************************************************************************************************************    
+//********************************************************************************************************************************
+  //**********************************************************************************************************************************************	
+    public static int update(Fdoc fdoc) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE users SET name = ?, second = ?, login = ?, pass = ?, "
+        		+ "id_department = ?, role = ? WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){
+                	
+					preparedStatement.setString(1, fdoc.getName());
+					//2107 preparedStatement.setString(2, fdoc.getSecond());
+					//2107 preparedStatement.setString(3, fdoc.getLogin());
+					//2107 preparedStatement.setString(4, fdoc.getPassword());
+					//2107 preparedStatement.setInt(5, user.getId_department());
+					//2107 ArrayList<String> list = new ArrayList<String>(fdoc.getRoles());// realization feature PG JDBC 
+					//2107 Array array = conn.createArrayOf("text", list.toArray());// realization feature PG JDBC
+					//2107 preparedStatement.setArray(6, array);					
+					preparedStatement.setInt(7, fdoc.getId());
+ 
+                    return  preparedStatement.executeUpdate();
+                    
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally 
+    	        {try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+    			} 	
+                
+                System.out.println("Запрос выполнен!!");
+              
+        return 0;
+    }	
+    
+    
 }
