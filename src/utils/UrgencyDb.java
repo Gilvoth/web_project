@@ -83,5 +83,51 @@ public class UrgencyDb {
 
         
         return urgencies;
-    } 	    
+    }
+//*****************************************************************************************************************
+    public static Urgency selectUrgency() {
+    	Connection conn = DbFilter.getConn(); 
+    	Urgency urgencies = new Urgency();
+
+	        Statement statement = null;
+			try {
+				statement  = ((Connection) conn).createStatement();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+                   
+
+            try {
+          	
+            	ResultSet resultSet = statement.executeQuery("Select id,name FROM urgency");
+    			while (resultSet.next()) {
+    				int id =  resultSet.getInt("id");
+    		        String name =  resultSet.getString("name");
+    		        
+    		        urgencies.setId(id);
+    		        urgencies.setName(name);
+    		        
+    		        System.out.println("id документа " + id);
+    		        System.out.println("имя типа документа " + name);
+    		        
+    			}
+    		        System.out.println("запрос выполнен успешно!!!");
+    		        
+        }catch(SQLException ex){
+        	ex.printStackTrace();
+        	System.out.println(ex);}
+        
+        finally {
+        /*	try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
+		}                                   
+
+        
+        return urgencies;
+    }    
 }

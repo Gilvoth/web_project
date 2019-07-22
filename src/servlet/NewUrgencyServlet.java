@@ -37,7 +37,9 @@ public class NewUrgencyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ArrayList<String> urgencies = UrgencyDb.select();
+		Urgency urgencies2 = UrgencyDb.selectUrgency();
 		request.setAttribute("urgencies", urgencies);  
+		request.setAttribute("urgencies2", urgencies2);
 		
 		RequestDispatcher dispatcher //
           = this.getServletContext()//
