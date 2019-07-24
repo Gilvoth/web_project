@@ -108,8 +108,59 @@ public class UrgencyDb {
     		        urgencies.setId(id);
     		        urgencies.setName(name);
     		        
-    		        System.out.println("id документа " + id);
-    		        System.out.println("имя типа документа " + name);
+    		        System.out.println("id документа 123" + id);
+    		        System.out.println("имя типа документа 123" + name);
+    		        
+    			}
+    		        System.out.println("запрос выполнен успешноdgdfgdfgdfg!!!");
+    		        
+        }catch(SQLException ex){
+        	ex.printStackTrace();
+        	System.out.println(ex);}
+        
+        finally {
+        /*	try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
+		}                                   
+
+        
+        return urgencies;
+    }
+    
+    
+  //*****************************************************************************************************************
+    public static ArrayList<Urgency> selectUrgencyArray() {
+    	
+    	Connection conn = DbFilter.getConn(); 
+    	ArrayList<Urgency> urgencies = new ArrayList<Urgency>();
+    	 
+	        Statement statement = null;
+			try {
+				statement  = ((Connection) conn).createStatement();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			     
+
+            try {
+            	
+            	ResultSet resultSet = statement.executeQuery("Select id,name FROM urgency");
+    			while (resultSet.next()) {
+    				int id =  resultSet.getInt("id");
+    		        String name =  resultSet.getString("name");
+    		        
+
+    		        Urgency urgency = new Urgency(id,name);
+    		        urgency.setId(id);
+    		        urgency.setName(name);
+    		        //System.out.println("id документа!!! " + id);
+    		        //System.out.println("имя типа документа!!! " + name);
+    		        urgencies.add(urgency);
     		        
     			}
     		        System.out.println("запрос выполнен успешно!!!");
@@ -129,5 +180,5 @@ public class UrgencyDb {
 
         
         return urgencies;
-    }    
+    }       
 }
