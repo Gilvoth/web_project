@@ -1,11 +1,20 @@
 package model;
 
-public class Urgency {
+import java.io.Serializable;
 
+
+public class Urgency implements Serializable {
+
+private static final long serialVersionUID = 1L;
 private int id;
 private String name;
 
-	public Urgency() {}
+	//public Urgency() {}
+	
+    public Urgency() {
+    	this.id = 0;
+    	this.name = "";
+    }
 	
 	public Urgency(int id, String name) {
 		

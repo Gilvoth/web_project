@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,10 +37,12 @@ public class NewUrgencyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ArrayList<String> urgencies = UrgencyDb.select();
-		Urgency urgencies2 = UrgencyDb.selectUrgency();
-		request.setAttribute("urgencies", urgencies);  
-		request.setAttribute("urgencies2", urgencies2);
+		//ArrayList<String> urgencies = UrgencyDb.select();
+		Urgency urgencys = UrgencyDb.selectUrgency();
+		//request.setAttribute("urgencies", urgencies);  
+		
+		//request.setAttribute("urgencies2", urgencies2);
+		request.setAttribute("urgencys", urgencys);
 		
 		RequestDispatcher dispatcher //
           = this.getServletContext()//

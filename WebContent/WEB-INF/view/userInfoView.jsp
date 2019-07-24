@@ -28,7 +28,7 @@
     <td>${doc.name}</td>
     <td>${doc.content}</td>
     <td>${doc.creator_name} 
-    ${doc.creator_second}</td>
+        ${doc.creator_second}</td>
     <td>${doc.urgency}</td>
     <td>${doc.date_cre}</td>
     <td>${doc.status_finished}</td>
