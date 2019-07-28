@@ -133,5 +133,35 @@ public class Type_docsDb {
 
         
         return type_docs;
-    } 	
+    }
+    
+    public static int update(int id, String id_type) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET id_type_docs = (Select id FROM type_docs WHERE name = ?) WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+				
+					preparedStatement.setString(1, id_type);
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение id_type в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();
+                    
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally 
+    	        {/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	
+                
+                
+              
+        return 0;
+    }	    
+    
+    
 }

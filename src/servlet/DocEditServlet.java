@@ -84,11 +84,35 @@ public class DocEditServlet extends HttpServlet {
 		
         try {
         	int id = Integer.parseInt(request.getParameter("id"));
-            String urgency222 = request.getParameter("urgency222");
+            String doc_urgency = request.getParameter("doc_urgency");
             String urgency = request.getParameter("urgency");
-            System.out.println("Имя статуса с поля - " + urgency222);
-            System.out.println("Имя статуса со списка - " + urgency);
+            //int id_urgency = Integer.parseInt (request.getParameter("id_urgency"));
+            String doc_id_type = request.getParameter("doc_id_type");
+            String id_type = request.getParameter("id_type");
+            String content = request.getParameter("content");
+            String name = request.getParameter("name");
             
+            if (doc_urgency != urgency)
+            {
+            	System.out.println("Можно менять в базе!");
+            	UrgencyDb.update(id, urgency);
+            }
+            if (doc_id_type != id_type)
+            {
+            	System.out.println("Можно менять в базе!");
+            	Type_docsDb.update(id, id_type);
+            }
+            if (!content.isEmpty())
+            {
+            	System.out.println("Можно менять в базе!");
+            	DocDb.updateContent(id, content);
+            }
+
+	        if (!name.isEmpty())
+	        {
+	        	System.out.println("Можно менять в базе!");
+	        	DocDb.updateName(id, name);
+	        }
             doGet(request, response);
         }catch (Exception ex)
         {

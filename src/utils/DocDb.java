@@ -206,13 +206,13 @@ public class DocDb {
 			        //"SELECT * FROM documents ORDER BY id"
 					"SELECT \r\n" + 
 					"documents.id as \"id\",\r\n" + 
-					"type_docs.name as \"type\",\r\n" + 
+					"type_docs.id as \"id_type_int\",\r\n" + "type_docs.name as \"type\",\r\n" +
 					"contractor.name as \"contractor\",\r\n" + 
 					"documents.name as \"name\",\r\n" + 
 					"documents.content as \"content\",\r\n" + 
 					"users.name as \"creator_name\",\r\n" + 
 					"users.second as \"creator_second\",\r\n" + 
-					"urgency.name as \"urgency\",\r\n" + 
+					"urgency.id as \"id_urgency\",\r\n" +"urgency.name as \"urgency\",\r\n" + 
 					"documents.date_cre,\r\n" + 
 					"documents.status_finished,\r\n" + 
 					"documents.rec_date,\r\n" + 
@@ -238,6 +238,7 @@ public class DocDb {
         try {
 			while (resultset.next()) {
 		        int id = resultset.getInt("id");
+		        int id_type_int =  resultset.getInt("id_type_int");
 		        String type =  resultset.getString("type");
 		        String contractor =  resultset.getString("contractor");
 		        
@@ -245,6 +246,7 @@ public class DocDb {
 		        String content =  resultset.getString("content");
 		        String creator_name =  resultset.getString("creator_name");
 		        String creator_second =  resultset.getString("creator_second");
+		        int id_urgency =  resultset.getInt("id_urgency");
 		        String urgency =  resultset.getString("urgency");
 		        String date_cre =  resultset.getString("date_cre");
 		        int status_finished =  resultset.getInt("status_finished");
@@ -265,8 +267,8 @@ public class DocDb {
         
                 String dep =  resultset.getString("dep");
                 byte[] blob =  resultset.getBytes("blob"); // 05072019
-                Fdoc fdoc = new Fdoc (id, type, contractor, name, content, creator_name,creator_second, 
-    	    			urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob);
+                Fdoc fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
+                		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob);
                 fdocs.add(fdoc);
 
 			}
@@ -297,13 +299,13 @@ public class DocDb {
 				"SELECT \r\n" + 
 				"documents.id as \"id\",\r\n" +
 				
-				"type_docs.name as \"type\",\r\n" + 
+				"type_docs.id as \"id_type_int\",\r\n" + "type_docs.name as \"type\",\r\n" +  
 				"contractor.name as \"contractor\",\r\n" + 
 				"documents.name as \"name\",\r\n" + 
 				"documents.content as \"content\",\r\n" + 
 				"users.name as \"creator_name\",\r\n" + 
 				"users.second as \"creator_second\",\r\n" + 
-				"urgency.name as \"urgency\",\r\n" + 
+				"urgency.id as \"id_urgency\",\r\n" +"urgency.name as \"urgency\",\r\n" + 
 				"documents.date_cre,\r\n" + 
 				"documents.status_finished,\r\n" + 
 				"documents.rec_date,\r\n" + 
@@ -324,6 +326,7 @@ public class DocDb {
             ResultSet resultset = preparedStatement.executeQuery();		
 			if (resultset.next()) {
 		        int id_doc = resultset.getInt("id");
+		        int id_type_int = resultset.getInt("id_type_int");
 		        String type =  resultset.getString("type");
 		        String contractor =  resultset.getString("contractor");
 		        //byte[] blob =  resultset.getBytes("blob");
@@ -331,7 +334,8 @@ public class DocDb {
 		        String content =  resultset.getString("content");
 		        String creator_name =  resultset.getString("creator_name");
 		        String creator_second =  resultset.getString("creator_second");
-		        String urgency =  resultset.getString("urgency");
+		        int id_urgency =  resultset.getInt("id_urgency");
+		        String urgency =  resultset.getString("urgency");		        
 		        String date_cre =  resultset.getString("date_cre");
 		        int status_finished =  resultset.getInt("status_finished");
 		        String rec_date =  resultset.getString("rec_date");
@@ -353,7 +357,7 @@ public class DocDb {
                 byte[] blob =  resultset.getBytes("blob");
 
 
-                fdoc = new Fdoc (id_doc, type, contractor, name, content, creator_name,creator_second, 
+                fdoc = new Fdoc (id_doc, id_type_int, type, contractor, name, content, creator_name,creator_second, id_urgency,
     	    			urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob);
                 
 			}
@@ -375,23 +379,15 @@ public class DocDb {
     	
     }	
 //********************************************************************************************************************************
-  //**********************************************************************************************************************************************	
-    public static int update(Fdoc fdoc) {
+	
+    public static int updateContent(int id, String content) {
     	Connection conn = DbFilter.getConn();       
-        String sql = "UPDATE users SET name = ?, second = ?, login = ?, pass = ?, "
-        		+ "id_department = ?, role = ? WHERE id = ?";
-                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){
-                	
-					preparedStatement.setString(1, fdoc.getName());
-					//2107 preparedStatement.setString(2, fdoc.getSecond());
-					//2107 preparedStatement.setString(3, fdoc.getLogin());
-					//2107 preparedStatement.setString(4, fdoc.getPassword());
-					//2107 preparedStatement.setInt(5, user.getId_department());
-					//2107 ArrayList<String> list = new ArrayList<String>(fdoc.getRoles());// realization feature PG JDBC 
-					//2107 Array array = conn.createArrayOf("text", list.toArray());// realization feature PG JDBC
-					//2107 preparedStatement.setArray(6, array);					
-					preparedStatement.setInt(7, fdoc.getId());
- 
+        String sql = "UPDATE documents SET content =? WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+				
+					preparedStatement.setString(1, content);
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение content в документе выполнен!!");
                     return  preparedStatement.executeUpdate();
                     
             
@@ -399,18 +395,102 @@ public class DocDb {
             System.out.println(ex);
         }        
                 finally 
-    	        {try {
+    	        {/*try {
     				conn.close();
     			} catch (SQLException e) {
     				// TODO Auto-generated catch block
     				e.printStackTrace();
-    			}
+    			}*/
     			} 	
                 
-                System.out.println("Запрос выполнен!!");
+                
               
         return 0;
-    }	
+    }	    
+    
+//**********************************************************************************************************************************************    
+    public static int updateName(int id, String name) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET name =? WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+				
+					preparedStatement.setString(1, name);
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение name в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();
+                    
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally 
+    	        {/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	
+                
+                
+              
+        return 0;
+    }
+//  ***********************************************************************************************************************************    
+    
+    public static int insertBlob(int id, File file) throws FileNotFoundException {
+    	Connection conn = DbFilter.getConn(); 
+    	String sql = "UPDATE documents SET blob =? WHERE id = ?";
+        try{
+            //File file = new File("C:\\tmp\\0001.png");
+            FileInputStream fis = new FileInputStream(file);
+            
+            PreparedStatement ps=conn.prepareStatement(sql);  
+	        
+            ps.setInt(1, doc.getId_type());
+            ps.setInt(2, doc.getId_contractor());
+            ps.setString(3, doc.getName());
+            ps.setString(4, doc.getContent());
+            ps.setInt(5, doc.getCreator());  
+            ps.setInt(6, doc.getId_urgency());
+            ps.setString(7, doc.getDate_cre());  
+            ps.setInt(8, doc.getStatus_finished());
+            ps.setString(9, doc.getRec_date());
+            
+            ArrayList<String> list = new ArrayList<String>(doc.getReceiver_list());
+            Array array = conn.createArrayOf("text", list.toArray()); //This is Postgre feature Особенность реализации, преобразуем массив понятный Постгре 
+			ps.setArray(10, array);
+			
+            ArrayList<String> list2 = new ArrayList<String>(doc.getSender_list());
+            Array array2 = conn.createArrayOf("text", list2.toArray()); //This is Postgre feature Особенность реализации, преобразуем массив понятный Постгре 
+			ps.setArray(11, array2);
+			
+			ps.setInt(12, doc.getCurrent_dep()); 
+			ps.setBinaryStream(13, fis, (int)file.length()); // BLOB
+            ps.executeUpdate();  
+            fis.close();
+    		        System.out.println("запрос выполнен успешно!!!");
+    		 
+        }catch(Exception ex){
+        	ex.printStackTrace();
+        	System.out.println(ex);}  
+        
+        finally 
+        {try {
+        	
+			conn.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}                                   
+
+        
+        return 0;
+    }   
+
+//***********************************************************************************************************************************    
     
     
 }

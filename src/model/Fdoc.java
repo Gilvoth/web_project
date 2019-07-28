@@ -7,6 +7,7 @@ import java.util.ArrayList; //for roles
 public class Fdoc {
 
 private	int id;
+private int id_type_int;
 private String id_type;
 private String id_contractor;
 private byte[] blob;
@@ -14,6 +15,7 @@ private String name;
 private String content;
 private String creator_name;
 private String creator_second;
+private int id_urgency;
 private String urgency;
 private String date_cre;
 private int status_finished;
@@ -206,17 +208,20 @@ public void setSender_list(ArrayList<String> sender_list) {
         
 	}	
 	
-	public Fdoc(int id, String id_type, String id_contractor, String name, String content, String creator_name, String creator_second, String urgency,
+	public Fdoc(int id, int id_type_int, String id_type, String id_contractor, String name, String content, String creator_name, String creator_second, 
+			int id_urgency, String urgency,
 			String date_cre, int status_finished, String rec_date, ArrayList<String> receiver_list,
 			ArrayList<String> sender_list, String dep, byte[] blob) {
 		// TODO Auto-generated constructor stub
 		this.setId(id);
 		this.setId_type(id_type);
+		this.setId_type_int(id_type_int);		
     	this.setId_contractor(id_contractor);
     	this.setName(name);
     	this.setContent(content);
         this.setCreator_name(creator_name);
         this.setCreator_second(creator_second);
+        this.setId_urgency(id_urgency);
         this.setUrgency(urgency); 
         this.setDate_cre(date_cre);
         this.setStatus_finished(status_finished);
@@ -237,6 +242,26 @@ public void setSender_list(ArrayList<String> sender_list) {
         this.setDep(dep);
         this.setBlob(blob);
         
+	}
+
+
+	public int getId_type_int() {
+		return id_type_int;
+	}
+
+
+	public void setId_type_int(int id_type_int) {
+		this.id_type_int = id_type_int;
+	}
+
+
+	public int getId_urgency() {
+		return id_urgency;
+	}
+
+
+	public void setId_urgency(int id_urgency) {
+		this.id_urgency = id_urgency;
 	}	
 
 }

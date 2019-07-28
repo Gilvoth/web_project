@@ -22,7 +22,8 @@
 <label>ID</label><br>
 <input value="${doc.id}" name="id" readonly title="нельзя редактировать" /><br><br>
 <label>Тип документа</label><br>
-<input value="${doc.id_type}" name="id_type" />
+<input value="${doc.id_type_int}" name="id_type_int"  type = "hidden"/>
+<input value="${doc.id_type}" name="doc_id_type"  type = "hidden"/>
                         <select name = "id_type">
                         <c:forEach var="type_doc" items="${type_docs}">
                             <%-- <option value="<c:out value="${type_doc}"/>"     ${doc.id_type == type_doc ? 'selected' : ' '} ><c:out value="${type_doc}" /></option> --%>
@@ -48,7 +49,8 @@
 <input name="creator_second" value="${doc.creator_second}" /><br><br>
 
 <label>Статус актуальности</label><br>
-<input name="urgency222" value="${doc.urgency}" /> <!-- поменять имя и принять параметр в метод пост -->
+<input name="id_urgency" value="${doc.id_urgency}" type = "hidden"/> <!-- поменять имя и принять параметр в метод пост -->
+<input name="doc_urgency" value="${doc.urgency}" type = "hidden" /> <!-- поменять имя и принять параметр в метод пост -->
                         <select name = "urgency">
                         <c:forEach var="urgency" items="${urgencies}">
                             <option value="${urgency}" ${doc.urgency == urgency ? 'selected' : ' '}><c:out value="${urgency}" /></option>

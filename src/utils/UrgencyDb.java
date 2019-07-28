@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import filter.DbFilter;
+import model.Fdoc;
 import model.Urgency;
 
 public class UrgencyDb {
@@ -180,5 +181,36 @@ public class UrgencyDb {
 
         
         return urgencies;
-    }       
+    }
+    
+    //**********************************************************************************************************************************************	
+    public static int update(int id, String urgency) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET id_urgency = (Select id FROM urgency WHERE name = ?) WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+				
+					preparedStatement.setString(1, urgency);
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение urgency в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();
+                    
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally 
+    	        {/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	
+                
+                
+              
+        return 0;
+    }	    
+    
+    
 }
