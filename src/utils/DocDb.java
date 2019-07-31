@@ -3,6 +3,7 @@ package utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +16,7 @@ import java.util.Collections;
 import filter.DbFilter;
 import model.Doc;
 import model.Fdoc;
-import model.User;
+
 
 
 public class DocDb {
@@ -151,14 +152,14 @@ public class DocDb {
                 String[] receiver_arr = (String[])receiver.getArray();
                 ArrayList<String> receiver_arraylist= new ArrayList<String>();
                 Collections.addAll(receiver_arraylist, receiver_arr);
-                System.out.println("отработала коллекция");
+                //System.out.println("отработала коллекция");
 		        
 		        
 		        Array sender = resultset.getArray("sender_list");
                 String[] sender_arr = (String[])sender.getArray();
                 ArrayList<String> sender_arraylist= new ArrayList<String>();
                 Collections.addAll(sender_arraylist, sender_arr);
-                System.out.println("отработала коллекция");
+                //System.out.println("отработала коллекция");
         
                 String dep =  resultset.getString("dep");
 
@@ -256,14 +257,14 @@ public class DocDb {
                 String[] receiver_arr = (String[])receiver.getArray();
                 ArrayList<String> receiver_arraylist= new ArrayList<String>();
                 Collections.addAll(receiver_arraylist, receiver_arr);
-                System.out.println("отработала коллекция");
+                //System.out.println("отработала коллекция");
 		        
 		        
 		        Array sender = resultset.getArray("sender_list");
                 String[] sender_arr = (String[])sender.getArray();
                 ArrayList<String> sender_arraylist= new ArrayList<String>();
                 Collections.addAll(sender_arraylist, sender_arr);
-                System.out.println("отработала коллекция");
+                //System.out.println("отработала коллекция");
         
                 String dep =  resultset.getString("dep");
                 byte[] blob =  resultset.getBytes("blob"); // 05072019
@@ -344,14 +345,14 @@ public class DocDb {
                 String[] receiver_arr = (String[])receiver.getArray();
                 ArrayList<String> receiver_arraylist= new ArrayList<String>();
                 Collections.addAll(receiver_arraylist, receiver_arr);
-                System.out.println("отработала коллекция");
+                //System.out.println("отработала коллекция");
 		        
 		        
 		        Array sender = resultset.getArray("sender_list");
                 String[] sender_arr = (String[])sender.getArray();
                 ArrayList<String> sender_arraylist= new ArrayList<String>();
                 Collections.addAll(sender_arraylist, sender_arr);
-                System.out.println("отработала коллекция");
+                //System.out.println("отработала коллекция");
         
                 String dep =  resultset.getString("dep");
                 byte[] blob =  resultset.getBytes("blob");
@@ -438,38 +439,24 @@ public class DocDb {
     }
 //  ***********************************************************************************************************************************    
     
-    public static int insertBlob(int id, File file) throws FileNotFoundException {
+    public static int insertBlob(int id, String filepath) throws FileNotFoundException {
     	Connection conn = DbFilter.getConn(); 
     	String sql = "UPDATE documents SET blob =? WHERE id = ?";
         try{
             //File file = new File("C:\\tmp\\0001.png");
+        	File file = new File(filepath);
             FileInputStream fis = new FileInputStream(file);
+        	
             
             PreparedStatement ps=conn.prepareStatement(sql);  
 	        
-            ps.setInt(1, doc.getId_type());
-            ps.setInt(2, doc.getId_contractor());
-            ps.setString(3, doc.getName());
-            ps.setString(4, doc.getContent());
-            ps.setInt(5, doc.getCreator());  
-            ps.setInt(6, doc.getId_urgency());
-            ps.setString(7, doc.getDate_cre());  
-            ps.setInt(8, doc.getStatus_finished());
-            ps.setString(9, doc.getRec_date());
-            
-            ArrayList<String> list = new ArrayList<String>(doc.getReceiver_list());
-            Array array = conn.createArrayOf("text", list.toArray()); //This is Postgre feature Особенность реализации, преобразуем массив понятный Постгре 
-			ps.setArray(10, array);
-			
-            ArrayList<String> list2 = new ArrayList<String>(doc.getSender_list());
-            Array array2 = conn.createArrayOf("text", list2.toArray()); //This is Postgre feature Особенность реализации, преобразуем массив понятный Постгре 
-			ps.setArray(11, array2);
-			
-			ps.setInt(12, doc.getCurrent_dep()); 
-			ps.setBinaryStream(13, fis, (int)file.length()); // BLOB
+
+			ps.setBinaryStream(1, fis, (int)file.length()); // BLOB
+			//ps.setBlob(1, file);
+            ps.setInt(2, id);			
             ps.executeUpdate();  
             fis.close();
-    		        System.out.println("запрос выполнен успешно!!!");
+    		        System.out.println("запрос BLOB выполнен успешно!!!");
     		 
         }catch(Exception ex){
         	ex.printStackTrace();

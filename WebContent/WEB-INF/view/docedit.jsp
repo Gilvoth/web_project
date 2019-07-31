@@ -14,9 +14,47 @@
 <a href='<c:url value="/UserInfoServlet" />'>Назад к списку документов </a> 
 
 <h3>Редактирование документа</h3>
+
+<br>
+
+
+<c:if test="${empty doc.blob}">    
+<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UploadServlet?id=${doc.id}">
+        Выберите изображение для загрузки:
+        <br />
+        <input type="file" name="filepath"  />
+<input type="submit" value="Загрузить изображение в документ">  
+</form> 
+</c:if>
+
+<c:if test="${doc.blob!=null}">    
 <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/ViewImageServlet?id=${doc.id}">
 <input type="submit" value="Просмотр изображения документа">  
-</form>
+</form> 
+</c:if>
+
+<br>
+<br>
+
+<%-- <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/ViewImageServlet?id=${doc.id}">
+<input type="submit" value="Просмотр изображения документа">  
+</form> --%>
+<%-- <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UploadServlet?id=${doc.id}" 
+enctype="multipart/form-data">
+        Select file to upload:
+        <br />
+        <input type="file" name="file"  />
+<input type="submit" value="Загрузить изображение в документ">  
+</form> --%>
+
+
+<%-- <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UploadServlet?id=${doc.id}">
+        Выберите изображение для загрузки:
+        <br />
+        <input type="file" name="filepath"  />
+<input type="submit" value="Загрузить изображение в документ">  
+</form> --%>
+
 <br>
 <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/DocEditServlet">
 <label>ID</label><br>

@@ -24,7 +24,7 @@ public class UrgencyDb {
             ps.setString(1, urgency.getName());
            
             ps.executeUpdate();  
-    		        System.out.println("запрос выполнен успешно!!!");
+    		        //System.out.println("запрос выполнен успешно!!!");
     		 
         }catch(Exception ex){
         	ex.printStackTrace();
@@ -64,10 +64,10 @@ public class UrgencyDb {
     		        
     		        urgencies.add(name);
     		        
-    		        System.out.println("тип документа " + name);
+    		        //System.out.println("тип документа " + name);
     		        
     			}
-    		        System.out.println("запрос выполнен успешно!!!");
+    		        //System.out.println("запрос выполнен успешно!!!");
     		        
         }catch(SQLException ex){
         	ex.printStackTrace();
@@ -109,11 +109,11 @@ public class UrgencyDb {
     		        urgencies.setId(id);
     		        urgencies.setName(name);
     		        
-    		        System.out.println("id документа 123" + id);
-    		        System.out.println("имя типа документа 123" + name);
+    		        //System.out.println("id документа 123" + id);
+    		        //System.out.println("имя типа документа 123" + name);
     		        
     			}
-    		        System.out.println("запрос выполнен успешноdgdfgdfgdfg!!!");
+    		        //System.out.println("запрос выполнен успешноdgdfgdfgdfg!!!");
     		        
         }catch(SQLException ex){
         	ex.printStackTrace();
@@ -164,7 +164,7 @@ public class UrgencyDb {
     		        urgencies.add(urgency);
     		        
     			}
-    		        System.out.println("запрос выполнен успешно!!!");
+    		        //System.out.println("запрос выполнен успешно!!!");
     		        
         }catch(SQLException ex){
         	ex.printStackTrace();

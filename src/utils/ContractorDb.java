@@ -29,7 +29,7 @@ public class ContractorDb {
             ps.setString(2, contractor.getComment());
            
             ps.executeUpdate();  
-    		        System.out.println("запрос выполнен успешно!!!");
+    		        //System.out.println("запрос выполнен успешно!!!");
     		 
         }catch(Exception ex){
         	ex.printStackTrace();
@@ -71,10 +71,10 @@ public class ContractorDb {
     		        
     		        contractors.add(name);
     		        
-    		        System.out.println("контрагент " + name);
+    		        //System.out.println("контрагент " + name);
     		        
     			}
-    		        System.out.println("запрос выполнен успешно!!!");
+    		        //System.out.println("запрос выполнен успешно!!!");
     		        
         }catch(SQLException ex){
         	ex.printStackTrace();

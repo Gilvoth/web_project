@@ -29,7 +29,7 @@ public class Type_docsDb {
             ps.setString(1, type_docs.getName());
            
             ps.executeUpdate();  
-    		        System.out.println("запрос выполнен успешно!!!");
+    		        //System.out.println("запрос выполнен успешно!!!");
     		 
         }catch(Exception ex){
         	ex.printStackTrace();
@@ -70,10 +70,10 @@ public class Type_docsDb {
     		        
     		        type_docs.add(name);
     		        
-    		        System.out.println("тип документа " + name);
+    		        //System.out.println("тип документа " + name);
     		        
     			}
-    		        System.out.println("запрос выполнен успешно!!!");
+    		        //System.out.println("запрос выполнен успешно!!!");
     		        
         }catch(SQLException ex){
         	ex.printStackTrace();
@@ -116,7 +116,7 @@ public class Type_docsDb {
     		        
     		        
     			}
-    		        System.out.println("запрос выполнен успешно!!!");
+    		        //System.out.println("запрос выполнен успешно!!!");
     		        
         }catch(Exception ex){
         	ex.printStackTrace();
