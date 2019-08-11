@@ -94,20 +94,17 @@ public class Type_docsDb {
     	Connection conn = DbFilter.getConn(); 
     	ArrayList<Type_docs>  type_docs = new ArrayList<Type_docs> ();
 
-        	ResultSet resultSet = null;  
-        	Statement statement = null;
+        Statement statement = null;
+		try {
+			statement  = ((Connection) conn).createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
             
 			try {
-				resultSet = statement.executeQuery
+				ResultSet resultSet = statement.executeQuery
 						("Select * FROM type_docs");
-	            //ps.executeUpdate();  
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}  
-	                   
-
-            try {
     			while (resultSet.next()) {
     		        int id = resultSet.getInt("id");
     		        String name =  resultSet.getString("name");
@@ -116,6 +113,7 @@ public class Type_docsDb {
     		        
     		        
     			}
+    			
     		        //System.out.println("запрос выполнен успешно!!!");
     		        
         }catch(Exception ex){
@@ -123,12 +121,12 @@ public class Type_docsDb {
         	System.out.println(ex);}  
         
         finally {
-        	try {
+        /*	try {
 				conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 		}                                   
 
         

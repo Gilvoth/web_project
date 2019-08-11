@@ -13,10 +13,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import model.Contractor;
+import model.Department;
 import model.Doc;
+import model.Type_docs;
+import model.Urgency;
 import utils.Calendar;
+import utils.ContractorDb;
+import utils.DepartmentDb;
 import utils.DocDb;
+import utils.Type_docsDb;
+import utils.UrgencyDb;
 
 /**
  * Servlet implementation class NewDocServlet
@@ -38,7 +47,47 @@ public class NewDocServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	      RequestDispatcher dispatcher //
+		try 
+		{
+	        // получаем сессию
+	        HttpSession session = request.getSession();
+	        //// получаем объект id_department
+	        int id_department = (int) session.getAttribute("id_department");
+	        System.out.println("Текущий отдел - " + id_department);
+	        //// получаем объект id_creator, name+second
+	        int id_creator = (int) session.getAttribute("id_creator");
+	        String loginedUser = (String) session.getAttribute("loginedUser");
+	        String loginedUserSecond = (String) session.getAttribute("loginedUserSecond");
+	        System.out.println("Текущий автор - " + id_creator + "\n" + loginedUser + "\n" + loginedUserSecond);
+	        
+			ArrayList<Type_docs> type_docs =  Type_docsDb.selectType_docs();
+			ArrayList<Contractor> contractors = ContractorDb.selectContractors();
+			ArrayList<Urgency> urgencies = UrgencyDb.selectUrgencyArray();
+			Department department = DepartmentDb.selectone(id_department);
+			
+			if (!type_docs.isEmpty()) {
+				System.out.println("Взят тип документа!!");
+			request.setAttribute("type_docs", type_docs);
+				}
+			if (!contractors.isEmpty()) {
+				System.out.println("Взят контрагент!!");
+			request.setAttribute("contractors", contractors);
+				}
+			if (!urgencies.isEmpty()) {
+				System.out.println("Взят статус срочности!!");
+			request.setAttribute("urgencies", urgencies);
+				}
+			if (department != null) {
+				System.out.println("Взят отдел!!");
+			request.setAttribute("department", department);
+				}
+		}
+		catch(Exception ex){ex.printStackTrace();} 
+		finally
+		{
+			
+		}
+		RequestDispatcher dispatcher //
           = this.getServletContext()//
                 .getRequestDispatcher("/WEB-INF/view/newdoc.jsp");
 

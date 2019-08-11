@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import filter.DbFilter;
-import model.Fdoc;
 import model.Urgency;
 
 public class UrgencyDb {

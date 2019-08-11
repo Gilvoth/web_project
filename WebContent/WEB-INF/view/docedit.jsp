@@ -33,7 +33,7 @@
 </form> 
 </c:if>
 
-<br>
+
 <br>
 
 <%-- <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/ViewImageServlet?id=${doc.id}">
@@ -57,8 +57,15 @@ enctype="multipart/form-data">
 
 <br>
 <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/DocEditServlet">
-<label>ID</label><br>
-<input value="${doc.id}" name="id" readonly title="нельзя редактировать" /><br><br>
+<table>
+<tr>
+<td><label>ID</label> </td><td> <label>Дата создания</label></td>
+</tr>
+<tr>
+<td><input value="${doc.id}" name="id" readonly title="нельзя редактировать" /></td>
+<td><input value="${doc.date_cre}" name="date_cre" readonly title="нельзя редактировать" /></td>
+</tr>
+</table>
 <label>Тип документа</label><br>
 <input value="${doc.id_type_int}" name="id_type_int"  type = "hidden"/>
 <input value="${doc.id_type}" name="doc_id_type"  type = "hidden"/>
@@ -79,8 +86,11 @@ enctype="multipart/form-data">
 <br>
 <label>Название документа</label><br>
 <input value="${doc.name}" name="name" /><br><br>
-<label>Содержимое документа</label><br>
-<input value="${doc.content}" name="content" /><br><br>
+<label>Комментарии к документу</label><br>
+<%-- <input value="${doc.content}" name="content"/> --%>
+<p><textarea rows="5" cols="45" name="content">${doc.content}</textarea></p>
+<br>
+
 <label>Автор Имя Отчество</label><br>
 <input name="creator_name" value="${doc.creator_name}" /><br><br>
 <label>Автор Фамилия</label><br>
@@ -96,6 +106,9 @@ enctype="multipart/form-data">
                             
                         </select><br>
 <br>
+
+<label>Рекомендуемая дата выполнения</label><br>
+<input name="rec_date" value="${doc.rec_date}" readonly title="нельзя редактировать"/><br><br>		
 
 <label>Отдел</label><br>
 <input name="dep" value="${doc.dep}" readonly title="нельзя редактировать"/><br><br>		

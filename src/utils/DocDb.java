@@ -226,7 +226,7 @@ public class DocDb {
 					"LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id\r\n" + 
 					"LEFT JOIN users ON documents.creator = users.id\r\n" + 
 					"LEFT JOIN urgency ON documents.id_urgency = urgency.id\r\n" + 
-					"LEFT JOIN departments ON departments.id = documents.current_dep;"
+					"LEFT JOIN departments ON departments.id = documents.current_dep ORDER BY documents.id;"
 					);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

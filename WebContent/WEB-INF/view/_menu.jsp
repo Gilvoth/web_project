@@ -44,5 +44,7 @@
 <%-- <span style="color:red">[ ${loginedUser.userName} ]</span> --%>
 <span style="color:green">[ ${loginedUser} ]</span>
 <span style="color:green">[ ${loginedUserSecond} ]</span>
+<span style="color:green">[ ${id_department} ]</span>
+
 <%-- <span style="color:green">[ ${name} ]</span> --%>
 

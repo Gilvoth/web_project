@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import filter.DbFilter;
 import model.Contractor;
 
+
 public class ContractorDb {
 
     public ContractorDb() {
@@ -92,5 +93,48 @@ public class ContractorDb {
         
         return contractors;
     } 	    
-	
+
+    
+  //*****************************************************************************************************************
+    public static ArrayList<Contractor> selectContractors() {
+    	Connection conn = DbFilter.getConn(); 
+    	ArrayList<Contractor>  contractors = new ArrayList<Contractor> ();
+
+        Statement statement = null;
+		try {
+			statement  = ((Connection) conn).createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+            
+			try {
+				ResultSet resultSet = statement.executeQuery
+						("Select * FROM contractor");
+    			while (resultSet.next()) {
+    		        int id = resultSet.getInt("id");
+    		        String name =  resultSet.getString("name");
+    		        String comment =  resultSet.getString("comment");
+    		        Contractor contractor = new Contractor(id, name, comment);
+    		        contractors.add(contractor);
+    		        
+    		        
+    			}
+    		        //System.out.println("запрос выполнен успешно!!!");
+    		        
+        }catch(Exception ex){
+        	ex.printStackTrace();
+        	System.out.println(ex);}  
+        
+        finally {
+			/*
+			 * try { conn.close(); } catch (SQLException e) { // TODO Auto-generated catch
+			 * block e.printStackTrace(); }
+			 */
+		}                                   
+
+        
+        return contractors;
+    }
+        
 }
