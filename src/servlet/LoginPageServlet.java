@@ -59,8 +59,14 @@ public class LoginPageServlet extends HttpServlet {
         //User user = new User(UserDb.selectone(login));
         User user = UserDb.selectone(login);
         //users.add(user);
-        System.out.println("Создан пользователь!!");
-        
+        if(user != null) {
+        System.out.println("Создан объект user!!");
+        }else
+        {
+        	System.out.println("Объект user не существует. Выход!!");
+        	doGet(req, resp);
+        	return;
+        }
           //User loginedUserstatus = AuthUtil.getLoginedUser(req.getSession());
           //AuthUtil.storeLoginedUser(req.getSession(), user);  
   
@@ -104,6 +110,8 @@ public class LoginPageServlet extends HttpServlet {
         }
         finally {
             //out.close();
+//        	resp.sendRedirect("/UserInfoServlet");
+        	
         }
         
         
@@ -123,7 +131,8 @@ public class LoginPageServlet extends HttpServlet {
  		*/
         System.out.println("создаем сессию Юзераккаунт ");
         
-        req.getRequestDispatcher(index).forward(req, resp);
+        //req.getRequestDispatcher(index).forward(req, resp);
+        resp.sendRedirect(req.getContextPath() + "/UserInfoServlet");
         /* 
         int redirectId = -1;
         try {
