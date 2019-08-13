@@ -30,8 +30,10 @@ public class DocDb {
     	Connection conn = DbFilter.getConn(); 
     	
         try{
-            File file = new File("C:\\tmp\\0001.png");
-            FileInputStream fis = new FileInputStream(file);
+            //File file = new File("C:\\tmp\\0001.png");
+            //File file = new File("C:\\tmp\\0001.png");
+            //FileInputStream fis = new FileInputStream(file);
+            //FileInputStream fis = new FileInputStream(file);
             
             PreparedStatement ps=conn.prepareStatement(  
 		            "insert into documents (id, id_type_docs, id_contractor, name, "
@@ -57,9 +59,10 @@ public class DocDb {
 			ps.setArray(11, array2);
 			
 			ps.setInt(12, doc.getCurrent_dep()); 
-			ps.setBinaryStream(13, fis, (int)file.length()); // BLOB
+			//ps.setBinaryStream(13, fis, (int)file.length()); // BLOB
+			ps.setNull(13, java.sql.Types.ARRAY); // load null 
             ps.executeUpdate();  
-            fis.close();
+            //fis.close();
     		        System.out.println("запрос выполнен успешно!!!");
     		 
         }catch(Exception ex){
@@ -443,7 +446,7 @@ public class DocDb {
     	Connection conn = DbFilter.getConn(); 
     	String sql = "UPDATE documents SET blob =? WHERE id = ?";
         try{
-            //File file = new File("C:\\tmp\\0001.png");
+            
         	File file = new File(filepath);
             FileInputStream fis = new FileInputStream(file);
         	

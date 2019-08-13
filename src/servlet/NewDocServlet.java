@@ -132,7 +132,7 @@ public class NewDocServlet extends HttpServlet {
         date_cre = Calendar.Date();
         //status_finished = Integer.parseInt((request.getParameter("status_finished")));
         status_finished = 0;
-        rec_date = Calendar.Date();
+        rec_date = request.getParameter("rec_date");
         
         
         String[] receiver_m = {""};

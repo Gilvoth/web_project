@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import filter.DbFilter;
 import java.io.InputStream;
-import java.io.PrintWriter;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import utils.DocDb;
+
 
 /**
  * Servlet implementation class ViewImageServlet

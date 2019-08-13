@@ -11,6 +11,8 @@
       <jsp:include page="_menu.jsp"></jsp:include>
        
       <h3>Employee Task | Создание документов</h3>
+
+
        
   <form>
    <p>Выберите дату: <input type="date" name="calendar" value="${st_date}">

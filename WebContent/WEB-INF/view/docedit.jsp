@@ -18,6 +18,7 @@
 <br>
 
 
+
 <c:if test="${empty doc.blob}">    
 <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UploadServlet?id=${doc.id}">
         Выберите изображение для загрузки:
@@ -32,7 +33,6 @@
 <input type="submit" value="Просмотр изображения документа">  
 </form> 
 </c:if>
-
 
 <br>
 

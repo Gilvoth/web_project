@@ -1,19 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- <a style="color:green;"></a>    --> 
 
-<style>
-.hyper {
-    background-color: gray;
-    color: white;
-    padding: 10px;
-}
-/* a {
-    background-color: gray;
-    color: white;
-    padding: 10px;
-}
- */
+ <style>
+   <%@include file='../../css/styles.css' %>
 </style>
 
 <a class="hyper" href="${pageContext.request.contextPath}/EmployeeTaskServlet">
@@ -41,10 +30,8 @@
 </a>
  
 &nbsp;
-<%-- <span style="color:red">[ ${loginedUser.userName} ]</span> --%>
 <span style="color:green">[ ${loginedUser} ]</span>
 <span style="color:green">[ ${loginedUserSecond} ]</span>
 <span style="color:green">[ ${id_department} ]</span>
 
-<%-- <span style="color:green">[ ${name} ]</span> --%>
 
