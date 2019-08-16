@@ -89,6 +89,7 @@ enctype="multipart/form-data">
 <label>Комментарии к документу</label><br>
 <%-- <input value="${doc.content}" name="content"/> --%>
 <p><textarea rows="5" cols="45" name="content">${doc.content}</textarea></p>
+<p><textarea rows="5" cols="45" name="content2">${doc.content}</textarea></p>
 <br>
 
 <label>Автор Имя Отчество</label><br>

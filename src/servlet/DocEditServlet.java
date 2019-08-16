@@ -90,6 +90,7 @@ public class DocEditServlet extends HttpServlet {
             String doc_id_type = request.getParameter("doc_id_type");
             String id_type = request.getParameter("id_type");
             String content = request.getParameter("content");
+            String content2 = request.getParameter("content2");
             String name = request.getParameter("name");
             
             if (doc_urgency != urgency)
@@ -107,7 +108,11 @@ public class DocEditServlet extends HttpServlet {
             	System.out.println("Можно менять в базе!");
             	DocDb.updateContent(id, content);
             }
-
+            if (content != content2)
+            {
+            	System.out.println("Изменилось содержание!");
+            	
+            }
 	        if (!name.isEmpty())
 	        {
 	        	System.out.println("Можно менять в базе!");
