@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 
 import model.Fdoc;
 import utils.DocDb;
@@ -35,9 +35,24 @@ public class UserInfoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		ArrayList<Fdoc> docs = DocDb.select();
-		request.setAttribute("docs", docs);
+        int id_department;
+		try {
+		// получаем сессию
+        HttpSession session = request.getSession();
+        //// получаем объект id_department
+        id_department = (int) session.getAttribute("id_department");
+        System.out.println("Текущий отдел - " + id_department);
+        ArrayList<Fdoc> docs = DocDb.selectForDep(id_department);
+        request.setAttribute("docs", docs);
+        }catch ( Exception e) {
+        	System.out.println("Зайдите пользователем!!"); 
+            String path = request.getContextPath() + "/LoginPageServlet";
+            response.sendRedirect(path);
+            return; 
+        }
+        
+		
+		
 	      RequestDispatcher dispatcher //
           = this.getServletContext().getRequestDispatcher("/WEB-INF/view/userInfoView.jsp");
 

@@ -85,11 +85,12 @@ enctype="multipart/form-data">
                         </select><br>
 <br>
 <label>Название документа</label><br>
-<input value="${doc.name}" name="name" /><br><br>
+<input value="${doc.name}" name="name" /><br>
+<input value="${doc.name}" name="name2" type = "hidden"/><br><br>
 <label>Комментарии к документу</label><br>
 <%-- <input value="${doc.content}" name="content"/> --%>
-<p><textarea rows="5" cols="45" name="content">${doc.content}</textarea></p>
-<p><textarea rows="5" cols="45" name="content2">${doc.content}</textarea></p>
+<p><textarea rows="5" cols="45" name="content" placeholder="Введите информацию">${doc.content}</textarea></p>
+<p><textarea rows="5" cols="45" name="content2" style="display:none;" >${doc.content}</textarea></p>
 <br>
 
 <label>Автор Имя Отчество</label><br>
@@ -109,7 +110,8 @@ enctype="multipart/form-data">
 <br>
 
 <label>Рекомендуемая дата выполнения</label><br>
-<input name="rec_date" value="${doc.rec_date}" readonly title="нельзя редактировать"/><br><br>		
+<input type="date" name="rec_date" value="${doc.rec_date}" />
+<input type="date" name="rec_date2" value="${doc.rec_date}" type = "hidden"/><br><br>		
 
 <label>Отдел</label><br>
 <input name="dep" value="${doc.dep}" readonly title="нельзя редактировать"/><br><br>		
@@ -120,7 +122,7 @@ enctype="multipart/form-data">
 <br>
 <br>	
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UserInfoServlet">
-<input type="submit" value="На главную страницу">  
+<input type="submit" value="Назад к документам">  
 </form>
 
 </body>

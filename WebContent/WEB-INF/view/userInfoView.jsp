@@ -18,11 +18,12 @@
 
 <tr><th>id</th><th>Тип</th><th>Контрагент</th><th>Название</th><th>Комментарии</th><th>Автор</th>
 <th>Статус актуальности</th><th>Дата создания</th><th>Закончен ли</th><th>Рек. дата</th><th>Получатели</th><th>Отправители</th><th>Текущий отдел</th>
-<th>Прикреплен</th>
+<th>Прикр.</th><th>Ред.</th><th>Отпр.</th>
 </tr>
 <c:forEach var="doc" items="${docs}">
  <tr align=middle>
- 	<td>${doc.id}</td>
+<%--  	<td>${doc.id}</td> --%>
+ 	<td><a href='<c:url value="/SendDocServlet?id=${doc.id}" />'> ${doc.id}</a></td>
 	<td>${doc.id_type}</td>
 	<td>${doc.id_contractor}</td>
     <td>${doc.name}</td>
@@ -38,13 +39,9 @@
     <td>${doc.dep}</td>
     <td><c:if test="${empty doc.blob}">Не Загружен</c:if>
     <c:if test="${doc.blob!=null}">Загружен</c:if></td>
-    <td>
-    <a href='<c:url value="/DocEditServlet?id=${doc.id}" />'>Редактировать</a>
-    <form method="post" action='<c:url value="/DelUserServlet" />' style="display:inline;">
-<%--         <input type="hidden" name="id" value="${user.id}">
-        <input type="submit" value="Удалить"> --%>
-    </form>
- </td></tr>
+    <td><a href='<c:url value="/DocEditServlet?id=${doc.id}" />'>Ред.</a> </td>
+	<td><a href='<c:url value="/SendDocServlet?id=${doc.id}" />'> Отпр. </a></td>
+</tr>
 </c:forEach>
 </table>
 

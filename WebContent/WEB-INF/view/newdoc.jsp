@@ -47,7 +47,7 @@
                  </select>
 </td>
 <td><pre>           </pre></td>
-<td><input type="date" name="rec_date" value="${st_date}">  </td>
+<td><input type="date" name="rec_date" value="" required>  </td>
 </tr>
 </table>
 

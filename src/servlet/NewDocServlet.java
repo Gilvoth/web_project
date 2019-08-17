@@ -157,11 +157,15 @@ public class NewDocServlet extends HttpServlet {
         else {
     	    try{
     	    	
-    	    	//ArrayList<String> users = new ArrayList<>();
     	    	Doc doc = new Doc (id_type, id_contractor, name, content, creator, 
     	    			id_urgency, date_cre, status_finished, rec_date, receiver_list, sender_list, current_dep);
     	    	DocDb.insert(doc);
     	    	
+			      RequestDispatcher dispatcher //
+		          = this.getServletContext()//
+		                .getRequestDispatcher("/WEB-INF/view/employeeTaskView.jsp");
+
+		    dispatcher.forward(request, response);
     	    }catch(Exception ex){ex.printStackTrace();}         
         		}
 

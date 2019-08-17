@@ -189,7 +189,7 @@ public class DocDb {
     }	
 //********************************************************************************************************************************
 	
-    public static ArrayList<Fdoc> select() {
+    public static ArrayList<Fdoc> select(int id_department) {
     	ArrayList<Fdoc> fdocs = new ArrayList<Fdoc>();
 
     	
@@ -229,7 +229,8 @@ public class DocDb {
 					"LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id\r\n" + 
 					"LEFT JOIN users ON documents.creator = users.id\r\n" + 
 					"LEFT JOIN urgency ON documents.id_urgency = urgency.id\r\n" + 
-					"LEFT JOIN departments ON departments.id = documents.current_dep ORDER BY documents.id;"
+					"LEFT JOIN departments ON departments.id = documents.current_dep " +
+					"WHERE documents.current_dep = 2 ORDER BY documents.id;"
 					);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -481,6 +482,151 @@ public class DocDb {
     }   
 
 //***********************************************************************************************************************************    
-    
+    public static int updateRecDate(int id, String rec_date) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET rec_date =? WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+				
+					preparedStatement.setString(1, rec_date);
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение rec_date в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();
+                    
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally 
+    	        {/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	
+                
+                
+              
+        return 0;
+    }
+//  ***********************************************************************************************************************************    
+
+    public static ArrayList<Fdoc> selectForDep(int id_department) {
+    	ArrayList<Fdoc> fdocs = new ArrayList<Fdoc>();
+    	Connection conn = DbFilter.getConn();
+    	Fdoc fdoc = null;
+		//Выполним запрос
+		String sqlquery =					
+				"SELECT \r\n" + 
+				"documents.id as \"id\",\r\n" + 
+				"type_docs.id as \"id_type_int\",\r\n" + "type_docs.name as \"type\",\r\n" +
+				"contractor.name as \"contractor\",\r\n" + 
+				"documents.name as \"name\",\r\n" + 
+				"documents.content as \"content\",\r\n" + 
+				"users.name as \"creator_name\",\r\n" + 
+				"users.second as \"creator_second\",\r\n" + 
+				"urgency.id as \"id_urgency\",\r\n" +"urgency.name as \"urgency\",\r\n" + 
+				"documents.date_cre,\r\n" + 
+				"documents.status_finished,\r\n" + 
+				"documents.rec_date,\r\n" + 
+				"documents.receiver_list,\r\n" + 
+				"documents.sender_list,\r\n" + 
+				"departments.name as \"dep\",\r\n"+ 
+				"documents.blob as \"blob\" \r\n"+
+				"FROM documents\r\n" + 
+				"LEFT JOIN contractor ON documents.id_contractor = contractor.id \r\n" + 
+				"LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id\r\n" + 
+				"LEFT JOIN users ON documents.creator = users.id\r\n" + 
+				"LEFT JOIN urgency ON documents.id_urgency = urgency.id\r\n" + 
+				"LEFT JOIN departments ON departments.id = documents.current_dep " +
+				"WHERE documents.current_dep = ? ORDER BY documents.id;";
+		
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
+            preparedStatement.setInt(1, id_department);
+            ResultSet resultset = preparedStatement.executeQuery();		
+    			while (resultset.next()) {
+    		        int id = resultset.getInt("id");
+    		        int id_type_int =  resultset.getInt("id_type_int");
+    		        String type =  resultset.getString("type");
+    		        String contractor =  resultset.getString("contractor");
+    		        
+    		        String name =  resultset.getString("name");
+    		        String content =  resultset.getString("content");
+    		        String creator_name =  resultset.getString("creator_name");
+    		        String creator_second =  resultset.getString("creator_second");
+    		        int id_urgency =  resultset.getInt("id_urgency");
+    		        String urgency =  resultset.getString("urgency");
+    		        String date_cre =  resultset.getString("date_cre");
+    		        int status_finished =  resultset.getInt("status_finished");
+    		        String rec_date =  resultset.getString("rec_date");
+    		        
+    		        Array receiver = resultset.getArray("receiver_list");
+                    String[] receiver_arr = (String[])receiver.getArray();
+                    ArrayList<String> receiver_arraylist= new ArrayList<String>();
+                    Collections.addAll(receiver_arraylist, receiver_arr);
+                    //System.out.println("отработала коллекция");
+    		        
+    		        
+    		        Array sender = resultset.getArray("sender_list");
+                    String[] sender_arr = (String[])sender.getArray();
+                    ArrayList<String> sender_arraylist= new ArrayList<String>();
+                    Collections.addAll(sender_arraylist, sender_arr);
+                    //System.out.println("отработала коллекция");
+            
+                    String dep =  resultset.getString("dep");
+                    byte[] blob =  resultset.getBytes("blob"); // 05072019
+                    fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
+                    		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob);
+
+                fdocs.add(fdoc);
+                
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        finally 
+	        {
+/*        	try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();		
+			}							*/
+			} 		    	
+    	
+    	return fdocs;
+    	
+    }	
+//********************************************************************************************************************************
+    public static int updateDepDoc(int id, int current_dep) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET current_dep =? WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+				
+					preparedStatement.setInt(1, current_dep);
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение current_dep в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();
+                    
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally 
+    	        {/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	
+                
+                
+              
+        return 0;
+    }
+//  ***********************************************************************************************************************************    
+     
     
 }

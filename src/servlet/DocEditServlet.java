@@ -92,32 +92,41 @@ public class DocEditServlet extends HttpServlet {
             String content = request.getParameter("content");
             String content2 = request.getParameter("content2");
             String name = request.getParameter("name");
+            String name2 = request.getParameter("name2");
+            String rec_date = request.getParameter("rec_date");
+            String rec_date2 = request.getParameter("rec_date2");
             
-            if (doc_urgency != urgency)
+            
+            if (!doc_urgency.equals(urgency) )
             {
-            	System.out.println("Можно менять в базе!");
             	UrgencyDb.update(id, urgency);
+            	System.out.println("Изменился статус срочности!");
             }
-            if (doc_id_type != id_type)
+            if (!doc_id_type.equals(id_type))
             {
-            	System.out.println("Можно менять в базе!");
             	Type_docsDb.update(id, id_type);
+            	System.out.println("Изменился тип!");
             }
-            if (!content.isEmpty())
-            {
-            	System.out.println("Можно менять в базе!");
+            
+	        if (!name.equals(name2))
+	        {
+	        	DocDb.updateName(id, name);
+	        	System.out.println("Изменилось имя!");
+	        }
+	        
+            if (!content.equals(content2))
+            {	
             	DocDb.updateContent(id, content);
-            }
-            if (content != content2)
-            {
             	System.out.println("Изменилось содержание!");
             	
             }
-	        if (!name.isEmpty())
-	        {
-	        	System.out.println("Можно менять в базе!");
-	        	DocDb.updateName(id, name);
-	        }
+            if (!rec_date.equals(rec_date2))
+            {	
+            	DocDb.updateRecDate(id, rec_date);
+            	System.out.println("Изменилась рек. дата!");
+            	
+            }
+
             doGet(request, response);
         }catch (Exception ex)
         {

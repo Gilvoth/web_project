@@ -32,18 +32,34 @@ public class EmployeeTaskServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-        // получаем сессию
+		String login = null;
+		
+		try {
+		// получаем сессию
         HttpSession session = request.getSession();
-       
 		String st_date = Calendar.Date();
         // устанавливаем объект с ключом st_date
         session.setAttribute("st_date", st_date);
-		System.out.println(st_date);
-	      RequestDispatcher dispatcher //
-          = this.getServletContext()//
-                .getRequestDispatcher("/WEB-INF/view/employeeTaskView.jsp");
+        
+		//// получаем объект login
+		login = (String) session.getAttribute("login");
+		if (login == null ) {
+			System.out.println("Зайдите пользователем!!"); 
+			String path = request.getContextPath() + "/LoginPageServlet";
+			response.sendRedirect(path);
+			return;
+			} else {
 
-    dispatcher.forward(request, response);
+			      RequestDispatcher dispatcher //
+		          = this.getServletContext()//
+		                .getRequestDispatcher("/WEB-INF/view/employeeTaskView.jsp");
+
+		    dispatcher.forward(request, response);
+			}
+		}	catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();    }
+
 	}
 
 	/**
