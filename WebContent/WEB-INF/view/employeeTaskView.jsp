@@ -38,6 +38,9 @@
 <input type="submit" value="Создать новые типы актуальности документов">  
 </form>
 <br>
+<form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/NewType_notificationServlet">
+<input type="submit" value="Создать новые типы уведомлений">  
+</form>
 <br>
 <br>
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/">

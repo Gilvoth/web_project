@@ -11,22 +11,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Contractor;
-import utils.ContractorDb;
-
-
+import model.Type_notification;
+import utils.Type_notificationDb;
 
 /**
- * Servlet implementation class NewContractorServlet
+ * Servlet implementation class NewType_notificationServlet
  */
-@WebServlet("/NewContractorServlet")
-public class NewContractorServlet extends HttpServlet {
+@WebServlet("/NewType_notificationServlet")
+public class NewType_notificationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewContractorServlet() {
+    public NewType_notificationServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,16 +34,13 @@ public class NewContractorServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-	    
-		ArrayList<String> contractors = ContractorDb.select();
-		request.setAttribute("contractors", contractors);		
-		
+		ArrayList<String> type_notifications = Type_notificationDb.select();
+		request.setAttribute("type_notifications", type_notifications);	
 		RequestDispatcher dispatcher //
-          = this.getServletContext()//
-                .getRequestDispatcher("/WEB-INF/view/newcontractor.jsp");
+        = this.getServletContext()//
+              .getRequestDispatcher("/WEB-INF/view/newtype_notification.jsp");
 
-    dispatcher.forward(request, response);
+  dispatcher.forward(request, response);
 	}
 
 	/**
@@ -58,11 +53,9 @@ public class NewContractorServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         int id = 0;
         String name =  null;
-        String comment = null;
        
         try {
         name = request.getParameter("name");//read from html form
-        comment = request.getParameter("comment");//read from html form
         
         }catch(Exception ex){ex.printStackTrace();} 
         
@@ -74,24 +67,23 @@ public class NewContractorServlet extends HttpServlet {
         }
         else {
     	    try{
-    	    	Contractor contractor = new Contractor (id, name,comment);
-    	    	ContractorDb.insert(contractor);
+    	    	Type_notification type_notification = new Type_notification (id, name);
+    	    	Type_notificationDb.insert(type_notification);
     	    	
     	    }catch(Exception ex){ex.printStackTrace();}         
         		}
 
         PrintWriter writer = response.getWriter();
-        writer.println("<p>Контрагент с этими данными успешно зарегистрирован в системе!"+"</p>");
+        writer.println("<p>Тип уведомления с этими данными успешно зарегистрирован в системе!"+"</p>");
         writer.println("<p>Имя: " + name + "</p>");
-        writer.println("<p>Комментарий: " + comment + "</p>");
         writer.println("<a href=/web_app>Главная страница</a>");
         writer.println("<br>");        
         writer.println("<form method=[GET] "+
     		 "accept-charset=[UTF-8] "+
     				"action=EmployeeTaskServlet>"+
     						"<input type=\"submit\" value=\"Назад\">"+
-    						 "</form>");        
-			}
-
+    						 "</form>"); 
+        
+	}
 
 }
