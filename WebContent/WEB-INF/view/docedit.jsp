@@ -117,7 +117,13 @@ enctype="multipart/form-data">
 <input name="dep" value="${doc.dep}" readonly title="нельзя редактировать"/><br><br>		
 
 
+
+
 <input type="submit" value="Send" />
+</form>
+<br>
+<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/DocEndServlet?id=${doc.id}">
+<input type="submit" value="Работа над документом завершена">  
 </form>
 <br>
 <br>	

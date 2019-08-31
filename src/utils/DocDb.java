@@ -633,7 +633,7 @@ public class DocDb {
 				"LEFT JOIN users ON documents.creator = users.id\r\n" + 
 				"LEFT JOIN urgency ON documents.id_urgency = urgency.id\r\n" + 
 				"LEFT JOIN departments ON departments.id = documents.current_dep " +
-				"WHERE documents.receiver_list[1] = ? ORDER BY documents.id; ";
+				"WHERE documents.receiver_list[1] = ?::varchar ORDER BY documents.id; ";
 		      //"WHERE documents.current_dep = ?      ORDER BY documents.id; ";
 		
         try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
@@ -698,14 +698,15 @@ public class DocDb {
     	
     }	    
 //********************************************************************************************************************************
-    public static int updateSender_listDoc(int id, Array sender_list) {
+    public static int updateSender_listDoc(int id, Array sender_list, Array receiver_list) {
     	Connection conn = DbFilter.getConn();       
-        String sql = "UPDATE documents SET sender_list =? WHERE id = ?";
+        String sql = "UPDATE documents SET sender_list =?, receiver_list = ? WHERE id = ?";
                 try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
 				
 					preparedStatement.setArray(1, sender_list);
-					preparedStatement.setInt(2, id);
-					System.out.println("Запрос на изменение sender_list в документе выполнен!!");
+					preparedStatement.setArray(2, receiver_list);
+					preparedStatement.setInt(3, id);
+					System.out.println("Запрос на изменение sender_list  и receiver_list в документе выполнен!!");
                     return  preparedStatement.executeUpdate();
                     
             
@@ -725,7 +726,37 @@ public class DocDb {
               
         return 0;
     }
-//  ***********************************************************************************************************************************    
+//  ***********************************************************************************************************************************
+
+    public static int updateSender_listDoc(int id, Array receiver_list) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET receiver_list = ? WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+				
+					
+					preparedStatement.setArray(1, receiver_list);
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение receiver_list в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();
+                    
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally 
+    	        {/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	
+                
+                
+              
+        return 0;
+    }
+//  ***********************************************************************************************************************************      
     public static int updateDepDoc(int id, int current_dep) {
     	Connection conn = DbFilter.getConn();       
         String sql = "UPDATE documents SET current_dep =? WHERE id = ?";
@@ -751,7 +782,35 @@ public class DocDb {
                 
                 
               
-        return 0;     
-    
-}
+        return 0; 
+    }
+//  ***********************************************************************************************************************************
+
+    public static int updateStatus_finishedDoc(int id) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET status_finished = 1 WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+				
+					preparedStatement.setInt(1, id);
+					System.out.println("Запрос на изменение Status_finished в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();
+                    
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally 
+    	        {/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	
+                
+                
+              
+        return 0;
+    }
+//  ***********************************************************************************************************************************      
 }

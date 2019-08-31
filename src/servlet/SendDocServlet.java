@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import filter.DbFilter;
 import model.Department;
@@ -67,24 +68,39 @@ public class SendDocServlet extends HttpServlet {
 		
 		
         try {
-        	int id = Integer.parseInt(request.getParameter("id"));
-        	/*int id_dep = Integer.parseInt(request.getParameter("id_dep"));
-        	DocDb.updateDepDoc(id, id_dep);*/
-        	String id_user = (request.getParameter("id_user"));
-        	System.out.println (id + "   " + id_user);
+    		// получаем сессию
+            HttpSession session = request.getSession();
+
+            //// получаем объект login
+            String login = (String) session.getAttribute("login");
+            //// получаем объект logineduser
+            String loginedUser = (String) session.getAttribute("loginedUser");
+            System.out.println("полученный логин из сессии " + login);
+            System.out.println("полученный логинUser из сессии " + loginedUser);
         	
-        	Notification notification = new Notification(99, 2, Calendar.Date(), id, Integer.parseInt(id_user) );
+        	
+        	int id = Integer.parseInt(request.getParameter("id"));
+        	String id_user = (request.getParameter("id_user"));
+        	System.out.println ("id= " + id + "  " + "id_user= "+ id_user);
+        	
+        	Notification notification = new Notification(Integer.parseInt(login), 2, Calendar.Date(), id, Integer.parseInt(id_user) );
         	int id_notification = NotiificationDb.insert(notification);
         	System.out.println (String.valueOf(id_notification));
         	
         	Connection conn = DbFilter.getConn(); 
             List<String> sender_arraylist = new ArrayList<String>();
-            sender_arraylist.add(id_user);
+            sender_arraylist.add(login);
             sender_arraylist.add(String.valueOf(id_notification));
             Array sender_list = conn.createArrayOf("text", sender_arraylist.toArray()); //This is Postgre feature Особенность реализации, преобразуем массив понятный Постгре 
-			
+
+        	Connection conn2 = DbFilter.getConn(); 
+            List<String> receiver_arraylist = new ArrayList<String>();
+            receiver_arraylist.add(id_user);
+            receiver_arraylist.add(null);
+            Array receiver_list = conn2.createArrayOf("text", receiver_arraylist.toArray()); //This is Postgre feature Особенность реализации, преобразуем массив понятный Постгре 
+            
         	
-        	DocDb.updateSender_listDoc(id, sender_list);
+        	DocDb.updateSender_listDoc(id, sender_list, receiver_list);
         	
         	
 

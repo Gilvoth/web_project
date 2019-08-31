@@ -53,7 +53,7 @@ public class UserInfoServlet extends HttpServlet {
         
         
 //        ArrayList<Fdoc> docs = DocDb.selectForDep(id_department);
-        ArrayList<Fdoc> docs = DocDb.selectForDep(id_department);
+        ArrayList<Fdoc> docs = DocDb.selectForCurUser(Integer.parseInt(login));
         
         request.setAttribute("docs", docs);
         }catch ( Exception e) {

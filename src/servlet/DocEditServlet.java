@@ -1,20 +1,26 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Array;
+import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-
-
+import filter.DbFilter;
 import model.Fdoc;
+import model.Notification;
 import utils.DocDb;
+import utils.NotiificationDb;
 import utils.Type_docsDb;
 import utils.UrgencyDb;
+import utils.Calendar;
 import utils.ContractorDb;
 
 /**
@@ -54,6 +60,45 @@ public class DocEditServlet extends HttpServlet {
 	                request.setAttribute("type_docs", type_docs);
 	                request.setAttribute("contractors", contractors);
 	                request.setAttribute("urgencies", urgencies);
+//*********************************************************************************************************************************
+	                try {
+	            		// получаем сессию
+	                    HttpSession session = request.getSession();
+	                    //// получаем объект login
+	                    String login = (String) session.getAttribute("login");
+	                    //// получаем объект logineduser
+	                    String loginedUser = (String) session.getAttribute("loginedUser");
+	                    System.out.println("полученный логин из сессии " + login);
+	                    System.out.println("полученный логинUser из сессии " + loginedUser);
+               	                	
+	                	id = Integer.parseInt(request.getParameter("id"));
+	                	//String id_user = (request.getParameter("id_user"));
+	                	//System.out.println ("id документа= " + id + "  " + "Пользователь id_user= "+ id_user);
+	                	System.out.println ("id документа= " + id);
+	                	
+	                	
+	                	Notification notification = new Notification(Integer.parseInt(login), 1, Calendar.Date(), id, 0 );
+	                	int id_notification = NotiificationDb.insert(notification);
+	                	System.out.println (String.valueOf(id_notification));
+	                	
+	                	Connection conn2 = DbFilter.getConn(); 
+	                    List<String> receiver_arraylist = new ArrayList<String>();
+	                    receiver_arraylist.add(login);
+	                    receiver_arraylist.add(String.valueOf(id_notification));
+	                    Array receiver_list = conn2.createArrayOf("text", receiver_arraylist.toArray()); //This is Postgre feature Особенность реализации, преобразуем массив понятный Постгре 
+	                    
+	                	
+	                	DocDb.updateSender_listDoc(id, receiver_list);
+	                	
+	                	
+
+	                	System.out.println("Чтение завершено!! ");
+	                    //doGet(request, response);
+	                }catch (Exception ex)
+	                {
+	                	
+	                }	                
+//*********************************************************************************************************************************	                
 	                getServletContext().getRequestDispatcher("/WEB-INF/view/docedit.jsp").forward(request, response);
 	            }
 	            else {
