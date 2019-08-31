@@ -135,13 +135,15 @@ public class NewDocServlet extends HttpServlet {
         rec_date = request.getParameter("rec_date");
         
         
-        String[] receiver_m = {""};
-        receiver_m = request.getParameterValues("receiver_m");//read role from html form input (name role)
-        receiver_list = new ArrayList<String>(Arrays.asList(receiver_m));
+        //String[] receiver_m = {""};
+        //receiver_m = request.getParameterValues("receiver_m");//read role from html form input (name role)
+        //receiver_list = new ArrayList<String>(Arrays.asList(receiver_m));
+        //receiver_list = null;
         
-        String[] sender_list_m = {""};
-        sender_list_m = request.getParameterValues("sender_m");//read role from html form input (name role)
-        sender_list = new ArrayList<String>(Arrays.asList(sender_list_m));
+        //String[] sender_list_m = {""};
+        //sender_list_m = request.getParameterValues("sender_m");//read role from html form input (name role)
+        //sender_list = new ArrayList<String>(Arrays.asList(sender_list_m));
+        //sender_list = null;
         
         current_dep = Integer.parseInt((request.getParameter("current_dep")));
         

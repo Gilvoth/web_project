@@ -10,13 +10,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
-
 //import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import filter.DbFilter;
 import model.User;
 
@@ -92,12 +87,12 @@ public class UserDb extends HttpServlet {
 			e.printStackTrace();
 		}
         finally 
-	        {try {
+	        {/*try {
 				conn.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 			} 		    	
     	
     	return users;
@@ -305,6 +300,41 @@ public class UserDb extends HttpServlet {
     	
     }
   
- 
+    public static String selectoneStr(int id) {
+    	String user = null;
+		Connection conn = DbFilter.getConn();
+
+		//Выполним запрос
+		String sqlquery = "SELECT name,second FROM users WHERE id = ?";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
+            preparedStatement.setInt(1, id);
+            ResultSet resultset = preparedStatement.executeQuery();
+			while (resultset.next())
+				{
+                String name = resultset.getString(1);
+                String second = resultset.getString(2);
+                user = name + " " + second;
+				}
+          
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        finally 
+        {/*try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		} 	
+        //result это указатель на первую строку с выборки
+        //чтобы вывести данные мы будем использовать 
+        //метод next() , с помощью которого переходим к следующему элементу
+		    	
+    	
+    	return user;
+    	
+    } 
     
 }

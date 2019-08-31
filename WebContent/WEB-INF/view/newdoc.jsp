@@ -22,7 +22,7 @@
    <%@include file='../../css/calendar_style.css' %>
 </style> --%>
 
-  <style>
+<style>
    <%@include file='../../css/styles.css' %>
 </style>
 
@@ -101,13 +101,15 @@ color: 'red'
                  <option value="<c:out value="${urgency.id}"/>"><c:out value="${urgency.name}" /></option>
                  </c:forEach>
                  </select><br><br>
-
+<!--
 <label>Список отправивших</label><br>
 <input type="checkbox" name="receiver_m" value="1"  />receiver_list 1
 <input type="checkbox" name="receiver_m" value="2"  />receiver_list 2 <br>
 <label>Список принявших</label><br>
 <input type="checkbox" name="sender_m" value="1"  />sender_list 1
-<input type="checkbox" name="sender_m" value="2"  />sender_list 2	 <br>		
+<input type="checkbox" name="sender_m" value="2"  />sender_list 2	 <br>
+-->
+	
 <label>Текущий отдел</label><br>
 <input name="current_dep" value="${id_department}" readonly title="нельзя редактировать" type="hidden"/>
 <input name="current_dep2" value="${department.getName()}" readonly title="нельзя редактировать" /><br><br>

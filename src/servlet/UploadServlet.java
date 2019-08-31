@@ -1,19 +1,14 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.SQLException;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
-import filter.DbFilter;
 import utils.DocDb;
 //import com.oreilly.servlet.MultipartRequest;  
 
@@ -62,7 +57,7 @@ public class UploadServlet extends HttpServlet {
 		} 
 		
     	if (id!=null) {
-    		Connection conn = DbFilter.getConn();
+    		//Connection conn = DbFilter.getConn();
             DocDb.insertBlob(Integer.parseInt(id), filepath);
             System.out.println("Запрос на вставку выполнен");
     	}
@@ -112,7 +107,7 @@ public class UploadServlet extends HttpServlet {
 	}
 	
 	//read path from jsp            
-    private String extractFileName(Part part) {
+/*    private String extractFileName(Part part) {
         // form-data; name="file"; filename="C:\file1.zip"
         // form-data; name="file"; filename="C:\Note\file2.zip"
         String contentDisp = part.getHeader("content-disposition");
@@ -131,5 +126,5 @@ public class UploadServlet extends HttpServlet {
         }
         return null;
     }	
-
+*/
 }

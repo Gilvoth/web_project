@@ -36,13 +36,25 @@ public class UserInfoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
         int id_department;
+        String login;
+        String loginedUser;
 		try {
 		// получаем сессию
         HttpSession session = request.getSession();
         //// получаем объект id_department
         id_department = (int) session.getAttribute("id_department");
         System.out.println("Текущий отдел - " + id_department);
+        //// получаем объект login
+        login = (String) session.getAttribute("login");
+        //// получаем объект logineduser
+        loginedUser = (String) session.getAttribute("loginedUser");
+        System.out.println("полученный логин из сессии " + login);
+        System.out.println("полученный логинUser из сессии " + loginedUser);
+        
+        
+//        ArrayList<Fdoc> docs = DocDb.selectForDep(id_department);
         ArrayList<Fdoc> docs = DocDb.selectForDep(id_department);
+        
         request.setAttribute("docs", docs);
         }catch ( Exception e) {
         	System.out.println("Зайдите пользователем!!"); 

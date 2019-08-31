@@ -13,9 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import model.Type_docs;
-import model.User;
 import utils.Type_docsDb;
-import utils.UserDb;
 
 /**
  * Servlet implementation class NewType_docsServlet

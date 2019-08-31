@@ -29,6 +29,24 @@
 </c:forEach>
 </table>
 <br>
+
+<table border = "1">
+<tr><th>Номер</th><th>Наименование пользователя</th></tr>
+
+<c:forEach var="user" items="${users}">
+ <tr>
+<td>${user.id}   </td>
+<td>${user.name} </td>
+<td>    <form method="post" action='<c:url value="/SendDocServlet?id=${id}&id_user=${user.id}" />' style="display:inline;">
+        <input type="submit" value="Отправить">
+    </form>
+</td>    
+</tr>
+</c:forEach>
+</table>
+<br>
+
+
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UserInfoServlet">
 <input type="submit" value="Назад к документам">  
 </form>

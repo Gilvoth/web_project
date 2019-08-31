@@ -1,7 +1,10 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Array;
+import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,13 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import filter.DbFilter;
 import model.Department;
-import model.Fdoc;
-import utils.ContractorDb;
+import model.Notification;
+import model.User;
+import utils.Calendar;
 import utils.DepartmentDb;
 import utils.DocDb;
-import utils.Type_docsDb;
-import utils.UrgencyDb;
+import utils.NotiificationDb;
+import utils.UserDb;
 
 /**
  * Servlet implementation class SendDocServlet
@@ -41,7 +46,9 @@ public class SendDocServlet extends HttpServlet {
 	            int id = Integer.parseInt(request.getParameter("id"));
 	            request.setAttribute("id", id);
 	            ArrayList<Department> departments = DepartmentDb.selectAll();
+	            ArrayList<User> users = UserDb.select();
 	            request.setAttribute("departments", departments);
+	            request.setAttribute("users", users);
 	            getServletContext().getRequestDispatcher("/WEB-INF/view/senddoc.jsp").forward(request, response);
 	        }
 	        catch(Exception ex) {
@@ -61,9 +68,25 @@ public class SendDocServlet extends HttpServlet {
 		
         try {
         	int id = Integer.parseInt(request.getParameter("id"));
-        	int id_dep = Integer.parseInt(request.getParameter("id_dep"));
-        	DocDb.updateDepDoc(id, id_dep);
-
+        	/*int id_dep = Integer.parseInt(request.getParameter("id_dep"));
+        	DocDb.updateDepDoc(id, id_dep);*/
+        	String id_user = (request.getParameter("id_user"));
+        	System.out.println (id + "   " + id_user);
+        	
+        	Notification notification = new Notification(99, 2, Calendar.Date(), id, Integer.parseInt(id_user) );
+        	int id_notification = NotiificationDb.insert(notification);
+        	System.out.println (String.valueOf(id_notification));
+        	
+        	Connection conn = DbFilter.getConn(); 
+            List<String> sender_arraylist = new ArrayList<String>();
+            sender_arraylist.add(id_user);
+            sender_arraylist.add(String.valueOf(id_notification));
+            Array sender_list = conn.createArrayOf("text", sender_arraylist.toArray()); //This is Postgre feature Особенность реализации, преобразуем массив понятный Постгре 
+			
+        	
+        	DocDb.updateSender_listDoc(id, sender_list);
+        	
+        	
 
 
             doGet(request, response);
