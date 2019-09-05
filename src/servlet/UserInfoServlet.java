@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Fdoc;
 import utils.DocDb;
+import utils.CreateReport;
 
 
 /**
@@ -76,6 +78,19 @@ public class UserInfoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		try {
+			
+			// получаем сессию
+	        HttpSession session = request.getSession();
+	        Fdoc fdocs = (Fdoc) session.getAttribute("docs");
+	        System.out.println("полученный docs из сессии " + fdocs.getName());
+			//CreateReport.createReport();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		}
 		doGet(request, response);
 	}
 

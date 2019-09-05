@@ -49,6 +49,13 @@
             <artifactId>standard</artifactId>
             <version>1.1.2</version>
         </dependency>
+        
+<!-- for Excel work -->        
+		<dependency>
+		        <groupId>org.apache.poi</groupId>
+		        <artifactId>poi</artifactId>
+		        <version>3.11</version>
+		</dependency>        
 	
 	</dependencies>	
   <build>
