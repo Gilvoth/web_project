@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -58,6 +59,7 @@ public class UserInfoServlet extends HttpServlet {
         ArrayList<Fdoc> docs = DocDb.selectForCurUser(Integer.parseInt(login));
         
         request.setAttribute("docs", docs);
+        session.setAttribute("docs", docs);
         }catch ( Exception e) {
         	System.out.println("Зайдите пользователем!!"); 
             String path = request.getContextPath() + "/LoginPageServlet";
@@ -82,11 +84,16 @@ public class UserInfoServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		try {
 			
-			// получаем сессию
-	        HttpSession session = request.getSession();
-	        Fdoc fdocs = (Fdoc) session.getAttribute("docs");
-	        System.out.println("полученный docs из сессии " + fdocs.getName());
-			//CreateReport.createReport();
+			// получаем сессию если есть
+	        HttpSession session = request.getSession(true);
+
+	        ArrayList<Fdoc> fdocs = (ArrayList<Fdoc>) session.getAttribute("docs");
+	        System.out.println("полученный docs из сессии " + fdocs.get(0));
+	        Fdoc name = fdocs.get(0);
+	        String name2 = name.getName();
+	        System.out.println("полученный name2 docs из сессии " + name2);
+	        CreateReport.createReport(fdocs);
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println(e);
