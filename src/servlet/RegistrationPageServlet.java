@@ -51,6 +51,7 @@ public class RegistrationPageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		/*
 		Connection conn = DbFilter.getConn();
 		
 		
@@ -85,7 +86,7 @@ public class RegistrationPageServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 								}   		
-		
+		*/
 		
 		
 		req.getRequestDispatcher(index).forward(req, resp);

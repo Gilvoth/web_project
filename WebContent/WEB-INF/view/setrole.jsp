@@ -24,10 +24,10 @@
     <td>${user.id_department}</td>
     <td>${user.roles}</td>
     <td>
-    <a href='<c:url value="/SetRoleEditServlet?id=${user.id}" />'>Редактировать</a> |
+    <a href='<c:url value="/SetRoleEditServlet?id=${user.id}" />'  class="btn btn-dark" role="button" >Редактировать</a> |
     <form method="post" action='<c:url value="/DelUserServlet" />' style="display:inline;">
         <input type="hidden" name="id" value="${user.id}">
-        <input type="submit" value="Удалить">
+        <input type="submit" class="btn btn-dark" value="Удалить">
     </form>
  </td></tr>
 </c:forEach>

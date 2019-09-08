@@ -41,6 +41,7 @@ public class UserInfoServlet extends HttpServlet {
         int id_department;
         String login;
         String loginedUser;
+
 		try {
 		// получаем сессию
         HttpSession session = request.getSession();
@@ -82,6 +83,7 @@ public class UserInfoServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
+		String filepath = null;
 		try {
 			
 			// получаем сессию если есть
@@ -92,6 +94,8 @@ public class UserInfoServlet extends HttpServlet {
 	        Fdoc name = fdocs.get(0);
 	        String name2 = name.getName();
 	        System.out.println("полученный name2 docs из сессии " + name2);
+	        filepath = request.getParameter("filepath");
+	        System.out.println(filepath);
 	        CreateReport.createReport(fdocs);
 
 		} catch (Exception e) {

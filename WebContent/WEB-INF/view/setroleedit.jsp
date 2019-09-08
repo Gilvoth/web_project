@@ -28,7 +28,7 @@
 <input type="checkbox" name="role" value="ROLE_JUR"  />роль ROLE_JUR
 			
 
-<input type="submit" value="Send" />
+<input type="submit" class="btn btn-dark" value="Send" />
 </form>
 </body>
 </html>

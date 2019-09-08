@@ -19,12 +19,12 @@
 <br>
 <br>
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/SetRoleServlet">
-<input type="submit" value="Страница настройки прав пользователей">  
+<input type="submit" class="btn btn-dark" value="Страница настройки прав пользователей">  
 </form>
 <br>
 <br>
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/">
-<input type="submit" value="На главную страницу">  
+<input type="submit" class="btn btn-dark" value="На главную страницу">  
 </form>   
    </body>
 </html>

@@ -119,7 +119,7 @@ color: 'red'
         <input type="file" name="file"  />  -->
 
 
-<input type="submit" value="Send" />
+<input type="submit" class="btn btn-dark" value="Send" />
 </form>
 
 <%--     <form method="post" action="${pageContext.request.contextPath}/uploadToDB"
@@ -145,12 +145,12 @@ color: 'red'
     
 
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/EmployeeTaskServlet">
-<input type="submit" value="Назад">  
+<input type="submit" class="btn btn-dark" value="Назад">  
 </form>
 <br>
 <br>
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/">
-<input type="submit" value="На главную страницу">  
+<input type="submit" class="btn btn-dark" value="На главную страницу">  
 </form>  
 </body>
 </html>

@@ -22,29 +22,29 @@
 <br>
 <br>
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/NewDocServlet">
-<input type="submit" value="Загрузить новый документ">  
+<input type="submit" class="btn btn-dark" value="Загрузить новый документ">  
 </form>
 <br>       <br>
 <br>
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/NewType_docsServlet">
-<input type="submit" value="Создать новый тип документов">  
+<input type="submit" class="btn btn-dark" value="Создать новый тип документов">  
 </form>
 <br>
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/NewContractorServlet">
-<input type="submit" value="Создать нового контрагента">  
+<input type="submit" class="btn btn-dark" value="Создать нового контрагента">  
 </form>
 <br>
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/NewUrgencyServlet">
-<input type="submit" value="Создать новые типы актуальности документов">  
+<input type="submit" class="btn btn-dark" value="Создать новые типы актуальности документов">  
 </form>
 <br>
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/NewType_notificationServlet">
-<input type="submit" value="Создать новые типы уведомлений">  
+<input type="submit" class="btn btn-dark" value="Создать новые типы уведомлений">  
 </form>
 <br>
 <br>
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/">
-<input type="submit" value="На главную страницу">  
+<input type="submit" class="btn btn-dark" value="На главную страницу">  
 </form>  
    </body>
 </html>

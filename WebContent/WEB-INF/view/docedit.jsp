@@ -11,7 +11,7 @@
 <body>
 <jsp:include page="_menu.jsp"></jsp:include>
 <br><br>
-<a href='<c:url value="/UserInfoServlet" />'>Назад к списку документов </a> 
+<a href='<c:url value="/UserInfoServlet" />' class="btn btn-dark" role="button" >Назад к списку документов </a> 
 
 <h3>Редактирование документа</h3>
 
@@ -24,13 +24,13 @@
         Выберите изображение для загрузки:
         <br />
         <input type="file" name="filepath"  />
-<input type="submit" value="Загрузить изображение в документ">  
+<input type="submit" class="btn btn-dark" value="Загрузить изображение в документ">  
 </form> 
 </c:if>
 
 <c:if test="${doc.blob!=null}">    
 <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/ViewImageServlet?id=${doc.id}">
-<input type="submit" value="Просмотр изображения документа">  
+<input type="submit" class="btn btn-dark" value="Просмотр изображения документа">  
 </form> 
 </c:if>
 
@@ -77,12 +77,13 @@ enctype="multipart/form-data">
                         </select><br>
 <br>
 <label>Контрагент</label><br>
-<input value="${doc.id_contractor}" name="id_contractor" />
-                        <select name = "id_type">
+<input value="${doc.id_contractor}" name="id_contractor" readonly title="нельзя редактировать" />
+<%--                         <select name = "id_contractor2">
                         <c:forEach var="contractor" items="${contractors}">
                             <option value="<c:out value="${contractor}" />"  ${doc.id_contractor == contractor ? 'selected' : ' '}  ><c:out value="${contractor}" /></option>
                             </c:forEach>
-                        </select><br>
+                        </select> --%>
+                        <br>
 <br>
 <label>Название документа</label><br>
 <input value="${doc.name}" name="name" /><br>
@@ -119,16 +120,16 @@ enctype="multipart/form-data">
 
 
 
-<input type="submit" value="Send" />
+<input type="submit" class="btn btn-dark" value="Send" />
 </form>
 <br>
 <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/DocEndServlet?id=${doc.id}">
-<input type="submit" value="Работа над документом завершена">  
+<input type="submit" class="btn btn-dark" value="Работа над документом завершена">  
 </form>
 <br>
 <br>	
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UserInfoServlet">
-<input type="submit" value="Назад к документам">  
+<input type="submit" class="btn btn-dark" value="Назад к документам">  
 </form>
 
 </body>

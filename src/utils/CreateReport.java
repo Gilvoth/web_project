@@ -21,7 +21,7 @@ public class CreateReport {
     HSSFSheet sheet = workbook.createSheet("Отчёт");
     
     // заполняем список какими-то данными
-    List<Fdoc> dataList = new ArrayList<Fdoc>(fdoc);
+    List<Fdoc> list = new ArrayList<>(fdoc);
 	
     // счетчик для строк
     int rowNum = 0;
@@ -34,7 +34,7 @@ public class CreateReport {
     row.createCell(3).setCellValue("Фамилия");
 
     // заполняем лист данными
-    for (Fdoc dataModel : dataList) {
+    for (Fdoc dataModel : list) {
         createSheetHeader(sheet, ++rowNum, dataModel);
     }
 
@@ -57,13 +57,13 @@ public class CreateReport {
 	
     // заполнение строки (rowNum) определенного листа (sheet)
     // данными  из dataModel созданного в памяти Excel файла
-    private static void createSheetHeader(HSSFSheet sheet, int rowNum, Fdoc dataModel) {
+    private static void createSheetHeader(HSSFSheet sheet, int rowNum, Fdoc fdoc) {
         Row row = sheet.createRow(rowNum);
  
-        row.createCell(0).setCellValue(dataModel.getName());
-        row.createCell(1).setCellValue(dataModel.getContent());
-        row.createCell(2).setCellValue(dataModel.getCreator_name());
-        row.createCell(3).setCellValue(dataModel.getCreator_second());
+        row.createCell(0).setCellValue(fdoc.getName());
+        row.createCell(1).setCellValue(fdoc.getContent());
+        row.createCell(2).setCellValue(fdoc.getCreator_name());
+        row.createCell(3).setCellValue(fdoc.getCreator_second());
     }
     
     
