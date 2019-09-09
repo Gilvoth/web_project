@@ -6,24 +6,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Создание нового типа cтатуса актуальности</title>
+<title>Создание нового ТРУ</title>
 </head>
 <body>
      <jsp:include page="_menu.jsp"></jsp:include>
 <br>
-<h3>Создание нового типа cтатуса актуальности</h3>
+<h3>Создание нового ТРУ</h3>
 
 
 				
 <table border = "1">
-<tr><th>Номер</th><th>Имя типа статуса документа</th></tr>
+<tr><th>Название ТРУ</th></tr>
 
-<c:forEach var="urgency" items="${urgencies}">
+<c:forEach var="tru" items="${trues}">
  <tr>
-<%-- 	<td><c:out value="${urgency.id}"/></td>
-	<td><c:out value="${urgency.name}"/></td> --%>
-<td>${urgency.id}   </td>
-<td>${urgency.name} </td>
+ <td>${tru}   </td>
 </tr>
 </c:forEach>
 </table>
@@ -31,10 +28,10 @@
 
 <br>
 
-<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/NewUrgencyServlet">
-<input  value="${urgency.id}" name="id" type="hidden" />
-<label>Имя нового типа статуса документа</label><br>
-<input name="name" value="${urgency.name}" /><br><br>
+<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/NewTruServlet">
+<input  value="${tru.id}" name="id" type="hidden" />
+<label>Название ТРУ</label><br>
+<input name="name" value="${tru.name}" /><br><br>
 
 <input type="submit" class="btn btn-dark" value="Создать" />
 </form>

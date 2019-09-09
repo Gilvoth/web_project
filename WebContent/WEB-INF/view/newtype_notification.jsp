@@ -35,16 +35,16 @@
 <label>Имя нового типа уведомления</label><br>
 <input name="name" value="${type_notification.name}" /><br><br>
 
-<input type="submit" value="Send" />
+<input type="submit" class="btn btn-dark" value="Создать" />
 </form>
 
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/EmployeeTaskServlet">
-<input type="submit" value="Назад">  
+<input type="submit" class="btn btn-dark" value="Назад">  
 </form>
 <br>
 <br>
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/">
-<input type="submit" value="На главную страницу">  
+<input type="submit" class="btn btn-dark" value="На главную страницу">  
 </form>  
 </body>
 </html>

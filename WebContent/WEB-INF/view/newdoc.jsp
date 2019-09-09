@@ -119,7 +119,7 @@ color: 'red'
         <input type="file" name="file"  />  -->
 
 
-<input type="submit" class="btn btn-dark" value="Send" />
+<input type="submit" class="btn btn-dark" value="Создать" />
 </form>
 
 <%--     <form method="post" action="${pageContext.request.contextPath}/uploadToDB"

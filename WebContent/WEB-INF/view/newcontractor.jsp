@@ -32,7 +32,7 @@
 <input name="name" value="${contractor.name}" /><br><br>
 <label>Комментарий</label><br>
 <input name="comment" value="${contractor.comment}" /><br><br>
-<input type="submit" value="Send" />
+<input type="submit" value="Создать" />
 </form>
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/EmployeeTaskServlet">
 <input type="submit" class="btn btn-dark" value="Назад">  

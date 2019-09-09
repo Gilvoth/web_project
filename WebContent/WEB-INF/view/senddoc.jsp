@@ -22,7 +22,7 @@
 <td>${department.name} </td>
 <td>    <form method="post" action='<c:url value="/SendDocServlet?id=${id}&id_dep=${department.id}" />' style="display:inline;">
         <input type="hidden" name="id" value="${department.id}">
-        <input type="submit" value="Отправить">
+        <input type="submit" class="btn btn-dark" value="Отправить">
     </form>
 </td>    
 </tr>
@@ -38,7 +38,7 @@
 <td>${user.id}   </td>
 <td>${user.name} </td>
 <td>    <form method="post" action='<c:url value="/SendDocServlet?id=${id}&id_user=${user.id}" />' style="display:inline;">
-        <input type="submit" value="Отправить">
+        <input type="submit" class="btn btn-dark" value="Отправить">
     </form>
 </td>    
 </tr>
@@ -48,7 +48,7 @@
 
 
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UserInfoServlet">
-<input type="submit" value="Назад к документам">  
+<input type="submit" class="btn btn-dark" value="Назад к документам">  
 </form>
 <br>
 
