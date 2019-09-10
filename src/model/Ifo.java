@@ -6,6 +6,12 @@ private String name;
 
 	public Ifo() {}
 
+	public Ifo(int id, String name) {
+		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.name = name;
+	}
+	
 	public int getId() {
 		return id;
 	}

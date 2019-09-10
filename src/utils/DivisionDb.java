@@ -20,7 +20,7 @@ public class DivisionDb {
         try{  
             PreparedStatement ps=conn.prepareStatement(  
 		            "insert into division (id, name)"+
-		            "values (nextval('seq_pk_division'),?)");  
+		            "values (nextval('seq_pk_id_division'),?)");  
 	        
             ps.setString(1, division.getName());
            

@@ -20,7 +20,7 @@ public class LawDb {
         try{  
             PreparedStatement ps=conn.prepareStatement(  
 		            "insert into law (id, name)"+
-		            "values (nextval('seq_pk_law'),?)");  
+		            "values (nextval('seq_pk_id_law'),?)");  
 	        
             ps.setString(1, law.getName());
            

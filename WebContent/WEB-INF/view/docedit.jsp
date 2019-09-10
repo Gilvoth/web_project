@@ -112,7 +112,7 @@ enctype="multipart/form-data">
 
 <label>Рекомендуемая дата выполнения</label><br>
 <input type="date" name="rec_date" value="${doc.rec_date}" />
-<input type="date" name="rec_date2" value="${doc.rec_date}" type = "hidden"/><br><br>		
+<input type="date hidden" name="rec_date2" value="${doc.rec_date}" type = "hidden"/><br><br>		
 
 <label>Отдел</label><br>
 <input name="dep" value="${doc.dep}" readonly title="нельзя редактировать"/><br><br>		

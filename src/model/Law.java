@@ -4,7 +4,13 @@ public class Law {
 private int id;
 private String name;
 
-	private Law() {}
+	public Law() {}
+	
+	public Law(int id, String name) {
+		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.name = name;
+	}
 
 	public int getId() {
 		return id;

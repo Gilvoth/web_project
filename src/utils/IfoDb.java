@@ -20,7 +20,7 @@ public class IfoDb {
         try{  
             PreparedStatement ps=conn.prepareStatement(  
 		            "insert into ifo (id, name)"+
-		            "values (nextval('seq_pk_ifo'),?)");  
+		            "values (nextval('seq_pk_id_ifo'),?)");  
 	        
             ps.setString(1, ifo.getName());
            
