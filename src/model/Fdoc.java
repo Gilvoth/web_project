@@ -25,8 +25,11 @@ private ArrayList<String> receiver_list;
 private ArrayList<String> sender_list;
 private String dep;
 private String date_registry;
+private int id_tru;
 private String tru;
+private int id_law;
 private String law;
+private int id_division;
 private String division;
 private BigDecimal price;
 private boolean paid;
@@ -367,7 +370,8 @@ public void setSender_list(ArrayList<String> sender_list) {
 	public Fdoc(int id, int id_type_int, String id_type, String id_contractor, String name, String content, String creator_name, String creator_second, 
 			int id_urgency, String urgency,
 			String date_cre, int status_finished, String rec_date, ArrayList<String> receiver_list,
-			ArrayList<String> sender_list, String dep, byte[] blob, String date_registry, String tru, String law, String division, BigDecimal price, boolean paid,
+			ArrayList<String> sender_list, String dep, byte[] blob, String date_registry, int id_tru, String tru, 
+			int id_law, String law, int id_division, String division, BigDecimal price, boolean paid,
 			String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo) {
 		// TODO Auto-generated constructor stub
 		this.setId(id);
@@ -413,6 +417,36 @@ public void setSender_list(ArrayList<String> sender_list) {
               this.ifo.add(r); }
            } 
         
+	}
+
+
+	public int getId_tru() {
+		return id_tru;
+	}
+
+
+	public void setId_tru(int id_tru) {
+		this.id_tru = id_tru;
+	}
+
+
+	public int getId_law() {
+		return id_law;
+	}
+
+
+	public void setId_law(int id_law) {
+		this.id_law = id_law;
+	}
+
+
+	public int getId_division() {
+		return id_division;
+	}
+
+
+	public void setId_division(int id_division) {
+		this.id_division = id_division;
 	}	
 	
 }

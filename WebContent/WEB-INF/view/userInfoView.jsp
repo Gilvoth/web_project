@@ -67,8 +67,20 @@
     <td>${doc.receiver_list}</td>
     <td>${doc.sender_list}</td>
     <td>${doc.dep}</td>
+    
+	<td>${doc.date_registry}</td>
+    <td>${doc.tru}</td>
+    <td>${doc.law}</td>
+    <td>${doc.division}</td>
+    <td>${doc.price}</td>
+    <td>${doc.paid}</td>
+    <td>${doc.add_agr}</td>
+    <td>${doc.price_add_agr}</td>
+    <td>${doc.ifo}</td>
+    
     <td><c:if test="${empty doc.blob}">Не Загружен</c:if>
     <c:if test="${doc.blob!=null}">Загружен</c:if></td>
+    
     <td><a href='<c:url value="/DocEditServlet?id=${doc.id}" />'  class="btn btn-dark" role="button">Ред.</a> </td>
 	<%-- <td><a href='<c:url value="/SendDocServlet?id=${doc.id}" />'> Отпр. </a></td> --%>
 	<td><a href="<c:url value="/SendDocServlet?id=${doc.id}" />" class="btn btn-dark" role="button">Отпр.</a></td>

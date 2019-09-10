@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -819,7 +820,8 @@ public class DocDb {
     	Connection conn = DbFilter.getConn();
     	Fdoc fdoc = null;
 		//Выполним запрос
-		String sqlquery =					
+		String sqlquery =			
+				/*
 				"SELECT \r\n" + 
 				"documents.id as \"id\",\r\n" + 
 				"type_docs.id as \"id_type_int\",\r\n" + "type_docs.name as \"type\",\r\n" +
@@ -835,8 +837,8 @@ public class DocDb {
 				"documents.receiver_list,\r\n" + 
 				"documents.sender_list,\r\n" + 
 				"departments.name as \"dep\",\r\n"+ 
-				"documents.blob as \"blob\" \r\n"+
-				"documents.date_registry as \"date_registry\" \r\n"+
+				"documents.blob as \"blob\", \r\n"+
+				"documents.date_registry as \"date_registry\", \r\n"+
 				"tru.id as \"id_tru\",\r\n\" + \"tru.name as \"tru\",\r\n" +
 				"law.id as \"id_law\",\r\n\" + \"law.name as \"law\",\r\n" +
 				"division.id as \"id_division\",\r\n\" + \"division.name as \"division\",\r\n" +
@@ -844,19 +846,62 @@ public class DocDb {
 				"documents.paid as \"paid\",\r\n" +
 				"documents.add_agr as \"add_agr\",\r\n" +
 				"documents.price_add_agr as \"price_add_agr\",\r\n" +
-				"ifo.id as \"id_ifo\",\r\n\" + \"ifo.name as \"ifo\",\r\n" +
-				"FROM documents\r\n" + 
+				//"ifo.id as \"id_ifo\",\r\n\" + \"ifo.name as \"ifo\",\r\n" +
+				"documents.id_ifo \r\n" + 
+				"FROM documents \r\n" + 
 				"LEFT JOIN contractor ON documents.id_contractor = contractor.id \r\n" + 
 				"LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id\r\n" + 
 				"LEFT JOIN users ON documents.creator = users.id\r\n" + 
 				"LEFT JOIN urgency ON documents.id_urgency = urgency.id\r\n" + 
 				"LEFT JOIN departments ON departments.id = documents.current_dep " +
-				"LEFT JOIN tru ON documents.id_tru = tru.id \r\n" + 
-				"LEFT JOIN law ON documents.id_law = law.id \r\n" + 
-				"LEFT JOIN division ON documents.id_division = division.id \r\n" + 
-				"LEFT JOIN ifo ON documents.id_ifo = ifo.id \r\n" + 
-				"WHERE documents.receiver_list[1] = ?::varchar ORDER BY documents.id; ";
-		      //"WHERE documents.current_dep = ?      ORDER BY documents.id; ";
+				//"LEFT JOIN tru ON documents.id_tru = tru.id \r\n" + 
+				//"LEFT JOIN law ON documents.id_law = law.id \r\n" + 
+				//"LEFT JOIN division ON documents.id_division = division.id \r\n" + 
+				//"LEFT JOIN ifo ON documents.id_ifo = ifo.id \r\n" + 
+				"WHERE documents.receiver_list[1] = ?::varchar ORDER BY documents.id; "; */
+		
+		  "SELECT " +        
+		  "documents.id as      id     , "+       
+		  "type_docs.id as      id_type_int     ,"+         
+		  "type_docs.name as      type     ,      "+
+		  "contractor.name as      contractor     ,"+       
+		  "documents.name as      name     ,       "+
+		  "documents.content as      content     , "+      
+		  "users.name as      creator_name     ,   "+    
+		  "users.second as      creator_second     , "+      
+		  "urgency.id as      id_urgency     ,        "+
+		  "urgency.name as      urgency     ,       "+
+		  "documents.date_cre,       "+
+		  "documents.status_finished,       "+
+		  "documents.rec_date,       "+
+		  "documents.receiver_list,       "+
+		  "documents.sender_list,       "+
+		  "departments.name as      dep     ,      "+
+		  "documents.blob as      blob,           "+
+		  "documents.date_registry as    date_registry ,    "+      
+		  "tru.id as      id_tru     ,               "+
+		  "tru.name as      tru     ,      "+
+		  "law.id as      id_law     ,              "+
+		  "law.name as      law     ,      "+
+		  "division.id as      id_division     ,    "+            
+		  "division.name as      division     ,    "+  
+		  "documents.price as      price     ,     "+ 
+		  "documents.paid as      paid     ,      "+
+		  "documents.add_agr as      add_agr     ,    "+  
+		  "documents.price_add_agr   as      price_add_agr     , "+     
+		
+		  "documents.id_ifo       "+
+		  "FROM documents       "+
+		  "LEFT JOIN contractor ON documents.id_contractor = contractor.id  "+      
+		  "LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id     "+  
+		  "LEFT JOIN users ON documents.creator = users.id       "+
+		  "LEFT JOIN urgency ON documents.id_urgency = urgency.id       "+
+		  "LEFT JOIN departments ON departments.id = documents.current_dep  "+      
+		  "LEFT JOIN tru ON documents.id_tru = tru.id        "+
+		  "LEFT JOIN law ON documents.id_law = law.id        "+
+		  "LEFT JOIN division ON documents.id_division = division.id  		"+
+		  "WHERE documents.receiver_list[1] = ?::varchar ORDER BY documents.id; ";
+		      
 		
         try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
             preparedStatement.setInt(1, id_user);
@@ -889,15 +934,33 @@ public class DocDb {
                     ArrayList<String> sender_arraylist= new ArrayList<String>();
                     Collections.addAll(sender_arraylist, sender_arr);
                     //System.out.println("отработала коллекция");
+                    
                     int notifications_user = Integer.parseInt (sender_arraylist.get(0));
-                    //System.out.println("notifications_user " + notifications_user);
-                    //System.out.println("notifications_user из селекта " + UserDb.selectoneStr(notifications_user));
                     sender_arraylist.set(0, UserDb.selectoneStr(notifications_user));
             
                     String dep =  resultset.getString("dep");
                     byte[] blob =  resultset.getBytes("blob"); // 05072019
+                    String date_registry =  resultset.getString("date_registry");
+    		        int id_tru =  resultset.getInt("id_tru");
+    		        String tru =  resultset.getString("tru");
+    		        int id_law =  resultset.getInt("id_law");
+    		        String law =  resultset.getString("law");
+    		        int id_division =  resultset.getInt("id_division");
+    		        String division =  resultset.getString("division");
+    		        BigDecimal price = resultset.getBigDecimal("price");
+    		        boolean paid = resultset.getBoolean("paid");
+    		        String add_agr =  resultset.getString("add_agr");
+    		        BigDecimal price_add_agr = resultset.getBigDecimal("price_add_agr");
+    		        
+    		        Array id_ifo = resultset.getArray("id_ifo");
+                    Integer[] id_ifo_arr = (Integer[])id_ifo.getArray();
+                    ArrayList<Integer> ifo_arraylist= new ArrayList<Integer>();
+                    Collections.addAll(ifo_arraylist, id_ifo_arr);
+                    //System.out.println("отработала коллекция");    		        
+                    
                     fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
-                    		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob);
+                    		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
+                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist);
 
                 fdocs.add(fdoc);
                 
