@@ -74,9 +74,10 @@
     <td>${doc.division}</td>
     <td>${doc.price}</td>
     <td>${doc.paid}</td>
+    <td>${doc.ifo}</td>
     <td>${doc.add_agr}</td>
     <td>${doc.price_add_agr}</td>
-    <td>${doc.ifo}</td>
+
     
     <td><c:if test="${empty doc.blob}">Не Загружен</c:if>
     <c:if test="${doc.blob!=null}">Загружен</c:if></td>
