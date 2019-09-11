@@ -3,6 +3,7 @@ package servlet;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -119,7 +120,15 @@ public class NewDocServlet extends HttpServlet {
         //ArrayList<String> receiver_list =  null;
         //ArrayList<String> sender_list =  null;
         int current_dep =  0;
-        
+		String date_registry =  null;
+		int id_tru =  0;
+		int id_law =  0;	
+		int id_division =  0;
+		BigDecimal price =  null;
+		boolean paid = false;
+		String add_agr =  null; 
+		BigDecimal price_add_agr =  null;	
+		//ArrayList<Integer> ifo =  null;
 
         
         
@@ -148,7 +157,16 @@ public class NewDocServlet extends HttpServlet {
         //sender_list = new ArrayList<String>(Arrays.asList(sender_list_m));
         //sender_list = null;
         
-        current_dep = Integer.parseInt((request.getParameter("current_dep")));
+         current_dep = Integer.parseInt((request.getParameter("current_dep")));
+		 date_registry =  "-";
+		 id_tru =  1;//исправить
+		 id_law =  1;//исправить	
+		 id_division =  1;//исправить
+		 //price = BigDecimal.valueOf(1);
+		 paid = false;
+		 add_agr =  "-"; 
+		 //price_add_agr = BigDecimal.valueOf(1);	
+		 
         
 
         
@@ -171,8 +189,14 @@ public class NewDocServlet extends HttpServlet {
     	        sender_list.add(0, String.valueOf(creator));
     	        sender_list.add(1, null);
     	        
+    	        ArrayList<Integer> ifo = new ArrayList<Integer>();
+    	        ifo.add(0, null);
+    	        //ifo.add(1, null);
+    	        
     	    	Doc doc = new Doc (id_type, id_contractor, name, content, creator, 
-    	    			id_urgency, date_cre, status_finished, rec_date, receiver_list, sender_list, current_dep);
+    	    			id_urgency, date_cre, status_finished, rec_date, receiver_list, sender_list, current_dep,
+    	    			date_registry, id_tru, id_law, id_division, price,
+    	    			 paid, add_agr, price_add_agr, ifo);
     	    	DocDb.insert(doc);
 
     	    	

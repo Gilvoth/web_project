@@ -1,5 +1,6 @@
 package model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList; //for roles
 
 
@@ -20,12 +21,24 @@ private String rec_date;
 private ArrayList<String> receiver_list;
 private ArrayList<String> sender_list;
 private int current_dep;
+
+private String date_registry;
+private int id_tru;
+private int id_law;
+private int id_division;
+private BigDecimal price;
+private boolean paid;
+private String add_agr;
+private BigDecimal price_add_agr;
+private ArrayList<Integer> ifo;
+
 	
 	public Doc() {}
 
 	public Doc(int id_type, int id_contractor, String name, String content, int creator, int id_urgency,
 			String date_cre, int status_finished, String rec_date, ArrayList<String> receiver_list,
-			ArrayList<String> sender_list, int current_dep) {
+			ArrayList<String> sender_list, int current_dep, String date_registry, int id_tru, int id_law, int id_division, 
+			BigDecimal price, boolean paid, String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo) {
 		// TODO Auto-generated constructor stub
     	this.id_type = id_type;
     	this.id_contractor = id_contractor;
@@ -50,9 +63,23 @@ private int current_dep;
            } 
         
         this.current_dep = current_dep;
+        this.setDate_registry(date_registry);
+        this.setId_tru(id_tru);
+        this.setId_law(id_law);
+        this.setId_division(id_division);
+        this.setPrice(price);
+        this.setPaid(paid);
+        this.setAdd_agr(add_agr);
+        this.setPrice_add_agr(price_add_agr);
+        
+        this.ifo = new ArrayList<Integer>(); // 
+        if (ifo != null) {
+           for (Integer r : ifo) {
+              this.ifo.add(r); }
+           }
         
 	}
-
+/*
 	public Doc(int id, int id_type, int id_contractor, String name, String content, int creator, int id_urgency,
 			String date_cre, int status_finished, String rec_date, ArrayList<String> receiver_list,
 			ArrayList<String> sender_list, int current_dep) {
@@ -83,7 +110,7 @@ private int current_dep;
         this.current_dep = current_dep;
         
 	}	
-
+*/
 	
 	public int getId() {
 		return id;
@@ -195,6 +222,78 @@ private int current_dep;
 
 	public void setCurrent_dep(int current_dep) {
 		this.current_dep = current_dep;
+	}
+
+	public String getDate_registry() {
+		return date_registry;
+	}
+
+	public void setDate_registry(String date_registry) {
+		this.date_registry = date_registry;
+	}
+
+	public int getId_tru() {
+		return id_tru;
+	}
+
+	public void setId_tru(int id_tru) {
+		this.id_tru = id_tru;
+	}
+
+	public int getId_law() {
+		return id_law;
+	}
+
+	public void setId_law(int id_law) {
+		this.id_law = id_law;
+	}
+
+	public int getId_division() {
+		return id_division;
+	}
+
+	public void setId_division(int id_division) {
+		this.id_division = id_division;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public boolean isPaid() {
+		return paid;
+	}
+
+	public void setPaid(boolean paid) {
+		this.paid = paid;
+	}
+
+	public String getAdd_agr() {
+		return add_agr;
+	}
+
+	public void setAdd_agr(String add_agr) {
+		this.add_agr = add_agr;
+	}
+
+	public BigDecimal getPrice_add_agr() {
+		return price_add_agr;
+	}
+
+	public void setPrice_add_agr(BigDecimal price_add_agr) {
+		this.price_add_agr = price_add_agr;
+	}
+
+	public ArrayList<Integer> getIfo() {
+		return ifo;
+	}
+
+	public void setIfo(ArrayList<Integer> ifo) {
+		this.ifo = ifo;
 	}
 	
 

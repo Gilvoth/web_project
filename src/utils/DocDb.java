@@ -38,8 +38,9 @@ public class DocDb {
             
             PreparedStatement ps=conn.prepareStatement(  
 		            "insert into documents (id, id_type_docs, id_contractor, name, "
-		            + "content, creator, id_urgency, date_cre, status_finished, rec_date, receiver_list, sender_list, current_dep, blob)"+
-		            "values (nextval('seq_pk_id_docs'),?,?,?,?,?,?, ?, ?, ?, ?, ?, ?, ?)");  
+		            + "content, creator, id_urgency, date_cre, status_finished, rec_date, receiver_list, sender_list, current_dep, blob,"
+		            + "date_registry, id_tru, id_law, id_division, price, paid, add_agr, price_add_agr, id_ifo)"+
+		            "values (nextval('seq_pk_id_docs'),?,?,?,?,?,?, ?, ?, ?, ?, ?, ?, ?,?,?, ?, ?, ?, ?, ?, ?, ?)");  
 	        
             ps.setInt(1, doc.getId_type());
             ps.setInt(2, doc.getId_contractor());
@@ -50,6 +51,7 @@ public class DocDb {
             ps.setString(7, doc.getDate_cre());  
             ps.setInt(8, doc.getStatus_finished());
             ps.setString(9, doc.getRec_date());
+            
             
             ArrayList<String> list = new ArrayList<String>(doc.getReceiver_list());
             Array array = conn.createArrayOf("text", list.toArray()); //This is Postgre feature Особенность реализации, преобразуем массив понятный Постгре 
@@ -64,7 +66,19 @@ public class DocDb {
 			ps.setNull(13, java.sql.Types.ARRAY); // load null 
 			
 			//добавить новые поля
-			
+			ps.setString(14, doc.getDate_registry());
+			ps.setInt(15, doc.getId_tru());
+			ps.setInt(16, doc.getId_law());
+			ps.setInt(17, doc.getId_division());
+			ps.setBigDecimal(18, doc.getPrice());
+			ps.setBoolean(19, doc.isPaid());
+			ps.setString(20, doc.getAdd_agr());
+			ps.setBigDecimal(21, doc.getPrice_add_agr());
+            
+			ArrayList<Integer> ifo = new ArrayList<Integer>(doc.getIfo());
+            Array array3 = conn.createArrayOf("integer", ifo.toArray()); //This is Postgre feature Особенность реализации, преобразуем массив понятный Постгре 
+			ps.setArray(22, array3);
+
 			
             ps.executeUpdate();  
             //fis.close();
@@ -939,8 +953,11 @@ public class DocDb {
                     Collections.addAll(sender_arraylist, sender_arr);
                     //System.out.println("отработала коллекция");
                     
-                    int notifications_user = Integer.parseInt (sender_arraylist.get(0));
-                    sender_arraylist.set(0, UserDb.selectoneStr(notifications_user));
+                    int notifications_user_sender = Integer.parseInt (sender_arraylist.get(0));
+                    sender_arraylist.set(0, UserDb.selectoneStr(notifications_user_sender));
+                    
+                    int notifications_user_receiver = Integer.parseInt (receiver_arraylist.get(0));
+                    receiver_arraylist.set(0, UserDb.selectoneStr(notifications_user_receiver));
             
                     String dep =  resultset.getString("dep");
                     byte[] blob =  resultset.getBytes("blob"); // 05072019
