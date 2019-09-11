@@ -3,9 +3,11 @@ package servlet;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Array;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import filter.DbFilter;
 import model.Contractor;
 import model.Department;
 import model.Doc;
@@ -113,8 +116,8 @@ public class NewDocServlet extends HttpServlet {
         String date_cre =  null;
         int status_finished =  0;
         String rec_date =  null;
-        ArrayList<String> receiver_list =  null;
-        ArrayList<String> sender_list =  null;
+        //ArrayList<String> receiver_list =  null;
+        //ArrayList<String> sender_list =  null;
         int current_dep =  0;
         
 
@@ -147,6 +150,8 @@ public class NewDocServlet extends HttpServlet {
         
         current_dep = Integer.parseInt((request.getParameter("current_dep")));
         
+
+        
         }catch(Exception ex){ex.printStackTrace();} 
         
         if (name.isEmpty()==true | content.isEmpty()==true) 
@@ -158,10 +163,20 @@ public class NewDocServlet extends HttpServlet {
         }
         else {
     	    try{
-    	    	
+    	        ArrayList<String> receiver_list = new ArrayList<String>();
+    	        receiver_list.add(0, String.valueOf(creator));
+    	        receiver_list.add(1, null);
+    	        
+    	        ArrayList<String> sender_list = new ArrayList<String>();
+    	        sender_list.add(0, String.valueOf(creator));
+    	        sender_list.add(1, null);
+    	        
     	    	Doc doc = new Doc (id_type, id_contractor, name, content, creator, 
     	    			id_urgency, date_cre, status_finished, rec_date, receiver_list, sender_list, current_dep);
     	    	DocDb.insert(doc);
+
+    	    	
+    	    	
     	    	
 			      RequestDispatcher dispatcher //
 		          = this.getServletContext()//

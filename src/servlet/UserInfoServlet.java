@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Fdoc;
 import utils.DocDb;
+import utils.UserDb;
 import utils.CreateReport;
 
 
@@ -54,10 +55,12 @@ public class UserInfoServlet extends HttpServlet {
         loginedUser = (String) session.getAttribute("loginedUser");
         System.out.println("полученный логин из сессии " + login);
         System.out.println("полученный логинUser из сессии " + loginedUser);
+        System.out.println("полученный id " + UserDb.selectoneInt(loginedUser));
+        int id_user = UserDb.selectoneInt(loginedUser);
         
         
 //        ArrayList<Fdoc> docs = DocDb.selectForDep(id_department);
-        ArrayList<Fdoc> docs = DocDb.selectForCurUser_Full(Integer.parseInt(login));
+        ArrayList<Fdoc> docs = DocDb.selectForCurUser_Full(id_user);
         
         request.setAttribute("docs", docs);
         session.setAttribute("docs", docs);

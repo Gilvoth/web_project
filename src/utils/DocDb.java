@@ -62,6 +62,10 @@ public class DocDb {
 			ps.setInt(12, doc.getCurrent_dep()); 
 			//ps.setBinaryStream(13, fis, (int)file.length()); // BLOB
 			ps.setNull(13, java.sql.Types.ARRAY); // load null 
+			
+			//добавить новые поля
+			
+			
             ps.executeUpdate();  
             //fis.close();
     		        System.out.println("запрос выполнен успешно!!!");
@@ -949,15 +953,16 @@ public class DocDb {
     		        String division =  resultset.getString("division");
     		        BigDecimal price = resultset.getBigDecimal("price");
     		        boolean paid = resultset.getBoolean("paid");
-    		        String add_agr =  resultset.getString("add_agr");
-    		        BigDecimal price_add_agr = resultset.getBigDecimal("price_add_agr");
     		        
     		        Array id_ifo = resultset.getArray("id_ifo");
                     Integer[] id_ifo_arr = (Integer[])id_ifo.getArray();
                     ArrayList<Integer> ifo_arraylist= new ArrayList<Integer>();
                     Collections.addAll(ifo_arraylist, id_ifo_arr);
                     //System.out.println("отработала коллекция");    		        
-                    
+
+    		        String add_agr =  resultset.getString("add_agr");
+    		        BigDecimal price_add_agr = resultset.getBigDecimal("price_add_agr");
+    		        
                     fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                     		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
                     		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist);

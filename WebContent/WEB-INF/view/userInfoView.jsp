@@ -44,7 +44,7 @@
 <div class="row justify-content-md-center"> <!-- делаем таблицу адаптивной table-responsive -->
 <table border="1" class="table table-bordered table-hover table-responsive table-sm px-3">
 <thead>
-<tr><th>id</th><th>Тип</th><th>Контрагент</th><th>Название</th><th>Комментарии</th><th>Автор</th>
+<tr><th>id</th><th>Тип</th><th>Контрагент</th><th>Название(Предмет)</th><th>Комментарии</th><th>Автор(Отв.)</th>
 <th>Статус актуальности</th><th>Дата создания</th><th>Закончен ли</th><th>Рек. дата</th><th>Получатели</th><th>Отправители</th><th>Текущий отдел</th>
 <th>Дата реестр</th><th>ТРУ</th><th>Закон</th><th>Подразд.</th><th>Сумма</th><th>Оплата</th><th>ИФО</th><th>Доп согл.</th><th>Сумма по доп согл.</th>
 <th>Прикр.</th><th>Ред.</th><th>Отпр.</th>

@@ -336,5 +336,39 @@ public class UserDb extends HttpServlet {
     	return user;
     	
     } 
-    
+
+    public static int selectoneInt(String loginedUser) {
+    	int user = 0;
+		Connection conn = DbFilter.getConn();
+
+		//Выполним запрос
+		String sqlquery = "SELECT id FROM users WHERE name = ?";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
+            preparedStatement.setString(1, loginedUser);
+            ResultSet resultset = preparedStatement.executeQuery();
+			while (resultset.next())
+				{
+                user = resultset.getInt(1);
+				}
+          
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        finally 
+        {/*try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		} 	
+        //result это указатель на первую строку с выборки
+        //чтобы вывести данные мы будем использовать 
+        //метод next() , с помощью которого переходим к следующему элементу
+		    	
+    	
+    	return user;
+    	
+    }     
 }
