@@ -83,9 +83,9 @@ public class TruDb {
     }
 
 //*****************************************************************************************************************
-    public static List<Tru> selectModel() {
+    public static ArrayList<Tru> selectModel() {
     	Connection conn = DbFilter.getConn(); 
-    	List<Tru> trues = new ArrayList<Tru>();
+    	ArrayList<Tru> trues = new ArrayList<Tru>();
 
 	        Statement statement = null;
 			try {

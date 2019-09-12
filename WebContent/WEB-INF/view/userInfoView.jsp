@@ -44,7 +44,7 @@
 <div class="row justify-content-md-center"> <!-- делаем таблицу адаптивной table-responsive -->
 <table border="1" class="table table-bordered table-hover table-responsive table-sm px-3">
 <thead>
-<tr><th>id</th><th>Тип</th><th>Контрагент</th><th>Название(Предмет)</th><th>Комментарии</th><th>Автор(Отв.)</th>
+<tr  bgcolor="#C0C0C0" ><th>id</th><th>Тип</th><th>Контрагент</th><th>Название(Предмет)</th><th>Комментарии</th><th>Автор(Отв.)</th>
 <th>Статус актуальности</th><th>Дата создания</th><th>Закончен ли</th><th>Рек. дата</th><th>Получатели</th><th>Отправители</th><th>Текущий отдел</th>
 <th>Дата реестр</th><th>ТРУ</th><th>Закон</th><th>Подразд.</th><th>Сумма</th><th>Оплата</th><th>ИФО</th><th>Доп согл.</th><th>Сумма по доп согл.</th>
 <th>Прикр.</th><th>Ред.</th><th>Отпр.</th>
@@ -79,11 +79,13 @@
     <td>${doc.price_add_agr}</td>
 
     
-    <td><c:if test="${empty doc.blob}">Не Загружен</c:if>
+
+    
+    
+    <td><c:if test="${empty doc.blob}"> Не Загружен</c:if>
     <c:if test="${doc.blob!=null}">Загружен</c:if></td>
     
     <td><a href='<c:url value="/DocEditServlet?id=${doc.id}" />'  class="btn btn-dark" role="button">Ред.</a> </td>
-	<%-- <td><a href='<c:url value="/SendDocServlet?id=${doc.id}" />'> Отпр. </a></td> --%>
 	<td><a href="<c:url value="/SendDocServlet?id=${doc.id}" />" class="btn btn-dark" role="button">Отпр.</a></td>
 	
 </tr>
@@ -104,7 +106,7 @@
      		
 		<input type="submit" class="btn btn-dark" value="Выгрузить список документов в виде отчета">
 		
-		<input type="file" class="btn btn-dark" name="filepath"  value="Путь выгрузки отчета"/>
+		<input type="text" name="filepath" placeholder="Путь выгрузки отчета"/>
 	  
 		</form> 
 	 </div>

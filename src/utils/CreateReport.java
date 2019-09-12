@@ -16,8 +16,13 @@ import org.apache.poi.ss.usermodel.Row;
 import model.Fdoc;
 
 public class CreateReport {
-	public static void createReport(ArrayList<Fdoc> fdoc) throws ParseException {
-    // create excelfile in memory
+	public static void createReport(ArrayList<Fdoc> fdoc, String filepath) throws ParseException {
+	
+	if (filepath.isEmpty()){
+		filepath = "D:\\soft";
+		}
+	
+	//create excelfile in memory
     HSSFWorkbook workbook = new HSSFWorkbook();
     // create name of list
     HSSFSheet sheet = workbook.createSheet("Отчёт");
@@ -41,7 +46,7 @@ public class CreateReport {
     }
 
     // записываем созданный в памяти Excel документ в файл
-    try (FileOutputStream out = new FileOutputStream(new File("D:\\soft\\workspace\\Apache POI Excel File.xls"))) {
+    try (FileOutputStream out = new FileOutputStream(new File(filepath + "\\Excel File.xls"))) {
         workbook.write(out);
     } catch (IOException e) {
         e.printStackTrace();
@@ -70,7 +75,7 @@ public class CreateReport {
     }
 
     // получаем доступ к excel файлу и обновляем его
-    try (FileOutputStream out = new FileOutputStream(new File("D:\\soft\\workspace\\Apache POI Excel File.xls"))) {
+    try (FileOutputStream out = new FileOutputStream(new File(filepath + "\\Excel File.xls"))) {
         workbook.write(out);
     } catch (IOException e) {
         e.printStackTrace();

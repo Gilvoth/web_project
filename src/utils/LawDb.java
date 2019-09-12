@@ -10,6 +10,7 @@ import java.util.List;
 
 import filter.DbFilter;
 import model.Law;
+import model.Tru;
 
 
 public class LawDb {
@@ -81,5 +82,44 @@ public class LawDb {
         
         return laws;
     }
+  //*****************************************************************************************************************
+    public static List<Law> selectModel() {
+    	Connection conn = DbFilter.getConn(); 
+    	List<Law> laws = new ArrayList<Law>();
+
+	        Statement statement = null;
+			try {
+				statement  = ((Connection) conn).createStatement();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+                   
+
+            try {
+          	
+            	ResultSet resultSet = statement.executeQuery("Select id, name FROM law");
+    			while (resultSet.next()) {
+    				int id =  resultSet.getInt("id");
+    		        String name =  resultSet.getString("name");
+    		        Law law = new Law (id,name);
+    		        laws.add(law);
+    		        
+    		        //System.out.println("тип документа " + name);
+    		        
+    			}
+    		        //System.out.println("запрос выполнен успешно!!!");
+    		        
+        }catch(SQLException ex){
+        	ex.printStackTrace();
+        	System.out.println(ex);}
+        
+        finally {
+
+		}                                   
+
+        
+        return laws;
+    }    
 }
 //*****************************************************************************************************************

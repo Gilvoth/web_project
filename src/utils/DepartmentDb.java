@@ -45,12 +45,12 @@ public class DepartmentDb {
 			e.printStackTrace();
 		}
         finally 
-        {try {
+        {/*try {
 			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		  }
+		  }*/
 		} 	
 	
     	return department;

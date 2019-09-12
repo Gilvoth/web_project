@@ -14,10 +14,10 @@
 
 
        
-  <form>
+<%--   <form>
    <p>Выберите дату: <input type="date" name="calendar" value="${st_date}">
    <input type="submit" value="Отправить"></p>
-  </form>
+  </form> --%>
        
 <br>
 <br>

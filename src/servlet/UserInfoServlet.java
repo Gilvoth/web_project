@@ -99,7 +99,7 @@ public class UserInfoServlet extends HttpServlet {
 	        System.out.println("полученный name2 docs из сессии " + name2);
 	        filepath = request.getParameter("filepath");
 	        System.out.println(filepath);
-	        CreateReport.createReport(fdocs);
+	        CreateReport.createReport(fdocs, filepath);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

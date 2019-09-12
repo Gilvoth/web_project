@@ -81,5 +81,46 @@ public class DivisionDb {
         
         return divisions;
     }
+    
+  //*****************************************************************************************************************
+    public static List<Division> selectModel() {
+    	Connection conn = DbFilter.getConn(); 
+    	List<Division> divisions = new ArrayList<Division>();
+
+	        Statement statement = null;
+			try {
+				statement  = ((Connection) conn).createStatement();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+                   
+
+            try {
+          	
+            	ResultSet resultSet = statement.executeQuery("Select id, name FROM division");
+    			while (resultSet.next()) {
+    		        int id = resultSet.getInt("id");
+    		        String name =  resultSet.getString("name");
+    		        Division division = new Division (id,name);
+    		        divisions.add(division);
+    		        
+    		        //System.out.println("тип документа " + name);
+    		        
+    			}
+    		        //System.out.println("запрос выполнен успешно!!!");
+    		        
+        }catch(SQLException ex){
+        	ex.printStackTrace();
+        	System.out.println(ex);}
+        
+        finally {
+
+		}                                   
+
+        
+        return divisions;
+    }
+    
 }
 //*****************************************************************************************************************

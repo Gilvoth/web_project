@@ -23,7 +23,7 @@
 <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UploadServlet?id=${doc.id}">
         Выберите изображение для загрузки:
         <br />
-        <input type="file" name="filepath"  />
+        <input type="file" name="filepath"  accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" />
 <input type="submit" class="btn btn-dark" value="Загрузить изображение в документ">  
 </form> 
 </c:if>

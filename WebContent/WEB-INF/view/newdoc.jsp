@@ -114,11 +114,25 @@ color: 'red'
 <input name="current_dep" value="${id_department}" readonly title="нельзя редактировать" type="hidden"/>
 <input name="current_dep2" value="${department.getName()}" readonly title="нельзя редактировать" /><br><br>
 <label>ТРУ</label><br>
-<input name="id_tru" value="${tru.getId()}" /><br><br>
+                 <select name = "id_tru">
+                 <c:forEach var="tru" items="${trues}">
+                 <option value="<c:out value="${tru.id}"/>"><c:out value="${tru.name}" /></option>
+                 </c:forEach>
+                 </select><br><br>
 <label>Закон</label><br>
-<input name="id_law" value=""  /><br><br>
+                 <select name = "id_law">
+                 <c:forEach var="law" items="${laws}">
+                 <option value="<c:out value="${law.id}"/>"><c:out value="${law.name}" /></option>
+                 </c:forEach>
+                 </select><br><br>
 <label>Подразделение</label><br>
-<input name="id_division" value=""  /><br><br>
+                 <select name = "id_division">
+                 <c:forEach var="division" items="${divisions}">
+                 <option value="<c:out value="${division.id}"/>"><c:out value="${division.name}" /></option>
+                 </c:forEach>
+                 </select><br><br>
+
+
 <!--         Select file to upload:
         <br />
         <input type="file" name="file"  />  -->

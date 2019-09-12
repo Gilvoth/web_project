@@ -73,10 +73,13 @@ public class NewDocServlet extends HttpServlet {
 			ArrayList<Type_docs> type_docs =  Type_docsDb.selectType_docs();
 			ArrayList<Contractor> contractors = ContractorDb.selectContractors();
 			ArrayList<Urgency> urgencies = UrgencyDb.selectUrgencyArray();
+			ArrayList<Tru> trues =  TruDb.selectModel();
+			List<Law> laws = LawDb.selectModel();
+			List<Division> divisions = DivisionDb.selectModel();
 			Department department = DepartmentDb.selectone(id_department);
-			//List<Tru> tru =  TruDb.selectModel();
-			//ArrayList<Law> law = LawDb.select();
-			//ArrayList<Division> division = DivisionDb.select();
+			
+			
+
 			
 			
 			if (!type_docs.isEmpty()) {
@@ -95,6 +98,24 @@ public class NewDocServlet extends HttpServlet {
 				System.out.println("Взят отдел!!");
 			request.setAttribute("department", department);
 				}
+			
+			if (!trues.isEmpty()) {
+				System.out.println("Взят trues!!");
+			request.setAttribute("trues", trues);
+				}
+			if (!laws.isEmpty()) {
+				System.out.println("Взят laws!!");
+			request.setAttribute("laws", laws);
+				}
+			if (!laws.isEmpty()) {
+				System.out.println("Взят laws!!");
+			request.setAttribute("laws", laws);
+				}
+			if (!divisions.isEmpty()) {
+				System.out.println("Взят divisions!!");
+			request.setAttribute("divisions", divisions);
+				}			
+			
 		}
 		catch(Exception ex){ex.printStackTrace();} 
 		finally
