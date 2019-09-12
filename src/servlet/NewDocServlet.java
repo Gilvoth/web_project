@@ -21,13 +21,19 @@ import javax.servlet.http.HttpSession;
 import filter.DbFilter;
 import model.Contractor;
 import model.Department;
+import model.Division;
 import model.Doc;
+import model.Law;
+import model.Tru;
 import model.Type_docs;
 import model.Urgency;
 import utils.Calendar;
 import utils.ContractorDb;
 import utils.DepartmentDb;
+import utils.DivisionDb;
 import utils.DocDb;
+import utils.LawDb;
+import utils.TruDb;
 import utils.Type_docsDb;
 import utils.UrgencyDb;
 
@@ -68,6 +74,10 @@ public class NewDocServlet extends HttpServlet {
 			ArrayList<Contractor> contractors = ContractorDb.selectContractors();
 			ArrayList<Urgency> urgencies = UrgencyDb.selectUrgencyArray();
 			Department department = DepartmentDb.selectone(id_department);
+			//List<Tru> tru =  TruDb.selectModel();
+			//ArrayList<Law> law = LawDb.select();
+			//ArrayList<Division> division = DivisionDb.select();
+			
 			
 			if (!type_docs.isEmpty()) {
 				System.out.println("Взят тип документа!!");
@@ -158,13 +168,16 @@ public class NewDocServlet extends HttpServlet {
         //sender_list = null;
         
          current_dep = Integer.parseInt((request.getParameter("current_dep")));
-		 date_registry =  "-";
-		 id_tru =  1;//исправить
-		 id_law =  1;//исправить	
-		 id_division =  1;//исправить
+		 //date_registry =  "-";
+		 //id_tru =  1;//исправить
+		 id_tru = Integer.parseInt((request.getParameter("id_tru")));//read from html form + convert to Integer
+		 //id_law =  1;//исправить	
+		 id_law = Integer.parseInt((request.getParameter("id_law")));//read from html form + convert to Integer
+		 //id_division =  1;//исправить
+		 id_division = Integer.parseInt((request.getParameter("id_division")));//read from html form + convert to Integer
 		 //price = BigDecimal.valueOf(1);
 		 paid = false;
-		 add_agr =  "-"; 
+		 //add_agr =  "-"; 
 		 //price_add_agr = BigDecimal.valueOf(1);	
 		 
         

@@ -104,7 +104,7 @@ public class Type_docsDb {
             
 			try {
 				ResultSet resultSet = statement.executeQuery
-						("Select * FROM type_docs");
+						("Select id,name FROM type_docs");
     			while (resultSet.next()) {
     		        int id = resultSet.getInt("id");
     		        String name =  resultSet.getString("name");

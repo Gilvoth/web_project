@@ -113,7 +113,12 @@ color: 'red'
 <label>Текущий отдел</label><br>
 <input name="current_dep" value="${id_department}" readonly title="нельзя редактировать" type="hidden"/>
 <input name="current_dep2" value="${department.getName()}" readonly title="нельзя редактировать" /><br><br>
-
+<label>ТРУ</label><br>
+<input name="id_tru" value="${tru.getId()}" /><br><br>
+<label>Закон</label><br>
+<input name="id_law" value=""  /><br><br>
+<label>Подразделение</label><br>
+<input name="id_division" value=""  /><br><br>
 <!--         Select file to upload:
         <br />
         <input type="file" name="file"  />  -->

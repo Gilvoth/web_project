@@ -81,5 +81,46 @@ public class TruDb {
         
         return trues;
     }
-}
+
 //*****************************************************************************************************************
+    public static List<Tru> selectModel() {
+    	Connection conn = DbFilter.getConn(); 
+    	List<Tru> trues = new ArrayList<Tru>();
+
+	        Statement statement = null;
+			try {
+				statement  = ((Connection) conn).createStatement();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+                   
+
+            try {
+          	
+            	ResultSet resultSet = statement.executeQuery("Select id, name FROM tru");
+    			while (resultSet.next()) {
+    		        int id = resultSet.getInt("id");
+    		        String name =  resultSet.getString("name");
+    		        Tru tru = new Tru (id,name);
+    		        trues.add(tru);
+    		        
+    		        //System.out.println("тип документа " + name);
+    		        
+    			}
+    		        //System.out.println("запрос выполнен успешно!!!");
+    		        
+        }catch(SQLException ex){
+        	ex.printStackTrace();
+        	System.out.println(ex);}
+        
+        finally {
+
+		}                                   
+
+        
+        return trues;
+    }
+
+//*****************************************************************************************************************    
+}    
