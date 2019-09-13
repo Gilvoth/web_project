@@ -2,6 +2,8 @@ package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Fdoc;
 import model.User;
+import utils.DocDb;
 import utils.UserDb;
 
 /**
@@ -37,7 +41,7 @@ public class JurTaskServlet extends HttpServlet {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		String login = null;
 		String loginedUser = null;
-		
+		int id_department = 0;
 		try {
 		// получаем сессию
 		HttpSession session = request.getSession();
@@ -45,8 +49,13 @@ public class JurTaskServlet extends HttpServlet {
 		login = (String) session.getAttribute("login");
 		//// получаем объект logineduser
 		loginedUser = (String) session.getAttribute("loginedUser");
-		System.out.println("asuptask полученный логин из сессии " + login);
-		System.out.println("asuptask полученный логинUser из сессии " + loginedUser);
+		//// получаем объект id_department
+		id_department = (int) session.getAttribute("id_department");
+		
+		System.out.println("jurTask полученный логин из сессии " + login);
+		System.out.println("jurTask полученный логинUser из сессии " + loginedUser);
+		System.out.println("jurTask полученный id_department из сессии " + id_department);
+		
 		
 		if (login == null ) {System.out.println("Зайдите пользователем!!"); 
 		String path = request.getContextPath() + "/LoginPageServlet";
@@ -55,9 +64,9 @@ public class JurTaskServlet extends HttpServlet {
 		
 		}  
 		else
-		{System.out.println("Здравствуйте   " + loginedUser + "!! Вы зашли в кабинет администратора");
+		{System.out.println("Здравствуйте   " + loginedUser + "!! Вы зашли в кабинет юриста");
 		User user = UserDb.selectone(login);
-		System.out.println("Доступные роли пользователя"+user.getRoles());
+		System.out.println("Доступные роли пользователя" + user.getRoles());
 		ArrayList<String> roles = user.getRoles();
 		//перебор элементов массива
 		for(String role : roles){
@@ -66,7 +75,21 @@ public class JurTaskServlet extends HttpServlet {
 		}
 		// проверяем наличие элемента
 		if(roles.contains("ROLE_JUR")){
-		
+			List<Integer> users = UserDb.selectUserFromDep(id_department);
+			System.out.println("успешно взят список юзеров " + users.get(0) + " " + users.get(1));
+			ArrayList<Fdoc> allusers = null;
+			for (int user2: users) {
+				System.out.println("id user " + user2);
+		        ArrayList<Fdoc> docs = DocDb.selectForCurUser_Full(user2);   
+		        request.setAttribute("docs", docs);
+		        if (allusers.isEmpty()){
+		        	allusers.addAll(0, docs);
+		        } else {
+		        allusers.addAll(docs);
+		        }
+
+				
+			}
 		RequestDispatcher dispatcher = null;
 		dispatcher //
 		= this.getServletContext()//

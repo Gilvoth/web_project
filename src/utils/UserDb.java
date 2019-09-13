@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 //import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -370,5 +371,45 @@ public class UserDb extends HttpServlet {
     	
     	return user;
     	
-    }     
+    }
+    
+    public static ArrayList<Integer> selectUserFromDep(int dep) {
+
+		Connection conn = DbFilter.getConn();
+		ArrayList<Integer> users = new ArrayList<Integer>();
+		//Выполним запрос
+		String sqlquery = "SELECT id FROM users WHERE id_department = ?";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
+            preparedStatement.setInt(1, dep);
+            ResultSet resultset = preparedStatement.executeQuery();
+
+			while (resultset.next())
+				{
+                int user = resultset.getInt(1);
+           
+                users.add(user);
+				}
+			return users;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(); 
+		}
+		  catch (NullPointerException ex) {
+				// TODO Auto-generated catch block
+			  System.out.println("ОШИБКА !!! users нулевой");
+			  ex.printStackTrace();
+		}
+        finally {
+        	
+			
+		} 	
+        //result это указатель на первую строку с выборки
+        //чтобы вывести данные мы будем использовать 
+        //метод next() , с помощью которого переходим к следующему элементу
+		return users;
+		    	
+    	
+
+    	
+    }       
 }
