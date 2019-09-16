@@ -20,7 +20,7 @@
       <a class="nav-link" href="${pageContext.request.contextPath}/EmployeeTaskServlet">Создание документов</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="${pageContext.request.contextPath}/JurTaskServlet">Jur Task</a>
+      <a class="nav-link" href="${pageContext.request.contextPath}/JurTaskServlet">Документы отдела</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="${pageContext.request.contextPath}/AsupTaskServlet">Администрирование</a>

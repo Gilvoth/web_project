@@ -30,10 +30,7 @@ public class IndexPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {    	
-		  //users = new CopyOnWriteArrayList<>(); // create ThreadSafety array, no memory leak
-
-        
-    	
+		  //users = new CopyOnWriteArrayList<>(); // create ThreadSafety array, no memory leak      
     	RequestDispatcher dispatcher //
         = this.getServletContext().getRequestDispatcher(index);
     	dispatcher.forward(req, resp);  	

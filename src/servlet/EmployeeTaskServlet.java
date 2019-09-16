@@ -48,18 +48,16 @@ public class EmployeeTaskServlet extends HttpServlet {
 			String path = request.getContextPath() + "/LoginPageServlet";
 			response.sendRedirect(path);
 			return;
-			} else {
-
-			      RequestDispatcher dispatcher //
-		          = this.getServletContext()//
-		                .getRequestDispatcher("/WEB-INF/view/employeeTaskView.jsp");
-
+		} else {  
+			RequestDispatcher dispatcher //
+		    = this.getServletContext()//
+		    .getRequestDispatcher("/WEB-INF/view/employeeTaskView.jsp");
 		    dispatcher.forward(request, response);
 			}
-		}	catch (Exception e) {
+		}catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();    }
-
+			e.printStackTrace();    
+		}
 	}
 
 	/**
