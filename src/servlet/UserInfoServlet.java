@@ -115,6 +115,7 @@ public class UserInfoServlet extends HttpServlet {
 	        Fdoc name = fdocs.get(0);
 	        String name2 = name.getName();
 	        System.out.println("полученный name2 docs из сессии " + name2);
+	        System.out.println("закончен ли " + fdocs.get(0).getStatus_finished());
 	        filepath = request.getParameter("filepath");
 	        System.out.println(filepath);
 	        CreateReport.createReport(fdocs, filepath);

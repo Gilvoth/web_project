@@ -27,8 +27,9 @@
 	 <input class="form-control" id="myInput" type="text" placeholder="Поиск совпадений..">
 	 </div>
 	 <div class="col-xl-1"></div>
-  </div>    
-
+  </div>
+      
+<!-- 
 <div class="container">
    <div class="dropdown">
     <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown">
@@ -43,6 +44,7 @@
     </div>
   </div>
 </div>
+-->
 
 <div class="container">
   <form method="GET" accept-charset="UTF-8"  action="${pageContext.request.contextPath}/UserInfoServlet">
