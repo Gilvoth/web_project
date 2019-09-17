@@ -34,7 +34,14 @@
 
 <table>
 <tr>
-<td><label>Тип документа</label> </td><td></td><td> <label>Рекомендуемая дата выполнения</label></td>
+<td><label>Тип документа</label> </td>
+<td>
+<%-- <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/NewType_docsServlet">
+<input type="image" src="" alt="добавить">  
+</form> --%>
+<button type="button" class="btn btn-default btn-sm" onclick="javascript:document.location.href='${pageContext.request.contextPath}/NewType_docsServlet'"><span class="glyphicon glyphicon-plus"></span>+ </button>
+</td>
+<td></td><td> <label>Рекомендуемая дата выполнения</label></td>
 </tr>
 <tr>
 <td>
@@ -46,7 +53,8 @@
                  </c:forEach>
                  </select>
 </td>
-<td><pre>           </pre></td>
+<td><pre>            </pre></td>
+<td></td>
 <td><input type="date" name="rec_date" value="" required>  </td>
 </tr>
 </table>
@@ -83,7 +91,7 @@ color: 'red'
 
 
 <label>Название</label><br>
-<input name="name" value="${user.name}" required    placeholder="Введите название" /><br><br> <!-- required -->
+<input name="name" value="${user.name}" required    placeholder="Введите название" size = "45"/><br><br> <!-- required -->
 
 <label>Комментарии к содержимому</label>
 <!-- <input name="content" value="" placeholder="Комментарии к содержимому"/><br><br> -->
@@ -91,7 +99,7 @@ color: 'red'
 <label>Автор</label><br>
 <%-- <input name="creator" value="${id_creator}" readonly title="нельзя редактировать"/><br><br> --%>
 <input name="creator" value="${id_creator}" type="hidden">
-<input name="creator2" value="${loginedUser} ${loginedUserSecond}" readonly title="нельзя редактировать"> 
+<input name="creator2" value="${loginedUser} ${loginedUserSecond}" readonly title="нельзя редактировать" size = "30"> 
 <br><br>
 
 <label>Статус срочности</label><br>

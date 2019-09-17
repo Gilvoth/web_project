@@ -42,6 +42,7 @@ public class UserInfoServlet extends HttpServlet {
         int id_department;
         String login;
         String loginedUser;
+        String filter_docs = "0";
 
 		try {
 		// получаем сессию
@@ -57,13 +58,30 @@ public class UserInfoServlet extends HttpServlet {
         System.out.println("полученный логинUser из сессии " + loginedUser);
         System.out.println("полученный id " + UserDb.selectoneInt(loginedUser));
         int id_user = UserDb.selectoneInt(loginedUser);
+
+        try {
+        	filter_docs = request.getParameter("filter_docs");
+        	if (filter_docs==null) {
+                filter_docs = "*";
+        	}
+        	System.out.println(filter_docs);
+        }catch (NullPointerException e) {
+        	System.out.println("Параметр не найден!" + e);
+        }
         
         
 //        ArrayList<Fdoc> docs = DocDb.selectForDep(id_department);
-        ArrayList<Fdoc> docs = DocDb.selectForCurUser_Full(id_user);
-        
-        request.setAttribute("docs", docs);
-        session.setAttribute("docs", docs);
+        //ArrayList<Fdoc> docs = DocDb.selectForCurUser_Full(id_user);
+        if (filter_docs.equals("*")) {
+        	ArrayList<Fdoc> docs = DocDb.selectForCurUser_Full(id_user);         
+            request.setAttribute("docs", docs);
+            session.setAttribute("docs", docs);
+        } else {
+        	ArrayList<Fdoc> docs = DocDb.selectForCurUser_Full(id_user, Integer.parseInt(filter_docs));
+            request.setAttribute("docs", docs);
+            session.setAttribute("docs", docs);
+        }
+
         }catch ( Exception e) {
         	System.out.println("Зайдите пользователем!!"); 
             String path = request.getContextPath() + "/LoginPageServlet";

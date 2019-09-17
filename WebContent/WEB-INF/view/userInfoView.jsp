@@ -1,32 +1,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   
-
-
-
     
 <!DOCTYPE html>
 <html>
    <head>
       <meta charset="UTF-8">
-
   
 <!--   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script> -->
-
        
       <title>User Info</title>
    </head>
-   <body>
+<body>
+<jsp:include page="_menu.jsp"></jsp:include>
   
-     <jsp:include page="_menu.jsp"></jsp:include>
- 
-
- 
    <div class="row">
    	 <div class="col-xl-1"></div>
      <div class="col-xl-4">
@@ -37,6 +28,37 @@
 	 </div>
 	 <div class="col-xl-1"></div>
   </div>    
+
+<div class="container">
+   <div class="dropdown">
+    <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown">
+      Дополнительный фильтр
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">Завершенные документы </a>
+      <a class="dropdown-item" href="#">Link 2</a>
+      <a class="dropdown-item" href="#">Link 3</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">Another link</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <form method="GET" accept-charset="UTF-8"  action="${pageContext.request.contextPath}/UserInfoServlet">
+    <div class="form-group">
+      <label for="sel1"> Дополнительный фильтр:</label>
+      <select class="form-control-mg" id="sel1" name="filter_docs">
+        <option value="*">Без фильтрации</option>
+        <option value="1"   <c:if test="${filter_docs} == 1 "> selected </c:if> >Завершенные/ документы</option>
+        <option value="0">Незавершенные документы</option>
+        <option>4</option>
+      </select>
+      <button type="submit" class="btn btn-dark">Применить фильтр</button>
+    </div>
+  </form>
+</div>
+
 
 
 <div class="container-fluid  px-3  margin: auto">

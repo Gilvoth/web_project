@@ -832,8 +832,8 @@ public class DocDb {
               
         return 0;
     }
+    
 //  ***********************************************************************************************************************************      
-
     public static ArrayList<Fdoc> selectForCurUser_Full(int id_user) {
     	ArrayList<Fdoc> fdocs = new ArrayList<Fdoc>();
     	Connection conn = DbFilter.getConn();
@@ -1146,4 +1146,141 @@ public class DocDb {
     	
     }    
 //********************************************************************************************************************************
+//вывод законченных документов    
+    public static ArrayList<Fdoc> selectForCurUser_Full(int id_user, int status_finished_param ) {
+    	ArrayList<Fdoc> fdocs = new ArrayList<Fdoc>();
+    	Connection conn = DbFilter.getConn();
+    	Fdoc fdoc = null;
+		//Выполним запрос
+		String sqlquery =			
+	
+		  "SELECT " +        
+		  "documents.id as      id     , "+       
+		  "type_docs.id as      id_type_int     ,"+         
+		  "type_docs.name as      type     ,      "+
+		  "contractor.name as      contractor     ,"+       
+		  "documents.name as      name     ,       "+
+		  "documents.content as      content     , "+      
+		  "users.name as      creator_name     ,   "+    
+		  "users.second as      creator_second     , "+      
+		  "urgency.id as      id_urgency     ,        "+
+		  "urgency.name as      urgency     ,       "+
+		  "documents.date_cre,       "+
+		  "documents.status_finished,       "+
+		  "documents.rec_date,       "+
+		  "documents.receiver_list,       "+
+		  "documents.sender_list,       "+
+		  "departments.name as      dep     ,      "+
+		  "documents.blob as      blob,           "+
+		  "documents.date_registry as    date_registry ,    "+      
+		  "tru.id as      id_tru     ,               "+
+		  "tru.name as      tru     ,      "+
+		  "law.id as      id_law     ,              "+
+		  "law.name as      law     ,      "+
+		  "division.id as      id_division     ,    "+            
+		  "division.name as      division     ,    "+  
+		  "documents.price as      price     ,     "+ 
+		  "documents.paid as      paid     ,      "+
+		  "documents.add_agr as      add_agr     ,    "+  
+		  "documents.price_add_agr   as      price_add_agr     , "+     
+		
+		  "documents.id_ifo       "+
+		  "FROM documents       "+
+		  "LEFT JOIN contractor ON documents.id_contractor = contractor.id  "+      
+		  "LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id     "+  
+		  "LEFT JOIN users ON documents.creator = users.id       "+
+		  "LEFT JOIN urgency ON documents.id_urgency = urgency.id       "+
+		  "LEFT JOIN departments ON departments.id = documents.current_dep  "+      
+		  "LEFT JOIN tru ON documents.id_tru = tru.id        "+
+		  "LEFT JOIN law ON documents.id_law = law.id        "+
+		  "LEFT JOIN division ON documents.id_division = division.id  		"+
+		  "WHERE documents.receiver_list[1] = ?::varchar AND documents.status_finished = ? ORDER BY documents.id; ";
+		      
+		
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
+            preparedStatement.setInt(1, id_user);
+            preparedStatement.setInt(2, status_finished_param);
+            ResultSet resultset = preparedStatement.executeQuery();		
+    			while (resultset.next()) {
+    		        int id = resultset.getInt("id");
+    		        int id_type_int =  resultset.getInt("id_type_int");
+    		        String type =  resultset.getString("type");
+    		        String contractor =  resultset.getString("contractor");
+    		        
+    		        String name =  resultset.getString("name");
+    		        String content =  resultset.getString("content");
+    		        String creator_name =  resultset.getString("creator_name");
+    		        String creator_second =  resultset.getString("creator_second");
+    		        int id_urgency =  resultset.getInt("id_urgency");
+    		        String urgency =  resultset.getString("urgency");
+    		        String date_cre =  resultset.getString("date_cre");
+    		        int status_finished =  resultset.getInt("status_finished");
+    		        String rec_date =  resultset.getString("rec_date");
+    		        
+    		        Array receiver = resultset.getArray("receiver_list");
+                    String[] receiver_arr = (String[])receiver.getArray();
+                    ArrayList<String> receiver_arraylist= new ArrayList<String>();
+                    Collections.addAll(receiver_arraylist, receiver_arr);
+                    //System.out.println("отработала коллекция");
+    		        
+    		        
+    		        Array sender = resultset.getArray("sender_list");
+                    String[] sender_arr = (String[])sender.getArray();
+                    ArrayList<String> sender_arraylist= new ArrayList<String>();
+                    Collections.addAll(sender_arraylist, sender_arr);
+                    //System.out.println("отработала коллекция");
+                    
+                    int notifications_user_sender = Integer.parseInt (sender_arraylist.get(0));
+                    sender_arraylist.set(0, UserDb.selectoneStr(notifications_user_sender));
+                    
+                    int notifications_user_receiver = Integer.parseInt (receiver_arraylist.get(0));
+                    receiver_arraylist.set(0, UserDb.selectoneStr(notifications_user_receiver));
+            
+                    String dep =  resultset.getString("dep");
+                    byte[] blob =  resultset.getBytes("blob");
+                    String date_registry =  resultset.getString("date_registry");
+    		        int id_tru =  resultset.getInt("id_tru");
+    		        String tru =  resultset.getString("tru");
+    		        int id_law =  resultset.getInt("id_law");
+    		        String law =  resultset.getString("law");
+    		        int id_division =  resultset.getInt("id_division");
+    		        String division =  resultset.getString("division");
+    		        BigDecimal price = resultset.getBigDecimal("price");
+    		        boolean paid = resultset.getBoolean("paid");
+    		        
+    		        Array id_ifo = resultset.getArray("id_ifo");
+                    Integer[] id_ifo_arr = (Integer[])id_ifo.getArray();
+                    ArrayList<Integer> ifo_arraylist= new ArrayList<Integer>();
+                    Collections.addAll(ifo_arraylist, id_ifo_arr);
+                    //System.out.println("отработала коллекция");    		        
+
+    		        String add_agr =  resultset.getString("add_agr");
+    		        BigDecimal price_add_agr = resultset.getBigDecimal("price_add_agr");
+    		        
+                    fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
+                    		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
+                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist);
+
+                fdocs.add(fdoc);
+                
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        finally 
+	        {
+/*        	try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();		
+			}							*/
+			} 		    	
+    	
+    	return fdocs;
+    	
+    }
+    
+//  ***********************************************************************************************************************************     
 }

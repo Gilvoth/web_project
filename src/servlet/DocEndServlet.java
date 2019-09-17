@@ -46,7 +46,6 @@ public class DocEndServlet extends HttpServlet {
 		try {
 			id = Integer.parseInt(request.getParameter("id"));
 			System.out.println("id документа " + id);
-
 			
     		// получаем сессию
             HttpSession session = request.getSession();
@@ -57,6 +56,7 @@ public class DocEndServlet extends HttpServlet {
             System.out.println("полученный логин из сессии " + login);
             System.out.println("полученный логинUser из сессии " + loginedUser);
         	
+            //создаем уведомление, что документ принят (тип уведомления №3 - работа над документом завершена)
         	Notification notification = new Notification(Integer.parseInt(login), 3, Calendar.Date(), id, 0 );
         	int id_notification = NotiificationDb.insert(notification);
         	System.out.println (String.valueOf(id_notification));	
@@ -68,7 +68,6 @@ public class DocEndServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		//doGet(request, response);
 	}
 
 }
