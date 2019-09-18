@@ -72,8 +72,8 @@
     <td><c:if test="${empty doc.blob}"> Не Загружен</c:if>
     <c:if test="${doc.blob!=null}">Загружен</c:if></td>
     
-    <td><a href='<c:url value="/DocEditServlet?id=${doc.id}" />'  class="btn btn-dark" role="button">Ред.</a> </td>
-	<td><a href="<c:url value="/SendDocServlet?id=${doc.id}" />" class="btn btn-dark" role="button">Отпр.</a></td>
+    <td><a href='<c:url value="/DocEditServlet?id=${doc.id}" />'  class="btn-sm btn-dark" role="button">Ред.</a> </td>
+	<td><a href="<c:url value="/SendDocServlet?id=${doc.id}" />" class="btn-sm btn-dark" role="button">Отпр.</a></td>
 	
 </tr>
 </tbody>

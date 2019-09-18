@@ -37,6 +37,7 @@
   </ul>
 </nav> 
 &nbsp;
+Вы зашли как: 
 <span style="color:green">[ ${loginedUser} ]</span>
 <span style="color:green">[ ${loginedUserSecond} ]</span>
 <span style="color:green">[ ${id_department} ]</span>

@@ -76,12 +76,7 @@ public class NewDocServlet extends HttpServlet {
 			ArrayList<Tru> trues =  TruDb.selectModel();
 			List<Law> laws = LawDb.selectModel();
 			List<Division> divisions = DivisionDb.selectModel();
-			Department department = DepartmentDb.selectone(id_department);
-			
-			
-
-			
-			
+			Department department = DepartmentDb.selectone(id_department);			
 			if (!type_docs.isEmpty()) {
 				System.out.println("Взят тип документа!!");
 			request.setAttribute("type_docs", type_docs);
@@ -107,19 +102,13 @@ public class NewDocServlet extends HttpServlet {
 				System.out.println("Взят laws!!");
 			request.setAttribute("laws", laws);
 				}
-			if (!laws.isEmpty()) {
-				System.out.println("Взят laws!!");
-			request.setAttribute("laws", laws);
-				}
 			if (!divisions.isEmpty()) {
 				System.out.println("Взят divisions!!");
 			request.setAttribute("divisions", divisions);
 				}			
 			
-		}
-		catch(Exception ex){ex.printStackTrace();} 
-		finally
-		{
+		}catch(Exception ex){ex.printStackTrace();
+		} finally{
 			
 		}
 		RequestDispatcher dispatcher //

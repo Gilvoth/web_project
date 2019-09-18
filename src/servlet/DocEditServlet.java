@@ -14,14 +14,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import filter.DbFilter;
+import model.Department;
+import model.Division;
 import model.Fdoc;
+import model.Law;
 import model.Notification;
+import model.Tru;
 import utils.DocDb;
+import utils.LawDb;
 import utils.NotiificationDb;
+import utils.TruDb;
 import utils.Type_docsDb;
 import utils.UrgencyDb;
 import utils.Calendar;
 import utils.ContractorDb;
+import utils.DepartmentDb;
+import utils.DivisionDb;
 
 /**
  * Servlet implementation class DocEditServlet
@@ -51,6 +59,9 @@ public class DocEditServlet extends HttpServlet {
 	            ArrayList<String> type_docs =  Type_docsDb.select();
 	            ArrayList<String> contractors =  ContractorDb.select();
 	            ArrayList<String> urgencies =  UrgencyDb.select();
+	            List<Tru> trues =  TruDb.selectModel();
+				List<Law> laws = LawDb.selectModel();
+				List<Division> divisions = DivisionDb.selectModel();	
 
 	            if(doc!=null) {
 	                request.setAttribute("doc", doc);
@@ -60,6 +71,19 @@ public class DocEditServlet extends HttpServlet {
 	                request.setAttribute("type_docs", type_docs);
 	                request.setAttribute("contractors", contractors);
 	                request.setAttribute("urgencies", urgencies);
+	    			if (!trues.isEmpty()) {
+	    				System.out.println("Взят trues!!");
+	    			request.setAttribute("trues", trues);
+	    				}
+	    			if (!laws.isEmpty()) {
+	    				System.out.println("Взят laws!!");
+	    			request.setAttribute("laws", laws);
+	    				}
+	    			if (!divisions.isEmpty()) {
+	    				System.out.println("Взят divisions!!");
+	    			request.setAttribute("divisions", divisions);
+	    				}			
+
 //*********************************************************************************************************************************
 	                try {
 	            		// получаем сессию

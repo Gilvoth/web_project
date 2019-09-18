@@ -26,7 +26,7 @@ public class CreateReport {
     HSSFWorkbook workbook = new HSSFWorkbook();
     // create name of list
     HSSFSheet sheet = workbook.createSheet("Отчёт");
-    sheet.autoSizeColumn(0);
+    
     
     // заполняем список какими-то данными
     List<Fdoc> list = new ArrayList<>(fdoc);
@@ -79,19 +79,23 @@ public class CreateReport {
     HSSFFont font = workbook.createFont();
     // указываем, что хотим его видеть жирным
     font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+    font.setFontHeightInPoints((short)14);
+    font.setFontName("Courier New");
     // создаем стиль для ячейки
     HSSFCellStyle style = workbook.createCellStyle();
     // и применяем к этому стилю жирный шрифт
     style.setFont(font);
-
+    style.setWrapText(true);
     // получаем первую строку листа excel файла
     row = sheet.getRow(0);
     // проходим по всем ячейкам этой строки
     for (int i = 0; i < row.getPhysicalNumberOfCells(); i++) {
         // применяем созданный выше стиль к каждой ячейке
         row.getCell(i).setCellStyle(style);
+        sheet.autoSizeColumn(i);
+        
     }
-
+    sheet.autoSizeColumn(1);
     // получаем доступ к excel файлу и обновляем его
     try (FileOutputStream out = new FileOutputStream(new File(filepath + "\\Excel File.xls"))) {
         workbook.write(out);
