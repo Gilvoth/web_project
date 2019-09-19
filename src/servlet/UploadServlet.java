@@ -1,7 +1,7 @@
 package servlet;
 
 import java.io.IOException;
-
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,16 +50,21 @@ public class UploadServlet extends HttpServlet {
 			//file = request.getPart("file");
 			System.out.println("id " + id);
 			System.out.println("filepath " + filepath);
-			doGet(request, response);
+			//doGet(request, response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+
+			
 		} 
 		
     	if (id!=null) {
     		//Connection conn = DbFilter.getConn();
             DocDb.insertBlob(Integer.parseInt(id), filepath);
             System.out.println("Запрос на вставку выполнен");
+            String path = request.getContextPath() + "/DocEditServlet?id="+id;
+            response.sendRedirect(path);
+            
     	}
     		//try {
 			//	//conn.setAutoCommit(false);

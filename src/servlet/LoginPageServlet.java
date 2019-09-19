@@ -1,7 +1,7 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.concurrent.CopyOnWriteArrayList;
+//import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +19,7 @@ import utils.UserDb;
 public class LoginPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static String index = "/WEB-INF/view/login.jsp";
-	private CopyOnWriteArrayList<User> users;
+	//private CopyOnWriteArrayList<User> users;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -36,7 +36,7 @@ public class LoginPageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-    	users = new CopyOnWriteArrayList<>(); // create ThreadSafety array, no memory leak
+    	//users = new CopyOnWriteArrayList<>(); // create ThreadSafety array, no memory leak
 		req.getRequestDispatcher(index).forward(req, resp); // we give login.jsp to PC-user
 	}
 

@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Division;
-import model.Law;
 import utils.DivisionDb;
-import utils.LawDb;
 
 /**
  * Servlet implementation class NewDivisionServlet

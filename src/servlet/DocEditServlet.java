@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import filter.DbFilter;
-import model.Department;
 import model.Division;
 import model.Fdoc;
 import model.Law;
@@ -29,7 +28,6 @@ import utils.Type_docsDb;
 import utils.UrgencyDb;
 import utils.Calendar;
 import utils.ContractorDb;
-import utils.DepartmentDb;
 import utils.DivisionDb;
 
 /**
@@ -173,11 +171,14 @@ public class DocEditServlet extends HttpServlet {
             String doc_division = request.getParameter("doc_division");
             String division = request.getParameter("division");
             String price = request.getParameter("price");        
-            String price2 = request.getParameter("price2"); 
+            String price2 = request.getParameter("price2");
+            String paid = request.getParameter("paid");
             String add_agr = request.getParameter("add_agr"); 
             String add_agr2 = request.getParameter("add_agr2"); 
             String price_add_agr = request.getParameter("price_add_agr");
             String price_add_agr2 = request.getParameter("price_add_agr2");
+            System.out.println("Статус paid = " + paid);
+            
 
             
             if (!doc_urgency.equals(urgency) )
@@ -232,19 +233,27 @@ public class DocEditServlet extends HttpServlet {
             	System.out.println("Изменилась сумма!");            	
             }
             
-/*            if (!add_agr.equals(add_agr2))
+            if (!add_agr.equals(add_agr2))
             {	
             	DocDb.updateAdd_agr(id, add_agr);
             	System.out.println("Изменилcя доп. соглашение!");            	
             }
-            
+      
             if (!price_add_agr.equals(price_add_agr2))
             {	
-            	DocDb.updatePrice_add_agr(id, price_add_agr);
+            	DocDb.updatePrice_add_agr(id, new BigDecimal(price_add_agr));
             	System.out.println("Изменилась сумма по доп. соглашению!");            	
             }
-            
-*/
+
+            //if (paid.equals("on"))
+            if (paid != null)
+            {	            	
+            	DocDb.updatePaid(id, true);
+            	System.out.println("Изменился факт проплаты true!");            	
+            } else {
+            	DocDb.updatePaid(id, false);
+            	System.out.println("Изменился факт проплаты false!"); 
+            }
             
             
 

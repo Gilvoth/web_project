@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,11 +72,11 @@ public class UserInfoServlet extends HttpServlet {
 //        ArrayList<Fdoc> docs = DocDb.selectForDep(id_department);
         //ArrayList<Fdoc> docs = DocDb.selectForCurUser_Full(id_user);
         if (filter_docs.equals("*")) {
-        	ArrayList<Fdoc> docs = DocDb.selectForCurUser_Full(id_user);         
+        	List<Fdoc> docs = DocDb.selectForCurUser_Full(id_user);         
             request.setAttribute("docs", docs);
             session.setAttribute("docs", docs);
         } else {
-        	ArrayList<Fdoc> docs = DocDb.selectForCurUser_Full(id_user, Integer.parseInt(filter_docs));
+        	List<Fdoc> docs = DocDb.selectForCurUser_Full(id_user, Integer.parseInt(filter_docs));
             request.setAttribute("docs", docs);
             session.setAttribute("docs", docs);
         }

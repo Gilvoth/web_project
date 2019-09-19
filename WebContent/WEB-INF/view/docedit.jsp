@@ -11,7 +11,11 @@
 <body>
 <jsp:include page="_menu.jsp"></jsp:include>
 <br><br>
-<a href='<c:url value="/UserInfoServlet" />' class="btn btn-dark" role="button" >Назад к списку документов </a> 
+
+
+<form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UserInfoServlet">
+<input type="submit" class="btn-sm btn-dark" value="Назад к списку документов">  
+</form> 
 
 <h3>Редактирование документа</h3>
 
@@ -31,6 +35,13 @@
 <c:if test="${doc.blob!=null}">    
 <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/ViewImageServlet?id=${doc.id}">
 <input type="submit" class="btn btn-dark" value="Просмотр изображения документа">  
+</form>
+
+<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UploadServlet?id=${doc.id}">
+Выберите изображение для замены существующего:
+<br />
+<input type="file" name="filepath"  accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" />
+<input type="submit" class="btn-sm btn-secondary" value="Замена изображения в текущем документе">  
 </form> 
 </c:if>
 
@@ -135,9 +146,12 @@ enctype="multipart/form-data">
                         </c:forEach>                            
                         </select><br>
 <label>Сумма</label><br>
-<input name="price" value="${doc.price}" /><input name="price2" value="${doc.price}" type = "hidden"/><br><br>
+<input name="price" value="${doc.price}" pattern = "\d+(\.\d{2})?"/><input name="price2" value="${doc.price}" type = "hidden"/><br><br>
 <label>Факт проплаты</label><br>
-<input name="paid" value="${doc.paid}" /><br><br>
+<%-- <input name="paid2" value="${doc.paid}" /> --%>
+<input type="checkbox" name="paid"  <c:if test="${doc.paid == true}"> checked </c:if>  />
+
+<br><br>
 <label>Источник финансирования</label><br>
 <input name="ifo" value="${doc.ifo}" /><br><br>
 <label>Доп. соглашение</label><br>
@@ -159,7 +173,7 @@ enctype="multipart/form-data">
 <br>
 <br>	
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UserInfoServlet">
-<input type="submit" class="btn-sm btn-dark" value="Назад к документам">  
+<input type="submit" class="btn-sm btn-dark" value="Назад к списку документов">  
 </form>
 
 </body>

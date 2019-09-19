@@ -3,7 +3,6 @@ package utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.Connection;
@@ -364,7 +363,7 @@ public class DocDb {
             preparedStatement.setInt(1, id);
             ResultSet resultset = preparedStatement.executeQuery();		
 			if (resultset.next()) {
-		        int id_doc = resultset.getInt("id");
+		        //int id_doc = resultset.getInt("id");
 		        int id_type_int = resultset.getInt("id_type_int");
 		        String type =  resultset.getString("type");
 		        String contractor =  resultset.getString("contractor");
@@ -1430,6 +1429,82 @@ public class DocDb {
               
         return 0;
     }	    
-        
+  //********************************************************************************************************************************
+    public static int updateAdd_agr(int id, String add_agr) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET add_agr =? WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+				
+					preparedStatement.setString(1, add_agr);
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение add_agr в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();                 
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally{
+                	/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	
+                
+                
+              
+        return 0;
+    }	        
+    //********************************************************************************************************************************
+    public static int updatePrice_add_agr(int id, BigDecimal price_add_agr) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET price_add_agr =? WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+				
+					preparedStatement.setBigDecimal(1, price_add_agr);
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение price_add_agr в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();                 
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally{
+                	/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	             
+                              
+        return 0;
+    }
     
+    //********************************************************************************************************************************
+    public static int updatePaid(int id, boolean paid) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET paid =? WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+				
+					preparedStatement.setBoolean(1, paid);
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение paid в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();                 
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally{
+                	/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	             
+                              
+        return 0;
+    }	     
 }

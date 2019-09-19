@@ -17,6 +17,14 @@
 <body>
 <jsp:include page="_menu.jsp"></jsp:include>
 
+<!--   <script>
+  $(document).ready(function(){
+    $("tr:contains('null')").css("background-color", "green");
+    $("tr:contains('223-ФЗ')").css("background-color", "white");
+  });
+  </script> -->
+
+
 <div class="container">  
    <div class="row">
    	 <div class="col-xl-1"></div>
@@ -81,7 +89,7 @@
 </thead>
 <c:forEach var="doc" items="${docs}">
  <tbody id="myTable">
- <tr>
+ <tr <c:if test="${doc.receiver_list[1]==null}"> class="bold" </c:if> >
  	<td><a href='<c:url value="/SendDocServlet?id=${doc.id}" />'> ${doc.id}</a></td>
 	<td>${doc.id_type}</td>
 	<td>${doc.id_contractor}</td>
@@ -93,7 +101,7 @@
     <td>${doc.date_cre}</td>
 <%--     <td>${doc.status_finished}</td> --%>
     <td>${doc.rec_date}</td>
-<%--     <td>${doc.receiver_list}</td>
+<%--     <td >${doc.receiver_list}</td>
     <td>${doc.sender_list}</td> --%>
     <td>${doc.dep}</td>
     
@@ -121,19 +129,12 @@
    	 <div class="col-xl-1"></div>
      <div class="col-xl-3">
      	<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UserInfoServlet?path=${filepath}">
-     		
 		<input type="submit" class="btn btn-dark" value="Выгрузить список документов в виде отчета">
-		
 		<input type="text" name="filepath" placeholder="Путь выгрузки отчета"/>
-	  
 		</form> 
 	 </div>
 	<div class="col-xl-3">
-<!-- 	<input type="file" class="btn btn-dark" name="filepath"  value="Путь выгрузки отчета" /> -->
-
-	</div>
-		
-
+	</div>		
 	 <div class="col-xl-4">
 	 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/">
 	 <input type="submit" class="btn-sm btn-dark" value="На главную страницу">  
@@ -142,6 +143,7 @@
 	 <div class="col-xl-1"></div>
   </div>  
 </div>
+
 <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {

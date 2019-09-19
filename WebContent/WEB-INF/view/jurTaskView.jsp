@@ -18,7 +18,7 @@
    <div class="row">
    	 <div class="col-xl-1"></div>
      <div class="col-xl-4">
-     <h5>Документы отдела (${docs_size}шт). Внимание, документы видны только сотрудникам данного отдела!</h4> 
+     <h5>Документы отдела (${docs_size}шт). Внимание, документы видны только сотрудникам данного отдела!</h5> 
      </div>
 	 <div class="col-xl-6">
 	 <input class="form-control" id="myInput" type="text" placeholder="Поиск совпадений..">
@@ -39,7 +39,7 @@
 </thead>
 <c:forEach var="doc" items="${docs}">
  <tbody id="myTable">
- <tr>
+ <tr <c:if test="${doc.receiver_list[1]==null}"> class="bold" </c:if> >
  	<td><a href='<c:url value="/SendDocServlet?id=${doc.id}" />'> ${doc.id}</a></td>
 	<td>${doc.id_type}</td>
 	<td>${doc.id_contractor}</td>
@@ -79,12 +79,32 @@
 </tbody>
 </c:forEach>
 </table>
-
 <br> 
-
-
 </div>
 </div>
+
+
+<div class="container">
+   <div class="row">
+   	 <div class="col-xl-1"></div>
+     <div class="col-xl-3">
+     	<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/JurTaskServlet?path=${filepath}">
+		<input type="submit" class="btn btn-dark" value="Выгрузить список документов в виде отчета">
+		<input type="text" name="filepath" placeholder="Путь выгрузки отчета"/>
+		</form> 
+	 </div>
+	<div class="col-xl-3">
+	</div>		
+	 <div class="col-xl-4">
+	 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/">
+	 <input type="submit" class="btn-sm btn-dark" value="На главную страницу">  
+	 </form> 
+	 </div>
+	 <div class="col-xl-1"></div>
+  </div>  
+</div>
+
+
       
       
 <script>

@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Fdoc;
 import model.User;
+import utils.CreateReport;
 import utils.DocDb;
 import utils.UserDb;
 
@@ -96,6 +96,7 @@ public class JurTaskServlet extends HttpServlet {
 				System.out.println("размер массива из селекта : " + docs.size());
 				request.setAttribute("docs_size", docs.size());
 				request.setAttribute("docs", docs);
+				session.setAttribute("docs", docs); // присваиваем сессии для выгрузки отчёта
 				//RequestDispatcher dispatcher = null;
 				RequestDispatcher dispatcher //
 				= this.getServletContext()//
@@ -119,9 +120,31 @@ public class JurTaskServlet extends HttpServlet {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		String filepath = null;
+		try {			
+			// получаем сессию если есть
+	        HttpSession session = request.getSession(true);
+	        ArrayList<Fdoc> fdocs = (ArrayList<Fdoc>) session.getAttribute("docs");
+	        System.out.println("полученный docs из сессии " + fdocs.get(0));
+	        Fdoc name = fdocs.get(0);
+	        String name2 = name.getName();
+	        System.out.println("полученный name2 docs из сессии " + name2);
+	        System.out.println("закончен ли " + fdocs.get(0).getStatus_finished());
+	        filepath = request.getParameter("filepath");
+	        System.out.println(filepath);
+	        CreateReport.createReport(fdocs, filepath);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		}
 		doGet(request, response);
 	}
-			
+
+	
+	
 	public static <T> List <? super T> joinlist(
 			final List <? extends T> listA,
 			final List <? extends T> listB){

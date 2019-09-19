@@ -37,13 +37,13 @@
                <td>Отдел</td>
                <td><input type="text" name="id_department" value= "${user.id_department}" /> </td>
             </tr>           
-            <tr>
+       <!--     <tr>
                <td>
-             <!--    <td><input type="text" name="role" value= "${user.role}" /> -->
-				Роли:</td>  <td>  <input type="checkbox" name="role" value="ROLE_ASUP"  />роль ROLE_ASUP
-    					 <input type="checkbox" name="role" value="ROLE_JUR" checked />роль ROLE_JUR
+              
+				Роли:</td>  <td>  <input type="checkbox" name="role" value="ROLE_ASUP"/>роль ROLE_ASUP
+    					 <input type="checkbox" name="role" value="ROLE_JUR" checked/>роль ROLE_JUR
 				</td>
-            </tr>                          
+            </tr>     -->                     
             <tr>
                <td colspan ="2">
                   <input type="submit" value= "Зарегистрировать" />
