@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -165,6 +166,19 @@ public class DocEditServlet extends HttpServlet {
             String rec_date = request.getParameter("rec_date");
             String rec_date2 = request.getParameter("rec_date2");
             
+            String doc_tru = request.getParameter("doc_tru");
+            String tru = request.getParameter("tru");
+            String doc_law = request.getParameter("doc_law");
+            String law = request.getParameter("law");
+            String doc_division = request.getParameter("doc_division");
+            String division = request.getParameter("division");
+            String price = request.getParameter("price");        
+            String price2 = request.getParameter("price2"); 
+            String add_agr = request.getParameter("add_agr"); 
+            String add_agr2 = request.getParameter("add_agr2"); 
+            String price_add_agr = request.getParameter("price_add_agr");
+            String price_add_agr2 = request.getParameter("price_add_agr2");
+
             
             if (!doc_urgency.equals(urgency) )
             {
@@ -192,9 +206,47 @@ public class DocEditServlet extends HttpServlet {
             if (!rec_date.equals(rec_date2))
             {	
             	DocDb.updateRecDate(id, rec_date);
-            	System.out.println("Изменилась рек. дата!");
-            	
+            	System.out.println("Изменилась рек. дата!");            	
             }
+            
+            if (!doc_tru.equals(tru))
+            {	
+            	DocDb.updateTru(id, tru);
+            	System.out.println("Изменилось ТРУ!");            	
+            }
+            if (!doc_law.equals(law))
+            {	
+            	DocDb.updateLaw(id, law);
+            	System.out.println("Изменилcя вид закона!");            	
+            }
+            if (!doc_division.equals(division))
+            {	
+            	DocDb.updateDivision(id, division);
+            	System.out.println("Изменились данные подразделения!");            	
+            }
+            
+            
+            if (!price.equals(price2))
+            {	
+            	DocDb.updatePrice(id, new BigDecimal(price));
+            	System.out.println("Изменилась сумма!");            	
+            }
+            
+/*            if (!add_agr.equals(add_agr2))
+            {	
+            	DocDb.updateAdd_agr(id, add_agr);
+            	System.out.println("Изменилcя доп. соглашение!");            	
+            }
+            
+            if (!price_add_agr.equals(price_add_agr2))
+            {	
+            	DocDb.updatePrice_add_agr(id, price_add_agr);
+            	System.out.println("Изменилась сумма по доп. соглашению!");            	
+            }
+            
+*/
+            
+            
 
             doGet(request, response);
         }catch (Exception ex)

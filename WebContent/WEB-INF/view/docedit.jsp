@@ -105,20 +105,50 @@ enctype="multipart/form-data">
                         <select name = "urgency">
                         <c:forEach var="urgency" items="${urgencies}">
                             <option value="${urgency}" ${doc.urgency == urgency ? 'selected' : ' '}><c:out value="${urgency}" /></option>
-                            </c:forEach>
-                            
+                        </c:forEach>                            
                         </select><br>
 <br>
 
 <label>Рекомендуемая дата выполнения</label><br>
 <input type="date" name="rec_date" value="${doc.rec_date}" />
-<input type="date hidden" name="rec_date2" value="${doc.rec_date}" type = "hidden"/><br><br>		
+<input name="rec_date2" value="${doc.rec_date}" type = "hidden"/><br><br>
+
+<label>ТРУ</label><br>
+<input name="doc_tru" value="${doc.tru}" type = "hidden"/>
+                        <select name = "tru">
+                        <c:forEach var="tru" items="${trues}">
+                            <option value="${tru.name}" ${doc.tru == tru.name ? 'selected' : ' '}><c:out value="${tru.name}" /></option>
+                        </c:forEach>                            
+                        </select><br>
+<label>Закон</label><br>
+<input name="doc_law" value="${doc.law}" type = "hidden"/>
+                        <select name = "law">
+                        <c:forEach var="law" items="${laws}">
+                            <option value="${law.name}" ${doc.law == law.name ? 'selected' : ' '}><c:out value="${law.name}" /></option>
+                        </c:forEach>                            
+                        </select><br>
+<label>Подразделение</label><br>
+<input name="doc_division" value="${doc.division}" type = "hidden" />
+                        <select name = "division">
+                        <c:forEach var="division" items="${divisions}">
+                            <option value="${division.name}" ${doc.division == division.name ? 'selected' : ' '}><c:out value="${division.name}" /></option>
+                        </c:forEach>                            
+                        </select><br>
+<label>Сумма</label><br>
+<input name="price" value="${doc.price}" /><input name="price2" value="${doc.price}" type = "hidden"/><br><br>
+<label>Факт проплаты</label><br>
+<input name="paid" value="${doc.paid}" /><br><br>
+<label>Источник финансирования</label><br>
+<input name="ifo" value="${doc.ifo}" /><br><br>
+<label>Доп. соглашение</label><br>
+<input name="add_agr" value="${doc.add_agr}" /><input name="add_agr2" value="${doc.add_agr}" type = "hidden"/><br><br>
+<label>Сумма по доп. соглашению</label><br>
+<input name="price_add_agr" value="${doc.price_add_agr}" /><input name="price_add_agr2" value="${doc.price_add_agr}" type = "hidden"/><br><br>
+
+    		
 
 <label>Отдел</label><br>
-<input name="dep" value="${doc.dep}" readonly title="нельзя редактировать"/><br><br>		
-
-
-
+<input name="dep" value="${doc.dep}" readonly title="нельзя редактировать"/><br><br>
 
 <input type="submit" class="btn btn-dark" value="Send" />
 </form>
@@ -129,7 +159,7 @@ enctype="multipart/form-data">
 <br>
 <br>	
 <form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UserInfoServlet">
-<input type="submit" class="btn btn-dark" value="Назад к документам">  
+<input type="submit" class="btn-sm btn-dark" value="Назад к документам">  
 </form>
 
 </body>

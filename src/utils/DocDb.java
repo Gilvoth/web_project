@@ -330,22 +330,36 @@ public class DocDb {
 				"documents.content as \"content\",\r\n" + 
 				"users.name as \"creator_name\",\r\n" + 
 				"users.second as \"creator_second\",\r\n" + 
-				"urgency.id as \"id_urgency\",\r\n" +"urgency.name as \"urgency\",\r\n" + 
+				"urgency.id as \"id_urgency\",\r\n" +"urgency.name as \"urgency\",\r\n" +
 				"documents.date_cre,\r\n" + 
 				"documents.status_finished,\r\n" + 
 				"documents.rec_date,\r\n" + 
 				"documents.receiver_list,\r\n" + 
 				"documents.sender_list,\r\n" + 
 				"departments.name as \"dep\",\r\n"+
-				"documents.blob as \"blob\"\r\n" + 
+				"documents.blob as \"blob\", \r\n" +
+				"documents.date_registry as    date_registry ,    "+ 
+				"tru.id as \"id_tru\",\r\n" +"tru.name as \"tru\",\r\n" +
+				"law.id as \"id_law\",\r\n" +"law.name as \"law\",\r\n" +
+				"division.id as \"id_division\",\r\n" +"division.name as \"division\",\r\n" +
+				  "documents.price as      price     ,     "+ 
+				  "documents.paid as      paid     ,      "+
+				  "documents.id_ifo ,      "+
+				  "documents.add_agr as      add_agr     ,    "+  
+				  "documents.price_add_agr   as      price_add_agr      "+     
+
 				"FROM documents\r\n" +
 				"LEFT JOIN contractor ON documents.id_contractor = contractor.id \r\n" + 
 				"LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id\r\n" + 
 				"LEFT JOIN users ON documents.creator = users.id\r\n" + 
-				"LEFT JOIN urgency ON documents.id_urgency = urgency.id\r\n" + 
+				"LEFT JOIN urgency ON documents.id_urgency = urgency.id\r\n" +
+				"LEFT JOIN tru ON documents.id_tru = tru.id\r\n" +
+				"LEFT JOIN law ON documents.id_law = law.id\r\n" +
+				"LEFT JOIN division ON documents.id_division = division.id\r\n" +
 				"LEFT JOIN departments ON departments.id = documents.current_dep\r\n" +
 				"WHERE documents.id = ?";
-		
+
+	
         try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
             preparedStatement.setInt(1, id);
             ResultSet resultset = preparedStatement.executeQuery();		
@@ -360,7 +374,7 @@ public class DocDb {
 		        String creator_name =  resultset.getString("creator_name");
 		        String creator_second =  resultset.getString("creator_second");
 		        int id_urgency =  resultset.getInt("id_urgency");
-		        String urgency =  resultset.getString("urgency");		        
+		        String urgency =  resultset.getString("urgency");
 		        String date_cre =  resultset.getString("date_cre");
 		        int status_finished =  resultset.getInt("status_finished");
 		        String rec_date =  resultset.getString("rec_date");
@@ -380,10 +394,35 @@ public class DocDb {
         
                 String dep =  resultset.getString("dep");
                 byte[] blob =  resultset.getBytes("blob");
+                
+                String date_registry =  resultset.getString("date_registry");
+		        int id_tru =  resultset.getInt("id_tru");
+		        String tru =  resultset.getString("tru");
+		        int id_law =  resultset.getInt("id_law");
+		        String law =  resultset.getString("law");
+		        int id_division =  resultset.getInt("id_division");
+		        String division =  resultset.getString("division");		        
+		        BigDecimal price = resultset.getBigDecimal("price");
+		        boolean paid = resultset.getBoolean("paid");	        
+		        Array id_ifo = resultset.getArray("id_ifo");
+		        
+                Integer[] id_ifo_arr = (Integer[])id_ifo.getArray();
+                ArrayList<Integer> ifo_arraylist= new ArrayList<Integer>();
+                Collections.addAll(ifo_arraylist, id_ifo_arr);
+                //System.out.println("отработала коллекция");
+                
+		        String add_agr =  resultset.getString("add_agr");
+		        BigDecimal price_add_agr = resultset.getBigDecimal("price_add_agr");        
 
-
-                fdoc = new Fdoc (id_doc, id_type_int, type, contractor, name, content, creator_name,creator_second, id_urgency,
-    	    			urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob);
+				/*
+				 * fdoc = new Fdoc (id_doc, id_type_int, type, contractor, name, content,
+				 * creator_name,creator_second, id_urgency, urgency, date_cre, status_finished,
+				 * rec_date, receiver_arraylist, sender_arraylist, dep, blob);
+				 */
+                
+                fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
+                		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
+                		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist);
                 
 			}
 		} catch (SQLException e) {
@@ -1281,6 +1320,116 @@ public class DocDb {
     	return fdocs;
     	
     }
+//  ***********************************************************************************************************************************
+    public static int updateTru(int id, String tru) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET id_tru = (Select id FROM tru WHERE name = ?) WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+				
+					preparedStatement.setString(1, tru);
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение Tru в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();
+                    
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally 
+    	        {/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	
+                
+                
+              
+        return 0;
+    }	
+//  ***********************************************************************************************************************************
+    public static int updateLaw(int id, String law) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET id_law = (Select id FROM law WHERE name = ?) WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+				
+					preparedStatement.setString(1, law);
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение Law в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();
+                    
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally 
+    	        {/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	
+                
+                
+              
+        return 0;
+    }
+//  ***********************************************************************************************************************************
+    public static int updateDivision(int id, String division) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET id_division = (Select id FROM division WHERE name = ?) WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+				
+					preparedStatement.setString(1, division);
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение Division в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();
+                    
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally 
+    	        {/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	              
+                              
+        return 0;
+    }
+//********************************************************************************************************************************
+    public static int updatePrice(int id, BigDecimal price) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET price =? WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+				
+					preparedStatement.setBigDecimal(1, price);
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение price в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();
+                    
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally 
+    	        {/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	
+                
+                
+              
+        return 0;
+    }	    
+        
     
-//  ***********************************************************************************************************************************     
 }
