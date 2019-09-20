@@ -11,8 +11,35 @@
 <body>
 <jsp:include page="_menu.jsp"></jsp:include>
 
-<h3>Отправка документа ${id}. Выберите отдел</h3>
+<div class="container"> 
+	<h3>Отправка документа ${id}. Выберите пользователя</h3>
+		<div class="col-xl-1"></div>
+		
+		<div class="col-xl-10">
+			<table border = "1">
+			<tr><th>Номер</th><th>Имя</th><th>Фамилия</th></tr>
+			
+			<c:forEach var="user" items="${users}">
+			 <tr>
+			<td>${user.id}   </td>
+			<td>${user.name} </td>
+			<td>${user.second} </td>
+			<td>    <form method="post" action='<c:url value="/SendDocServlet?id=${id}&id_user=${user.id}" />' style="display:inline;">
+			        <input type="submit" class="btn-sm btn-dark" value="Отправить">
+			    </form>
+			</td>    
+			</tr>
+			</c:forEach>
+			</table>
+			<br>			
+			<form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UserInfoServlet">
+			<input type="submit" class="btn-sm btn-dark" value="Назад к документам">  
+			</form>		
+		</div>
+</div>
+<br><br>
 
+<!-- 
 <table border = "1">
 <tr><th>Номер</th><th>Наименование отдела</th></tr>
 
@@ -28,29 +55,7 @@
 </tr>
 </c:forEach>
 </table>
-<br>
 
-<table border = "1">
-<tr><th>Номер</th><th>Наименование пользователя</th></tr>
-
-<c:forEach var="user" items="${users}">
- <tr>
-<td>${user.id}   </td>
-<td>${user.name} </td>
-<td>    <form method="post" action='<c:url value="/SendDocServlet?id=${id}&id_user=${user.id}" />' style="display:inline;">
-        <input type="submit" class="btn btn-dark" value="Отправить">
-    </form>
-</td>    
-</tr>
-</c:forEach>
-</table>
-<br>
-
-
-<form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UserInfoServlet">
-<input type="submit" class="btn btn-dark" value="Назад к документам">  
-</form>
-<br>
-
+ -->
 </body>
 </html>

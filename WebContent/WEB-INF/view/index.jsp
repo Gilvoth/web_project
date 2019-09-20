@@ -12,8 +12,11 @@
    <body>
     
       <jsp:include page="_menu.jsp"></jsp:include>
-    
-      <h3>Home Page</h3>
-
+<div class="container">
+		<div class="col-xl-1"></div>		
+		<div class="col-xl-10">    
+      	<h3>Главная страница</h3>
+      	</div>
+</div>
    </body>
 </html>
