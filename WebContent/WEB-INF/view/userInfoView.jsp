@@ -110,8 +110,13 @@
     <td>${doc.law}</td>
 <%--     <td>${doc.division}</td> --%>
     <td>${doc.price}</td>
-    <td>${doc.paid}</td>
-    <td>${doc.ifo}</td>
+    <td>
+    <c:if test="${doc.paid==true}"> Оплачен </c:if>
+    <c:if test="${doc.paid==false}"> Не оплачен</c:if>
+    </td>
+<%--     <td>${doc.ifo}</td> --%>
+     <td>${doc.ifo_str}</td> 
+    
     <td>${doc.add_agr}</td>
     <td>${doc.price_add_agr}</td>
     <td><c:if test="${empty doc.blob}"> Не Загружен</c:if>

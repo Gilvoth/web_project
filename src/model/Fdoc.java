@@ -36,6 +36,7 @@ private boolean paid;
 private String add_agr;
 private BigDecimal price_add_agr;
 private ArrayList<Integer> ifo;
+private ArrayList<String> ifo_str;
 
 
 public byte[] getBlob() {
@@ -447,6 +448,74 @@ public void setSender_list(ArrayList<String> sender_list) {
 
 	public void setId_division(int id_division) {
 		this.id_division = id_division;
+	}
+
+
+	public ArrayList<String> getIfo_str() {
+		return ifo_str;
+	}
+
+
+	public void setIfo_str(ArrayList<String> ifo_str) {
+		this.ifo_str = ifo_str;
+	}	
+
+	public Fdoc(int id, int id_type_int, String id_type, String id_contractor, String name, String content, String creator_name, String creator_second, 
+			int id_urgency, String urgency,
+			String date_cre, int status_finished, String rec_date, ArrayList<String> receiver_list,
+			ArrayList<String> sender_list, String dep, byte[] blob, String date_registry, int id_tru, String tru, 
+			int id_law, String law, int id_division, String division, BigDecimal price, boolean paid,
+			String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo, ArrayList<String> ifo_str) {
+		// TODO Auto-generated constructor stub
+		this.setId(id);
+		this.setId_type(id_type);
+		this.setId_type_int(id_type_int);		
+    	this.setId_contractor(id_contractor);
+    	this.setName(name);
+    	this.setContent(content);
+        this.setCreator_name(creator_name);
+        this.setCreator_second(creator_second);
+        this.setId_urgency(id_urgency);
+        this.setUrgency(urgency); 
+        this.setDate_cre(date_cre);
+        this.setStatus_finished(status_finished);
+        this.setRec_date(rec_date);
+        
+        this.receiver_list = new ArrayList<String>(); // 
+        if (receiver_list != null) {
+           for (String r : receiver_list) {
+              this.receiver_list.add(r); }
+           }
+        
+        this.sender_list = new ArrayList<String>(); // 
+        if (sender_list != null) {
+           for (String r : sender_list) {
+              this.sender_list.add(r); }
+           } 
+        
+        this.setDep(dep);
+        this.setBlob(blob);
+        this.setDate_registry(date_registry);
+        this.setTru(tru);
+        this.setLaw(law);
+        this.setDivision(division);
+        this.setPrice(price);
+        this.setPaid(paid);
+        this.setAdd_agr(add_agr);
+        this.setPrice_add_agr(price_add_agr);
+        
+        this.ifo = new ArrayList<Integer>(); // 
+        if (ifo != null) {
+           for (Integer r : ifo) {
+              this.ifo.add(r); }
+           } 
+        
+        this.ifo_str = new ArrayList<String>(); // 
+        if (ifo_str != null) {
+           for (String r : ifo_str) {
+              this.ifo_str.add(r); }
+           } 
+        
 	}	
 	
 }

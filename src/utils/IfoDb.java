@@ -81,5 +81,77 @@ public class IfoDb {
         
         return ifoes;
     }
-}
 //*****************************************************************************************************************
+    public static String selectoneStr(int id) {
+    	String name = null;
+		Connection conn = DbFilter.getConn();
+
+		//Выполним запрос
+		String sqlquery = "SELECT name FROM ifo WHERE id = ?";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
+            preparedStatement.setInt(1, id);
+            ResultSet resultset = preparedStatement.executeQuery();
+			while (resultset.next())
+				{
+                name = resultset.getString(1);
+                }
+          
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        finally 
+        {/*try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		} 	
+        //result это указатель на первую строку с выборки
+        //чтобы вывести данные мы будем использовать 
+        //метод next() , с помощью которого переходим к следующему элементу
+		    	
+    	
+    	return name;
+    	
+    } 
+//*****************************************************************************************************************
+    public static List<Ifo> selectModel() {
+    	Connection conn = DbFilter.getConn(); 
+    	List<Ifo> ifoes = new ArrayList<Ifo>();
+
+	        Statement statement = null;
+			try {
+				statement  = ((Connection) conn).createStatement();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+                   
+
+            try {
+          	
+            	ResultSet resultSet = statement.executeQuery("Select id, name FROM ifo");
+    			while (resultSet.next()) {
+    				int id =  resultSet.getInt("id");
+    		        String name =  resultSet.getString("name");
+    		        Ifo ifo = new Ifo(id, name);    		        
+    		        ifoes.add(ifo);    		        
+    			}
+
+    		        
+        }catch(SQLException ex){
+        	ex.printStackTrace();
+        	System.out.println(ex);}
+        
+        finally {
+
+		}                                   
+
+        
+        return ifoes;
+    }
+    
+}
+

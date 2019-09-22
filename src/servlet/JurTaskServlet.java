@@ -16,6 +16,7 @@ import model.Fdoc;
 import model.User;
 import utils.CreateReport;
 import utils.DocDb;
+import utils.IfoDb;
 import utils.UserDb;
 
 /**
@@ -91,8 +92,21 @@ public class JurTaskServlet extends HttpServlet {
 				
 				System.out.println("i: " + i);
 				System.out.println("размер массива: " + docs.size());
-				
+				//ArrayList<String> ifo_arraylist_str = new ArrayList<String>();
 				docs = DocDb.selectForCurUser_Full(users);
+				/*
+				System.out.printf("ArrayList docs has %d elements \n", docs.size());				
+				for(int j = 0; j < docs.size(); j++ ) {
+					ArrayList<Integer> ifo_arraylist = docs.get(j).getIfo();
+	                for(Integer ifo : ifo_arraylist){                      
+	                    System.out.println(ifo);
+	                    String ifo_str = new String(IfoDb.selectoneStr(ifo));
+	                    ifo_arraylist_str.add(ifo_str);
+	                	}
+				}	*/
+					
+
+
 				System.out.println("размер массива из селекта : " + docs.size());
 				request.setAttribute("docs_size", docs.size());
 				request.setAttribute("docs", docs);

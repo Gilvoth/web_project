@@ -411,7 +411,13 @@ public class DocDb {
                 //System.out.println("отработала коллекция");
                 
 		        String add_agr =  resultset.getString("add_agr");
-		        BigDecimal price_add_agr = resultset.getBigDecimal("price_add_agr");        
+		        BigDecimal price_add_agr = resultset.getBigDecimal("price_add_agr");  
+		        
+				ArrayList<String> ifo_arraylist_str = new ArrayList<String>();
+                for(Integer ifo : ifo_arraylist){                      
+                    String ifo_str = new String(IfoDb.selectoneStr(ifo));
+                    ifo_arraylist_str.add(ifo_str);
+                	}
 
 				/*
 				 * fdoc = new Fdoc (id_doc, id_type_int, type, contractor, name, content,
@@ -421,7 +427,7 @@ public class DocDb {
                 
                 fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                 		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
-                		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist);
+                		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, ifo_arraylist_str);
                 
 			}
 		} catch (SQLException e) {
@@ -1019,9 +1025,15 @@ public class DocDb {
     		        String add_agr =  resultset.getString("add_agr");
     		        BigDecimal price_add_agr = resultset.getBigDecimal("price_add_agr");
     		        
+    				ArrayList<String> ifo_arraylist_str = new ArrayList<String>();
+	                for(Integer ifo : ifo_arraylist){                      
+	                    String ifo_str = new String(IfoDb.selectoneStr(ifo));
+	                    ifo_arraylist_str.add(ifo_str);
+	                	}
+
                     fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                     		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
-                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist);
+                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, ifo_arraylist_str);
 
                 fdocs.add(fdoc);
                 
@@ -1154,14 +1166,23 @@ public class DocDb {
                     Integer[] id_ifo_arr = (Integer[])id_ifo.getArray();
                     ArrayList<Integer> ifo_arraylist= new ArrayList<Integer>();
                     Collections.addAll(ifo_arraylist, id_ifo_arr);
-                    //System.out.println("отработала коллекция");    		        
+                    //System.out.println("отработала коллекция"); 
+                    
+
 
     		        String add_agr =  resultset.getString("add_agr");
     		        BigDecimal price_add_agr = resultset.getBigDecimal("price_add_agr");
     		        
+    				ArrayList<String> ifo_arraylist_str = new ArrayList<String>();
+    	                for(Integer ifo : ifo_arraylist){                      
+    	                    String ifo_str = new String(IfoDb.selectoneStr(ifo));
+    	                    ifo_arraylist_str.add(ifo_str);
+    	                	}    		        
+  		        
+    		        
                     fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                     		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
-                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist);
+                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, ifo_arraylist_str);
 
                 fdocs.add(fdoc);
                 
@@ -1294,10 +1315,16 @@ public class DocDb {
 
     		        String add_agr =  resultset.getString("add_agr");
     		        BigDecimal price_add_agr = resultset.getBigDecimal("price_add_agr");
+    				
+    		        ArrayList<String> ifo_arraylist_str = new ArrayList<String>();
+	                for(Integer ifo : ifo_arraylist){                      
+	                    String ifo_str = new String(IfoDb.selectoneStr(ifo));
+	                    ifo_arraylist_str.add(ifo_str);
+	                	}
     		        
                     fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                     		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
-                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist);
+                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, ifo_arraylist_str);
 
                 fdocs.add(fdoc);
                 

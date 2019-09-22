@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,10 +18,12 @@ import javax.servlet.http.HttpSession;
 import filter.DbFilter;
 import model.Division;
 import model.Fdoc;
+import model.Ifo;
 import model.Law;
 import model.Notification;
 import model.Tru;
 import utils.DocDb;
+import utils.IfoDb;
 import utils.LawDb;
 import utils.NotiificationDb;
 import utils.TruDb;
@@ -61,7 +64,8 @@ public class DocEditServlet extends HttpServlet {
 	            List<Tru> trues =  TruDb.selectModel();
 				List<Law> laws = LawDb.selectModel();
 				List<Division> divisions = DivisionDb.selectModel();	
-
+				List<Ifo> ifoes = IfoDb.selectModel();
+				
 	            if(doc!=null) {
 	                request.setAttribute("doc", doc);
 	                //request.setAttribute("image", "C:\\tmp\\0001.png");
@@ -81,7 +85,11 @@ public class DocEditServlet extends HttpServlet {
 	    			if (!divisions.isEmpty()) {
 	    				System.out.println("Взят divisions!!");
 	    			request.setAttribute("divisions", divisions);
-	    				}			
+	    				}
+	    			if (!ifoes.isEmpty()) {
+	    				System.out.println("Взят ifoes!!");
+	    			request.setAttribute("ifoes", ifoes);
+	    				}
 
 //*********************************************************************************************************************************
 	                try {
@@ -177,7 +185,14 @@ public class DocEditServlet extends HttpServlet {
             String add_agr2 = request.getParameter("add_agr2"); 
             String price_add_agr = request.getParameter("price_add_agr");
             String price_add_agr2 = request.getParameter("price_add_agr2");
+            
+            String[] ifo = {""};
+            ifo = request.getParameterValues("ifo");//read role from html form input (name role)
+            ArrayList<String> ifo_arr = new ArrayList<String>(Arrays.asList(ifo));
+            
             System.out.println("Статус paid = " + paid);
+            System.out.println("ifo = " + ifo);
+            System.out.println("ifo_arr = " + ifo_arr);
             
 
             
