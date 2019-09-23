@@ -156,34 +156,21 @@
 				<c:forEach var="ifo" items="${doc.ifo}">
 				<input type="checkbox" name="ifo" value="${ifo}"  checked/> ${ifo}
 				</c:forEach><br>
-<%--				
-				<c:set var="doc_ifo_cur" scope="session" value="${doc.ifo_str}" />
-				
-				<c:forEach var="ifo_str" items="${doc.ifo_str}">
-				<input type="checkbox" name="ifo_str" value="${ifo_str}"  checked/> ${ifo_str}
-				<c:set var="ifo_cur" scope="session" value="${ifo_str}" />				
-				</c:forEach><br>
-				
-					<c:forEach var="ifo_m" items="${ifoes}">
-					<input type="checkbox" name="ifo_m" value="${ifo_m.name}" 
 
-					
-				
-				 <c:if test="${ifo_m.name == ifo_cur }"> checked </c:if>  
-					 /> ${ifo_m.name}
-					 
-					</c:forEach><br>
 
---%> 
-											<c:forEach var="ifo_m" items="${ifoes}">
-											<input type="checkbox" name="ifo_m" value="${ifo_m.name}" 
-						
-											
-										<%--	<c:if test="${ifo_m.name == ifo_cur }"> checked </c:if> --%>
-										 <c:if test="${ifo_m.name == ifo_cur }"> checked </c:if>  
-											 /> ${ifo_m.name}
-											 
-											</c:forEach><br>
+				
+<c:forEach var="ifo_m" items="${ifoes}">
+	<c:forEach var="ifo_str" items="${doc.ifo_str}">
+		<c:set var="ifo_cur" scope="session" value="${ifo_str}" />	
+		<c:if test="${ifo_m.name == ifo_cur }"> <c:set var="marker" scope="session" value="true" /> </c:if>
+	</c:forEach>
+	<input type="checkbox" name="ifo_m" value="${ifo_m.id}" <c:if test="${marker == true }"> checked </c:if>  /> ${ifo_m.name}												
+	<c:remove var="marker" scope="session" />
+</c:forEach>
+
+<br>
+
+
 				
 
 			</div>

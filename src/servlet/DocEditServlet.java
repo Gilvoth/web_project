@@ -187,7 +187,8 @@ public class DocEditServlet extends HttpServlet {
             String price_add_agr2 = request.getParameter("price_add_agr2");
             
             String[] ifo = {""};
-            ifo = request.getParameterValues("ifo");//read role from html form input (name role)
+            ifo = request.getParameterValues("ifo_m");//read role from html form input (name role)
+            //String[] ifo2 = request.getParameterValues("ifo");//read role from html form input (name role)
             ArrayList<String> ifo_arr = new ArrayList<String>(Arrays.asList(ifo));
             
             System.out.println("Статус paid = " + paid);
@@ -270,7 +271,11 @@ public class DocEditServlet extends HttpServlet {
             	System.out.println("Изменился факт проплаты false!"); 
             }
             
-            
+			/*
+			 * if (!ifo.equals(ifo2)) {
+			 * 
+			 * System.out.println("Изменились ИФО!"); }
+			 */
 
             doGet(request, response);
         }catch (Exception ex)
