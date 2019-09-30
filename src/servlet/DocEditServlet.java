@@ -53,11 +53,9 @@ public class DocEditServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//ArrayList<String> type_docs =  Type_docsDb.select();
 	       try {
-	            int id = Integer.parseInt(request.getParameter("id"));
-	            
-	            Fdoc doc = DocDb.selectone2(id); // Заменить на селектван2
+	            int id = Integer.parseInt(request.getParameter("id"));	            
+	            Fdoc doc = DocDb.selectone2(id); 
 	            ArrayList<String> type_docs =  Type_docsDb.select();
 	            ArrayList<String> contractors =  ContractorDb.select();
 	            ArrayList<String> urgencies =  UrgencyDb.select();
@@ -68,12 +66,11 @@ public class DocEditServlet extends HttpServlet {
 				
 	            if(doc!=null) {
 	                request.setAttribute("doc", doc);
-	                //request.setAttribute("image", "C:\\tmp\\0001.png");
-	                
 	                request.setAttribute("image", doc.getBlob()); 
 	                request.setAttribute("type_docs", type_docs);
 	                request.setAttribute("contractors", contractors);
 	                request.setAttribute("urgencies", urgencies);
+	                
 	    			if (!trues.isEmpty()) {
 	    				System.out.println("Взят trues!!");
 	    			request.setAttribute("trues", trues);
@@ -187,13 +184,25 @@ public class DocEditServlet extends HttpServlet {
             String price_add_agr2 = request.getParameter("price_add_agr2");
             
             String[] ifo = {""};
-            ifo = request.getParameterValues("ifo_m");//read role from html form input (name role)
-            //String[] ifo2 = request.getParameterValues("ifo");//read role from html form input (name role)
-            ArrayList<String> ifo_arr = new ArrayList<String>(Arrays.asList(ifo));
+            ifo = request.getParameterValues("ifo");//for check of change
+            ArrayList<String> ifo_arr_check = new ArrayList<String>(Arrays.asList(ifo));
             
-            System.out.println("Статус paid = " + paid);
-            System.out.println("ifo = " + ifo);
+            
+            String[] ifo_m = {""};
+            ArrayList<String> ifo_arr = null;
+            try {
+            ifo_m = request.getParameterValues("ifo_m");//read ifo_m from html form input (name ifo_m)
+            ifo_arr = new ArrayList<String>(Arrays.asList(ifo_m));
+            System.out.println("ifo_m = " + ifo_m);
             System.out.println("ifo_arr = " + ifo_arr);
+            } catch (Exception e) {
+            	System.out.println("ИФО равно нулю!!!");
+            }
+            
+            
+            System.out.println("ifo = " + ifo);
+            System.out.println("ifo_arr_check = " + ifo_arr_check);
+
             
 
             
@@ -271,11 +280,17 @@ public class DocEditServlet extends HttpServlet {
             	System.out.println("Изменился факт проплаты false!"); 
             }
             
-			/*
-			 * if (!ifo.equals(ifo2)) {
-			 * 
-			 * System.out.println("Изменились ИФО!"); }
-			 */
+			if (ifo_arr!=null) {
+				  if (!ifo_arr.equals(ifo_arr_check)) {
+					  System.out.println("Изменились ИФО!");
+				        int[] id_ifo_int = Arrays.asList(ifo_m).stream().mapToInt(Integer::parseInt).toArray();        
+				        Integer[] id_ifo_integer = Arrays.stream( id_ifo_int ).boxed().toArray( Integer[]::new );	        
+				        List<Integer> ifo_list = new ArrayList<Integer>(Arrays.asList(id_ifo_integer));
+				        DocDb.updateIfo(id, ifo_list);
+					  }
+			}
+
+			 
 
             doGet(request, response);
         }catch (Exception ex)

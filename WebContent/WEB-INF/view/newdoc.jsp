@@ -98,7 +98,16 @@
 		                 <c:forEach var="division" items="${divisions}">
 		                 <option value="<c:out value="${division.id}"/>"><c:out value="${division.name}" /></option>
 		                 </c:forEach>
-		                 </select><br><br>		
+		                 </select><br><br>
+		<label>Источник финансирования</label><br>	
+		                 <!-- <select name = "id_ifo"> -->
+		                 <c:forEach var="ifo" items="${ifoes}">
+		                <%--  <option value="<c:out value="${ifo.id}"/>"><c:out value="${ifo.name}" /></option> --%>
+		                 <input type="checkbox" name="id_ifo" value="<c:out value="${ifo.id}"/>"/> <c:out value="${ifo.name}" />
+		                 </c:forEach>
+		                 <!-- </select> --><br><br>
+		                 
+
 		<input type="submit" class="btn btn-dark" value="Создать" />
 		</form>
 		

@@ -154,8 +154,8 @@
 				<br><br>
 				<label>Источник финансирования</label><br>	
 				<c:forEach var="ifo" items="${doc.ifo}">
-				<input type="checkbox" name="ifo" value="${ifo}"  checked/> ${ifo}
-				</c:forEach><br>
+				<input type="checkbox" name="ifo" value="${ifo}"  checked class="unvisible"/> 
+				</c:forEach>
 
 
 				

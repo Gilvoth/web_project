@@ -110,6 +110,7 @@ public class JurTaskServlet extends HttpServlet {
 				System.out.println("размер массива из селекта : " + docs.size());
 				request.setAttribute("docs_size", docs.size());
 				request.setAttribute("docs", docs);
+				request.setAttribute("user", user);
 				session.setAttribute("docs", docs); // присваиваем сессии для выгрузки отчёта
 				//RequestDispatcher dispatcher = null;
 				RequestDispatcher dispatcher //

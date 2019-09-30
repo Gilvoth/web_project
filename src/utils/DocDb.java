@@ -17,6 +17,7 @@ import java.util.List;
 import filter.DbFilter;
 import model.Doc;
 import model.Fdoc;
+import model.User;
 
 
 
@@ -1533,5 +1534,35 @@ public class DocDb {
     			} 	             
                               
         return 0;
-    }	     
+    }
+  //**********************************************************************************************************************************************	
+    public static int updateIfo(int id, List<Integer> ifo_arr) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET id_ifo = ? WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){
+					
+					Array array = conn.createArrayOf("integer", ifo_arr.toArray());// realization feature PG JDBC
+					preparedStatement.setArray(1, array);					
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение ifo_arr в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();
+                    
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally 
+    	        {/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	
+                
+                System.out.println("Запрос выполнен!!");
+              
+        return 0;
+    }	    
+    
 }

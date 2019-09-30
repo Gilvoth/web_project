@@ -14,7 +14,7 @@
       
       
       
- 
+<c:set var="username" scope="session" value="${user.name} ${user.second}" />
    <div class="row">
    	 <div class="col-xl-1"></div>
      <div class="col-xl-4">
@@ -77,10 +77,16 @@
     
     
     <td><c:if test="${empty doc.blob}"> Не Загружен</c:if>
-    <c:if test="${doc.blob!=null}">Загружен</c:if></td>
-    
-    <td><a href='<c:url value="/DocEditServlet?id=${doc.id}" />'  class="btn-sm btn-dark" role="button">Ред.</a> </td>
-	<td><a href="<c:url value="/SendDocServlet?id=${doc.id}" />" class="btn-sm btn-dark" role="button">Отпр.</a></td>
+    <c:if test="${doc.blob!=null}">Загружен </c:if></td> 
+       
+    <td>
+    <c:if test="${doc.receiver_list[0]==username}"> <a href='<c:url value="/DocEditServlet?id=${doc.id}" />'  class="btn-sm btn-dark" role="button">Ред.</a> </c:if>
+    <c:if test="${doc.receiver_list[0]!=username}"> <a href='<c:url value="/DocEditServlet?id=${doc.id}" />'  class="btn-sm btn-dark" role="button">См.</a> </c:if> 
+    </td>
+	<td>
+	<c:if test="${doc.receiver_list[0]==username}"> <a href="<c:url value="/SendDocServlet?id=${doc.id}" />" class="btn-sm btn-dark" role="button">Отпр.</a> </c:if>
+	
+	</td>
 	
 </tr>
 </tbody>

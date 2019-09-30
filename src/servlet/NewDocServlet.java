@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -17,6 +18,7 @@ import model.Contractor;
 import model.Department;
 import model.Division;
 import model.Doc;
+import model.Ifo;
 import model.Law;
 import model.Tru;
 import model.Type_docs;
@@ -26,6 +28,7 @@ import utils.ContractorDb;
 import utils.DepartmentDb;
 import utils.DivisionDb;
 import utils.DocDb;
+import utils.IfoDb;
 import utils.LawDb;
 import utils.TruDb;
 import utils.Type_docsDb;
@@ -70,6 +73,7 @@ public class NewDocServlet extends HttpServlet {
 			ArrayList<Tru> trues =  TruDb.selectModel();
 			List<Law> laws = LawDb.selectModel();
 			List<Division> divisions = DivisionDb.selectModel();
+			List<Ifo> ifoes = IfoDb.selectModel();
 			Department department = DepartmentDb.selectone(id_department);			
 			if (!type_docs.isEmpty()) {
 				System.out.println("Взят тип документа!!");
@@ -99,7 +103,11 @@ public class NewDocServlet extends HttpServlet {
 			if (!divisions.isEmpty()) {
 				System.out.println("Взят divisions!!");
 			request.setAttribute("divisions", divisions);
-				}			
+				}
+			if (!ifoes.isEmpty()) {
+				System.out.println("Взят ifoes!!");
+			request.setAttribute("ifoes", ifoes);
+				}	
 			
 		}catch(Exception ex){ex.printStackTrace();
 		} finally{
@@ -142,7 +150,7 @@ public class NewDocServlet extends HttpServlet {
 		boolean paid = false;
 		String add_agr =  null; 
 		BigDecimal price_add_agr =  null;	
-		//ArrayList<Integer> ifo =  null;
+		ArrayList<Integer> ifo =  null;
 
         
         
@@ -182,7 +190,13 @@ public class NewDocServlet extends HttpServlet {
 		 //price = BigDecimal.valueOf(1);
 		 paid = false;
 		 //add_agr =  "-"; 
-		 //price_add_agr = BigDecimal.valueOf(1);	
+		 //price_add_agr = BigDecimal.valueOf(1);
+	        //String[] id_ifo = {""};
+	        String[] id_ifo = request.getParameterValues("id_ifo");//
+	        int[] id_ifo_int = Arrays.asList(id_ifo).stream().mapToInt(Integer::parseInt).toArray();
+	        
+	        Integer[] id_ifo_integer = Arrays.stream( id_ifo_int ).boxed().toArray( Integer[]::new );	        
+	        ifo = new ArrayList<Integer>(Arrays.asList(id_ifo_integer));
 		 
         
 
@@ -206,8 +220,8 @@ public class NewDocServlet extends HttpServlet {
     	        sender_list.add(0, String.valueOf(creator));
     	        sender_list.add(1, null);
     	        
-    	        ArrayList<Integer> ifo = new ArrayList<Integer>();
-    	        ifo.add(0, null);
+    	        //ArrayList<Integer> ifo = new ArrayList<Integer>();
+    	        //ifo.add(0, null);
     	        //ifo.add(1, null);
     	        
     	    	Doc doc = new Doc (id_type, id_contractor, name, content, creator, 
