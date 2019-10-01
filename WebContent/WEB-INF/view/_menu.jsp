@@ -20,11 +20,12 @@
       <a class="nav-link" href="${pageContext.request.contextPath}/EmployeeTaskServlet">Создание документов</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="${pageContext.request.contextPath}/ViewDocsServlet">Все документы</a>
+    </li>    
+    <li class="nav-item">
       <a class="nav-link" href="${pageContext.request.contextPath}/JurTaskServlet">Документы отдела</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="${pageContext.request.contextPath}/AsupTaskServlet">Администрирование</a>
-    </li>
+
     <li class="nav-item">
       <a class="nav-link" href="${pageContext.request.contextPath}/UserInfoServlet">Документы пользователя</a>
     </li>
@@ -33,6 +34,14 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" href="${pageContext.request.contextPath}/LogoutPageServlet">Выйти</a>
+    </li>
+    
+	<li class="nav-item">
+      <pre>                           </pre>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-link" href="${pageContext.request.contextPath}/AsupTaskServlet">Администрирование</a>
     </li>        
   </ul>
 </nav> 

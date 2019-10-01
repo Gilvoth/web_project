@@ -17,13 +17,6 @@
 <body>
 <jsp:include page="_menu.jsp"></jsp:include>
 
-<!--   <script>
-  $(document).ready(function(){
-    $("tr:contains('null')").css("background-color", "green");
-    $("tr:contains('223-ФЗ')").css("background-color", "white");
-  });
-  </script> -->
-
 
 <div class="container">  
    <div class="row">
@@ -43,7 +36,6 @@
         <option value="*">Без фильтрации</option>
         <option value="1"   <c:if test="${filter_docs} == 1 "> selected </c:if> >Завершенные/ документы</option>
         <option value="0">Незавершенные документы</option>
-        <option>4</option>
       </select>
       <button type="submit" class="btn-sm btn-dark">Применить фильтр</button>
     </div>
