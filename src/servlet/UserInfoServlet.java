@@ -68,8 +68,9 @@ public class UserInfoServlet extends HttpServlet {
         	System.out.println("Параметр не найден!" + e);
         }
         
+
         
-//        ArrayList<Fdoc> docs = DocDb.selectForDep(id_department);
+        //ArrayList<Fdoc> docs = DocDb.selectForDep(id_department);
         //ArrayList<Fdoc> docs = DocDb.selectForCurUser_Full(id_user);
         if (filter_docs.equals("*")) {
         	List<Fdoc> docs = DocDb.selectForCurUser_Full(id_user);         
