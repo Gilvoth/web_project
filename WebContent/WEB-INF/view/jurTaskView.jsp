@@ -33,7 +33,7 @@
 <thead>
 <tr  bgcolor="#C0C0C0" ><th>id</th><th>Тип</th><th>Контрагент</th><th>Название(Предмет)</th><th>Комментарии</th><th>Автор(Отв.)</th>
 <th>Статус актуальности</th><th>Дата создания</th><th>Закончен ли</th><th>Рек. дата</th><th>Получатели</th><th>Отправители</th><th>Текущий отдел</th>
-<th>Дата реестр</th><th>ТРУ</th><th>Закон</th><th>Подразд.</th><th>Сумма</th><th>Оплата</th><th>ИФО</th><th>ИФО_стр</th><th>Доп согл.</th><th>Сумма по доп согл.</th>
+<th>Дата реестр</th><th>ТРУ</th><th>Закон</th><th>Подразд.</th><th>Сумма</th><th>Оплата</th><th>ИФО</th><th>Доп согл.</th><th>Сумма по доп согл.</th>
 <th>Прикр.</th><th>Ред.</th><th>Отпр.</th>
 </tr>
 </thead>
@@ -67,7 +67,7 @@
     <c:if test="${doc.paid==true}"> Оплачен </c:if>
     <c:if test="${doc.paid==false}"> Не оплачен</c:if>
     </td>
-    <td>${doc.ifo}</td>
+<%--     <td>${doc.ifo}</td> --%>
     <td>${doc.ifo_str}</td>   
     <td>${doc.add_agr}</td>
     <td>${doc.price_add_agr}</td>
