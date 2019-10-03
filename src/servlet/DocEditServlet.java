@@ -22,6 +22,7 @@ import model.Ifo;
 import model.Law;
 import model.Notification;
 import model.Tru;
+import model.User;
 import utils.DocDb;
 import utils.IfoDb;
 import utils.LawDb;
@@ -29,6 +30,7 @@ import utils.NotiificationDb;
 import utils.TruDb;
 import utils.Type_docsDb;
 import utils.UrgencyDb;
+import utils.UserDb;
 import utils.Calendar;
 import utils.ContractorDb;
 import utils.DivisionDb;
@@ -104,14 +106,15 @@ public class DocEditServlet extends HttpServlet {
 	                	//System.out.println ("id документа= " + id + "  " + "Пользователь id_user= "+ id_user);
 	                	System.out.println ("id документа= " + id);
 	                	
+	                	User userModel = UserDb.selectone(login);
 	                	//создаем уведомление, что документ принят (тип уведомления №1 - получение )
-	                	Notification notification = new Notification(Integer.parseInt(login), 1, Calendar.Date(), id, 0 );
+	                	Notification notification = new Notification(userModel.getId() , 1, Calendar.Date(), id, 0 );
 	                	int id_notification = NotiificationDb.insert(notification);
 	                	System.out.println (String.valueOf(id_notification));
 	                	
 	                	Connection conn2 = DbFilter.getConn(); 
-	                    List<String> receiver_arraylist = new ArrayList<String>();
-	                    receiver_arraylist.add(login);
+	                    List<String> receiver_arraylist = new ArrayList<String>();	                    
+	                    receiver_arraylist.add(String.valueOf (userModel.getId())); // надо айди юзера а не логин!!!
 	                    receiver_arraylist.add(String.valueOf(id_notification));
 	                    Array receiver_list = conn2.createArrayOf("text", receiver_arraylist.toArray()); //This is Postgre feature Особенность реализации, преобразуем массив понятный Постгре 
 	                    

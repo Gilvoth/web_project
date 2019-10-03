@@ -196,10 +196,20 @@
 		<input type="submit" class="btn btn-dark" value="Работа над документом завершена">  
 		</form>
 		<br>
-		<br>	
-		<form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UserInfoServlet">
-		<input type="submit" class="btn-sm btn-dark" value="Назад к списку документов">  
-		</form>
+		<br>
+		
+		<div class="row">
+			<div class="col-md-4">			
+				<form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UserInfoServlet">
+				<input type="submit" class="btn-sm btn-dark" value="Назад к списку документов">  
+				</form>
+			</div>
+			<div class="col-md-6 col-md-offset-4">	
+				<form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/DocNotifyServlet">
+				<input type="submit" class="btn-sm btn-dark" value="Просмотреть хронологию уведомлений">  
+				</form>			
+			</div>
+		</div>
 	</div>
 </div> 
 <br><br>

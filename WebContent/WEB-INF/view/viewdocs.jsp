@@ -30,14 +30,16 @@
 <table border="1" class="table table-bordered table-hover table-responsive table-sm px-3">
 <thead>
 <tr  bgcolor="#C0C0C0" ><th>id</th><th>Тип</th><th>Контрагент</th><th>Название(Предмет)</th><th>Комментарии</th><th>Автор(Отв.)</th>
-<th>Статус актуальности</th><th>Дата создания</th><th>Закончен ли</th><th>Рек. дата</th><th>Получатели</th><th>Отправители</th><th>Текущий отдел</th>
+<th>Статус актуальности</th><th>Дата создания</th><th>Закончен ли</th><th>Рек. дата</th>
+<!-- <th>Получатели</th><th>Отправители</th> -->
+<th>Текущий отдел</th>
 <th>Дата реестр</th><th>ТРУ</th><th>Закон</th><th>Подразд.</th><th>Сумма</th><th>Оплата</th><th>ИФО</th><th>Доп согл.</th><th>Сумма по доп согл.</th>
 <th>Прикр.</th><th>Ред.</th><th>Отпр.</th>
 </tr>
 </thead>
 <c:forEach var="doc" items="${docs}">
  <tbody id="myTable">
- <tr <c:if test="${doc.receiver_list[1]==null}"> class="bold" </c:if> >
+ <tr <%-- <c:if test="${doc.receiver_list[1]==null}"> class="bold" </c:if> --%> >
  	<td><a href='<c:url value="/SendDocServlet?id=${doc.id}" />'> ${doc.id}</a></td>
 	<td>${doc.id_type}</td>
 	<td>${doc.id_contractor}</td>
@@ -52,8 +54,8 @@
     <c:if test="${doc.status_finished==1}"> Закончен </c:if>
     </td>
     <td>${doc.rec_date}</td>
-    <td>${doc.receiver_list}</td>
-    <td>${doc.sender_list}</td>
+<%--     <td>${doc.receiver_list}</td> 
+    <td>${doc.sender_list}</td> --%>
     <td>${doc.dep}</td>
     
 	<td>${doc.date_registry}</td>

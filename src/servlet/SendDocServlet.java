@@ -83,13 +83,14 @@ public class SendDocServlet extends HttpServlet {
         	String id_user = (request.getParameter("id_user"));
         	System.out.println ("id= " + id + "  " + "id_user= "+ id_user);
         	
-        	Notification notification = new Notification(Integer.parseInt(login), 2, Calendar.Date(), id, Integer.parseInt(id_user) );
+        	User userModel = UserDb.selectone(login);
+        	Notification notification = new Notification(userModel.getId(), 2, Calendar.Date(), id, Integer.parseInt(id_user) );
         	int id_notification = NotiificationDb.insert(notification);
         	System.out.println (String.valueOf(id_notification));
         	
         	Connection conn = DbFilter.getConn(); 
             List<String> sender_arraylist = new ArrayList<String>();
-            sender_arraylist.add(login);
+            sender_arraylist.add(String.valueOf (userModel.getId()));
             sender_arraylist.add(String.valueOf(id_notification));
             Array sender_list = conn.createArrayOf("text", sender_arraylist.toArray()); //This is Postgre feature Особенность реализации, преобразуем массив понятный Постгре 
 

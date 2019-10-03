@@ -7,9 +7,20 @@ private int id_type;
 private String date;
 private int id_document;
 private int id_receiver;
+private String type_notify_name;
 
 	public Notification() {}
 	
+
+	public Notification(int id, int id_creator, int id_type, String date, int id_document, int id_receiver, String type_notify_name) {
+		this.id=id;
+		this.id_creator=id_creator;
+		this.id_type=id_type;
+		this.date=date;
+		this.id_document=id_document;
+		this.id_receiver=id_receiver;
+		this.type_notify_name = type_notify_name;
+	}	
 	public Notification(int id, int id_creator, int id_type, String date, int id_document, int id_receiver) {
 		this.id=id;
 		this.id_creator=id_creator;
@@ -62,6 +73,14 @@ public int getId_receiver() {
 }
 public void setId_receiver(int id_receiver) {
 	this.id_receiver = id_receiver;
+}
+
+public String getType_notify_name() {
+	return type_notify_name;
+}
+
+public void setType_notify_name(String type_notify_name) {
+	this.type_notify_name = type_notify_name;
 }
 	
 	
