@@ -52,7 +52,9 @@
 			<div class="col-md-4">
 				<label>ID</label>  
 				<br>
+				<c:set var="id_doc" scope="session" value="${doc.id}" />
 				<input value="${doc.id}" name="id" readonly title="нельзя редактировать" />
+				<c:set var="id_doc" scope="session" value="${doc.id}" />
 				<br><br>
 				<label>Тип документа</label>
 				<br>
@@ -205,7 +207,7 @@
 				</form>
 			</div>
 			<div class="col-md-6 col-md-offset-4">	
-				<form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/DocNotifyServlet">
+				<form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/DocNotifyServlet?id_doc=${id_doc}">
 				<input type="submit" class="btn-sm btn-dark" value="Просмотреть хронологию уведомлений">  
 				</form>			
 			</div>

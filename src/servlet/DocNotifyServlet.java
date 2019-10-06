@@ -34,9 +34,16 @@ public class DocNotifyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ArrayList<Notification> notifications = NotiificationDb.selectAll();
-		request.setAttribute("notifications", notifications);
-		request.getRequestDispatcher("/WEB-INF/view/docnotify.jsp").forward(request, response);
+		request.setCharacterEncoding("UTF-8");
+		try {
+			int id_doc = Integer.parseInt(request.getParameter("id_doc"));
+			System.out.println("id документа " + id_doc);
+			ArrayList<Notification> notifications = NotiificationDb.selectId(6);
+			request.setAttribute("notifications", notifications);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.getRequestDispatcher(index).forward(request, response);
 		//req.getRequestDispatcher(index).forward(req, resp); // we give login.jsp to PC-user getServletContext().
 	}
 

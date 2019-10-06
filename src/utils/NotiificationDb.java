@@ -152,5 +152,50 @@ public class NotiificationDb {
 	        return notifications;        
 
     }
-    
+    //*****************************************************************************************************************	
+    public static ArrayList<Notification> selectId(int id_doc) {
+    	Connection conn = DbFilter.getConn();
+    	ArrayList<Notification> notifications = new ArrayList<Notification>();
+			
+			//Выполним запрос
+			String sqlquery = "Select notifications.id, notifications.id_creator, notifications.id_type, notifications.date, "  +
+	            	"notifications.id_document, notifications.id_receiver, " +
+	            	"type_notifications.id as type_notify_id,  type_notifications.name as type_notify_name " +
+	            	"FROM notifications "+
+	            	"LEFT JOIN type_notifications ON notifications.id_type = type_notifications.id WHERE id_document = ? "+
+	            	"ORDER BY notifications.id DESC";                   
+	        try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
+	            preparedStatement.setInt(1, id_doc);
+	            ResultSet resultSet = preparedStatement.executeQuery();
+    			while (resultSet.next()) {
+    				int id = resultSet.getInt("id");
+    				int id_creator = resultSet.getInt("id_creator");
+    				int id_type= resultSet.getInt("id_type");
+    				String date = resultSet.getString("date");
+    				int id_document = resultSet.getInt("id_document");
+    				int id_receiver = resultSet.getInt("id_receiver");
+    				String type_notify_name = resultSet.getString("type_notify_name");
+    				Notification notification = new Notification(id, id_creator, id_type, date, id_document, id_receiver, type_notify_name);
+    				if (!notification.equals(null)) {
+        				notifications.add(notification);    					
+    					}
+    			}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+        
+        finally {
+        	/*try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
+		}                                   
+
+	        return notifications;        
+
+    }    
 }
