@@ -22,7 +22,7 @@
 				<table border="1" class="table table-bordered table-hover table-responsive table-sm px-3">
 				<thead>
 				<tr  bgcolor="#C0C0C0" >
-				<th>id</th><th>id_creator</th><th>id_type</th><th>type_notify_name</th><th>date</th><th>id_document</th><th>id_receiver</th>
+				<th>id</th><th>id_creator</th><!-- <th>id_type</th> --><th>Вид уведомления</th><th>date</th><th>id_document</th><th>id_receiver</th>
 				</tr>
 				</thead>
 				<c:forEach var="notification" items="${notifications}">
@@ -30,7 +30,7 @@
 				 <tr>
 				    <td>${notification.id}</td>
 					<td>${notification.id_creator}</td>
-					<td>${notification.id_type}</td>
+<%-- 					<td>${notification.id_type}</td> --%>
 					<td>${notification.type_notify_name}</td>			
 				    <td>${notification.date}</td>
 				    <td>${notification.id_document}</td>

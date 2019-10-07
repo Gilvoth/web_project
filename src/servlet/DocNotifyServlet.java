@@ -38,7 +38,7 @@ public class DocNotifyServlet extends HttpServlet {
 		try {
 			int id_doc = Integer.parseInt(request.getParameter("id_doc"));
 			System.out.println("id документа " + id_doc);
-			ArrayList<Notification> notifications = NotiificationDb.selectId(6);
+			ArrayList<Notification> notifications = NotiificationDb.selectId(id_doc);
 			request.setAttribute("notifications", notifications);
 		} catch (Exception e) {
 			e.printStackTrace();

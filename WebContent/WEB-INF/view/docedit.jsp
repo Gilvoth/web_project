@@ -207,9 +207,10 @@
 				</form>
 			</div>
 			<div class="col-md-6 col-md-offset-4">	
-				<form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/DocNotifyServlet?id_doc=${id_doc}">
+<%-- 				<form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/DocNotifyServlet?id_doc=${id_doc}">
 				<input type="submit" class="btn-sm btn-dark" value="Просмотреть хронологию уведомлений">  
-				</form>			
+				</form> --%>
+				<a href='<c:url value="/DocNotifyServlet?id_doc=${id_doc}" />'  class="btn-sm btn-dark" role="button">Просмотреть хронологию уведомлений</a>			
 			</div>
 		</div>
 	</div>
