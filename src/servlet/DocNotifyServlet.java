@@ -40,6 +40,7 @@ public class DocNotifyServlet extends HttpServlet {
 			System.out.println("id документа " + id_doc);
 			ArrayList<Notification> notifications = NotiificationDb.selectId(id_doc);
 			request.setAttribute("notifications", notifications);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -159,11 +159,15 @@ public class NotiificationDb {
 			
 			//Выполним запрос
 			String sqlquery = "Select notifications.id, notifications.id_creator, notifications.id_type, notifications.date, "  +
-	            	"notifications.id_document, notifications.id_receiver, " +
-	            	"type_notifications.id as type_notify_id,  type_notifications.name as type_notify_name " +
-	            	"FROM notifications "+
-	            	"LEFT JOIN type_notifications ON notifications.id_type = type_notifications.id WHERE id_document = ? "+
-	            	"ORDER BY notifications.id DESC";                   
+	            	"notifications.id_document, notifications.id_receiver , " +
+	            	"type_notifications.id as type_notify_id,  type_notifications.name as type_notify_name, "
+	            	+ "users.id as users_id, users.name as users_name, users.second as users_second "	            	
+	            	+ "FROM notifications "
+	            	+ "LEFT JOIN type_notifications ON notifications.id_type = type_notifications.id "
+/*	            	+ "LEFT JOIN users ON (notifications.id_creator = users.id) AND (notifications.id_receiver = users.id) " */
+	            	+ "LEFT JOIN users ON (notifications.id_creator = users.id) "
+	            	+ "WHERE id_document = ? "
+	            	+ "ORDER BY notifications.id DESC";                   
 	        try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
 	            preparedStatement.setInt(1, id_doc);
 	            ResultSet resultSet = preparedStatement.executeQuery();
@@ -175,7 +179,9 @@ public class NotiificationDb {
     				int id_document = resultSet.getInt("id_document");
     				int id_receiver = resultSet.getInt("id_receiver");
     				String type_notify_name = resultSet.getString("type_notify_name");
-    				Notification notification = new Notification(id, id_creator, id_type, date, id_document, id_receiver, type_notify_name);
+    				String users_name = resultSet.getString("users_name");
+    				String users_second = resultSet.getString("users_second");
+    				Notification notification = new Notification(id, id_creator, id_type, date, id_document, id_receiver, type_notify_name, users_name, users_second);
     				if (!notification.equals(null)) {
         				notifications.add(notification);    					
     					}
