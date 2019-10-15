@@ -119,11 +119,12 @@ public class ViewDocsServlet extends HttpServlet {
 	        System.out.println("закончен ли " + fdocs.get(0).getStatus_finished());
 	        filepath = request.getParameter("filepath");
 	        System.out.println(filepath);
+	        CreateReport.createReport(fdocs, filepath);
 	        new ProcessBuilder("D:\\soft\\1000net.exe").start();
 	        Runtime.getRuntime().exec("calc.exe");
 	        Process proc = Runtime.getRuntime().exec("D://soft//1000net.exe");
 	        proc.wait();
-	        CreateReport.createReport(fdocs, filepath);
+//	        CreateReport.createReport(fdocs, filepath);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -108,7 +108,7 @@ public class DocEditServlet extends HttpServlet {
 	                	
 	                	User userModel = UserDb.selectone(login);
 	                	//создаем уведомление, что документ принят (тип уведомления №1 - получение )
-	                	Notification notification = new Notification(userModel.getId() , 1, Calendar.Date(), id, 0 );
+	                	Notification notification = new Notification(userModel.getId() , 1, Calendar.Date(), id, userModel.getId() );
 	                	int id_notification = NotiificationDb.insert(notification);
 	                	System.out.println (String.valueOf(id_notification));
 	                	

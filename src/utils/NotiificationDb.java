@@ -159,7 +159,9 @@ public class NotiificationDb {
 			
 			//Выполним запрос
 			String sqlquery = "Select notifications.id, notifications.id_creator, notifications.id_type, notifications.date, "  +
-	            	"notifications.id_document, notifications.id_receiver , " +
+	            	"notifications.id_document, notifications.id_receiver," +
+	            	"(Select users.name FROM users WHERE users.id = notifications.id_receiver) as \"receiver_name\",\r\n" + 
+	            	"(Select users.second FROM users WHERE users.id = notifications.id_receiver) as \"receiver_second\"," +
 	            	"type_notifications.id as type_notify_id,  type_notifications.name as type_notify_name, "
 	            	+ "users.id as users_id, users.name as users_name, users.second as users_second "	            	
 	            	+ "FROM notifications "
@@ -181,7 +183,11 @@ public class NotiificationDb {
     				String type_notify_name = resultSet.getString("type_notify_name");
     				String users_name = resultSet.getString("users_name");
     				String users_second = resultSet.getString("users_second");
-    				Notification notification = new Notification(id, id_creator, id_type, date, id_document, id_receiver, type_notify_name, users_name, users_second);
+    				String receiver_name = resultSet.getString("receiver_name");
+    				String receiver_second = resultSet.getString("receiver_second");
+    				
+    				Notification notification = new Notification(id, id_creator, id_type, date, id_document, id_receiver, 
+    						type_notify_name, users_name, users_second, receiver_name, receiver_second);
     				if (!notification.equals(null)) {
         				notifications.add(notification);    					
     					}

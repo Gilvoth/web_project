@@ -23,6 +23,11 @@ p.error {
 .bold{
 font-weight: bold;
 }
+
+.yellow{
+background-color: #FFD700;
+}
+
 /* table tr td:nth-child(2) {
   word-break: break-all;  
 } */

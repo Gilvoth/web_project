@@ -10,11 +10,14 @@ private int id_receiver;
 private String type_notify_name;
 private String users_name;
 private String users_second;
+private String receiver_name;
+private String receiver_second;
 
 	public Notification() {}
 	
 
-	public Notification(int id, int id_creator, int id_type, String date, int id_document, int id_receiver, String type_notify_name, String users_name, String users_second) {
+	public Notification(int id, int id_creator, int id_type, String date, int id_document, int id_receiver, String type_notify_name, 
+			String users_name, String users_second, String receiver_name, String receiver_second) {
 		this.id=id;
 		this.id_creator=id_creator;
 		this.id_type=id_type;
@@ -24,6 +27,9 @@ private String users_second;
 		this.type_notify_name = type_notify_name;
 		this.users_name = users_name;
 		this.users_second = users_second;
+		this.receiver_name = receiver_name;
+		this.receiver_second = receiver_second;
+		
 	}
 	
 	public Notification(int id, int id_creator, int id_type, String date, int id_document, int id_receiver, String type_notify_name) {
@@ -116,6 +122,26 @@ public String getUsers_second() {
 
 public void setUsers_second(String users_second) {
 	this.users_second = users_second;
+}
+
+
+public String getReceiver_name() {
+	return receiver_name;
+}
+
+
+public void setReceiver_name(String receiver_name) {
+	this.receiver_name = receiver_name;
+}
+
+
+public String getReceiver_second() {
+	return receiver_second;
+}
+
+
+public void setReceiver_second(String receiver_second) {
+	this.receiver_second = receiver_second;
 }
 	
 	

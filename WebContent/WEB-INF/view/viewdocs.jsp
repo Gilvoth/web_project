@@ -39,7 +39,7 @@
 </thead>
 <c:forEach var="doc" items="${docs}">
  <tbody id="myTable">
- <tr <%-- <c:if test="${doc.receiver_list[1]==null}"> class="bold" </c:if> --%> >
+ <tr <%-- <c:if test="${doc.receiver_list[1]==null}"> class="bold" </c:if> --%> <c:if test="${doc.status_finished==1}"> class="yellow" </c:if> >
  	<td><a href='<c:url value="/SendDocServlet?id=${doc.id}" />'> ${doc.id}</a></td>
 	<td>${doc.id_type}</td>
 	<td>${doc.id_contractor}</td>
