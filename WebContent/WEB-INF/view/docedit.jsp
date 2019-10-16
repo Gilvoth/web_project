@@ -12,7 +12,7 @@
 <jsp:include page="_menu.jsp"></jsp:include>
 <br><br>
 
-
+<c:set var="username" scope="session" value="${user.id}" />
 
 
 <div class="container">  
@@ -27,7 +27,7 @@
 		        Выберите изображение для загрузки:
 		        <br />
 		        <input type="file" name="filepath"  accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" />
-		<input type="submit" class="btn btn-dark" value="Загрузить изображение в документ">  
+		<input type="submit" class="btn btn-dark" value="Загрузить изображение в документ" <c:if test="${doc.receiver_list[0]!=username}"> disabled </c:if> >  
 		</form> 
 		</c:if>
 		
@@ -41,7 +41,7 @@
 		Выберите изображение для замены существующего:
 		<br />
 		<input type="file" name="filepath"  accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" />
-		<input type="submit" class="btn-sm btn-secondary" value="Замена изображения в текущем документе">  
+		<input type="submit" class="btn-sm btn-secondary" value="Замена изображения в текущем документе" <c:if test="${doc.receiver_list[0]!=username}"> disabled </c:if> >  
 		</form> 
 		</c:if>
 		<br>
@@ -183,7 +183,8 @@
 				<input name="add_agr" value="${doc.add_agr}" /><input name="add_agr2" value="${doc.add_agr}" type = "hidden"/><br><br>
 				<label>Отдел</label><br>
 				<input name="dep" value="${doc.dep}" readonly title="нельзя редактировать"/><br><br>
-				<input type="submit" class="btn btn-dark" value="Сохранить" />					
+				
+				<input type="submit" class="btn btn-dark" value="Сохранить"  <c:if test="${doc.receiver_list[0]!=username}"> disabled </c:if>  />
 			</div>
 			<div class="col-md-6 col-md-offset-4">	
 				<label>Сумма по доп. соглашению</label><br>
@@ -195,7 +196,7 @@
 		</form>
 		<br>
 		<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/DocEndServlet?id=${doc.id}">
-		<input type="submit" class="btn btn-dark" value="Работа над документом завершена">  
+		<input type="submit" class="btn btn-dark" value="Работа над документом завершена" <c:if test="${doc.receiver_list[0]!=username}"> disabled </c:if> >  
 		</form>
 		<br>
 		<br>

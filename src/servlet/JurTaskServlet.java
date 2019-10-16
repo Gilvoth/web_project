@@ -100,6 +100,7 @@ public class JurTaskServlet extends HttpServlet {
 				request.setAttribute("docs", docs);
 				request.setAttribute("user", user);
 				session.setAttribute("docs", docs); // присваиваем сессии для выгрузки отчёта
+				session.setAttribute("user", user); // присваиваем сессии для использовании при редактировании документа
 				//RequestDispatcher dispatcher = null;
 				RequestDispatcher dispatcher //
 				= this.getServletContext()//

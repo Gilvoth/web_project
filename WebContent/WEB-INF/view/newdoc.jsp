@@ -47,7 +47,7 @@
 		</td>
 		<td><pre>            </pre></td>
 		<td></td>
-		<td><input type="date" name="rec_date" value="" required>  </td>
+		<td><input type="date" name="rec_date" value="" placeholder="необязательный">  </td>
 		</tr>
 		</table>
 		                 

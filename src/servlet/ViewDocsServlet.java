@@ -81,6 +81,7 @@ public class ViewDocsServlet extends HttpServlet {
 					request.setAttribute("docs", docs);
 					request.setAttribute("user", user);
 					session.setAttribute("docs", docs); // присваиваем сессии для выгрузки отчёта
+					session.setAttribute("user", user); // присваиваем сессии для использовании при редактировании документа
 					RequestDispatcher dispatcher //
 					= this.getServletContext()//
 					.getRequestDispatcher("/WEB-INF/view/viewdocs.jsp");
