@@ -121,11 +121,27 @@ public class ViewDocsServlet extends HttpServlet {
 	        filepath = request.getParameter("filepath");
 	        System.out.println(filepath);
 	        CreateReport.createReport(fdocs, filepath);
-	        new ProcessBuilder("D:\\soft\\1000net.exe").start();
-	        Runtime.getRuntime().exec("calc.exe");
-	        Process proc = Runtime.getRuntime().exec("D://soft//1000net.exe");
-	        proc.wait();
-//	        CreateReport.createReport(fdocs, filepath);
+	        
+	        //new ProcessBuilder("D:\\soft\\Captura-Setup.exe").start();
+	        //new ProcessBuilder("D:\\soft\\cmd.exe").start();
+	        
+	        //Runtime.getRuntime().exec("D:\\soft\\Captura-Setup.exe");
+	        
+	        //Process proc = Runtime.getRuntime().exec("D:\\soft\\YUMI-2.0.5.0.exe");
+	        //proc.wait();
+	        
+	        // указываем в конструкторе ProcessBuilder,
+	        // что нужно запустить программу ls с параметрами -l /dev
+	        ProcessBuilder procBuilder = new ProcessBuilder("D:\\soft\\Captura-Setup.exe");  
+	         
+	        // перенаправляем стандартный поток ошибок на
+	        // стандартный вывод
+	        procBuilder.redirectErrorStream(true);
+	        
+	        // запуск программы
+	        Process process = procBuilder.start();
+	        
+
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

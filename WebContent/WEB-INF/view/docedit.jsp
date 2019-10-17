@@ -32,10 +32,15 @@
 		</c:if>
 		
 		<c:if test="${doc.blob!=null}">    
-		<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/ViewImageServlet?id=${doc.id}">
+<%-- 		<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/ViewImageServlet?id=${doc.id}">
 		<input type="submit" class="btn btn-dark" value="Просмотр изображения документа">  
-		</form>
-		
+		</form> --%>		
+		<button class="btn btn-dark" onclick="ViewDoc()">Просмотр изображения документа</button>
+		<script>
+		function ViewDoc() {
+		  var myWindow = window.open("${pageContext.request.contextPath}/ViewImageServlet?id=${doc.id}", "", "width=600,height=800");
+		}
+		</script>
 		
 		<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UploadServlet?id=${doc.id}">
 		Выберите изображение для замены существующего:
