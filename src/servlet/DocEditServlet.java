@@ -107,20 +107,26 @@ public class DocEditServlet extends HttpServlet {
 	                	System.out.println ("id документа= " + id);
 	                	
 	                	User userModel = UserDb.selectone(login);
-	                	//создаем уведомление, что документ принят (тип уведомления №1 - получение )
-	                	Notification notification = new Notification(userModel.getId() , 1, Calendar.Date(), id, userModel.getId() );
-	                	int id_notification = NotiificationDb.insert(notification);
-	                	System.out.println (String.valueOf(id_notification));
-	                	
-	                	Connection conn2 = DbFilter.getConn(); 
-	                    List<String> receiver_arraylist = new ArrayList<String>();	                    
-	                    receiver_arraylist.add(String.valueOf (userModel.getId())); // надо айди юзера а не логин!!!
-	                    receiver_arraylist.add(String.valueOf(id_notification));
-	                    Array receiver_list = conn2.createArrayOf("text", receiver_arraylist.toArray()); //This is Postgre feature Особенность реализации, преобразуем массив понятный Постгре 
-	                    
-	                	
-	                	DocDb.updateSender_listDoc(id, receiver_list);
-	                	
+	                	//если в поле документа "ожидающий принятия" тот же пользователь то :
+	                	if (doc.getReceiver_list().get(0).equals(String.valueOf(userModel.getId())) )  {
+		                	//создаем уведомление, что документ принят (тип уведомления №1 - получение )
+		                	Notification notification = new Notification(userModel.getId() , 1, Calendar.Date(), id, userModel.getId() );
+		                	int id_notification = NotiificationDb.insert(notification);
+		                	System.out.println (String.valueOf(id_notification));
+		                	
+		                	Connection conn2 = DbFilter.getConn(); 
+		                    List<String> receiver_arraylist = new ArrayList<String>();	                    
+		                    receiver_arraylist.add(String.valueOf (userModel.getId())); 
+		                    receiver_arraylist.add(String.valueOf(id_notification));
+		                    Array receiver_list = conn2.createArrayOf("text", receiver_arraylist.toArray()); //This is Postgre feature Особенность реализации, преобразуем массив понятный Постгре        
+		                	
+		                	DocDb.updateSender_listDoc(id, receiver_list);	
+	                	}  else {
+	                		//создаем уведомление, что документ открыт (тип уведомления №4 - открытие )
+		                	Notification notification = new Notification(userModel.getId() , 4, Calendar.Date(), id, userModel.getId() );
+		                	int id_notification = NotiificationDb.insert(notification);
+		                	System.out.println (String.valueOf(id_notification));
+	                	}
 	                	
 
 	                	System.out.println("Чтение завершено!! ");

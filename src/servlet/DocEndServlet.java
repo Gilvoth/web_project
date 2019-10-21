@@ -57,12 +57,14 @@ public class DocEndServlet extends HttpServlet {
             System.out.println("полученный логинUser из сессии " + loginedUser);
         	
             //создаем уведомление, что документ принят (тип уведомления №3 - работа над документом завершена)
-        	Notification notification = new Notification(Integer.parseInt(login), 3, Calendar.Date(), id, 0 );
+        	Notification notification = new Notification(Integer.parseInt(login), 3, Calendar.Date(), id, Integer.parseInt(login));
         	int id_notification = NotiificationDb.insert(notification);
         	System.out.println (String.valueOf(id_notification));	
         	
+        	//String infomessage = "Операция завершена успешно - документ помечен как Завершенный";
         	DocDb.updateStatus_finishedDoc(id);
-			
+        	//request.setAttribute("infomessage", infomessage);
+        	response.sendRedirect(request.getContextPath() + "/InfoPageServlet");
 			//doGet(request, response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

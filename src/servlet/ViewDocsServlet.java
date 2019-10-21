@@ -42,6 +42,7 @@ public class ViewDocsServlet extends HttpServlet {
 		String login = null;
 		String loginedUser = null;
 		int id_department = 0;
+        String filter_docs = "0";
 		try {
 			// получаем сессию
 			HttpSession session = request.getSession();
@@ -74,13 +75,36 @@ public class ViewDocsServlet extends HttpServlet {
 				// проверяем наличие элемента
 				if(roles.contains("ROLE_JUR")){
 					ArrayList<Fdoc> docs = null;
-					docs = DocDb.selectAllFull();
+					//docs = DocDb.selectAllFull();
+					
+					
+			        try {
+			        	filter_docs = request.getParameter("filter_docs");
+			        	if (filter_docs==null) {
+			                filter_docs = "*";
+			        	}
+			        	System.out.println(filter_docs);
+			        }catch (NullPointerException e) {
+			        	System.out.println("Параметр не найден!" + e);
+			        }					
+
+			        if (filter_docs.equals("*")) {
+			        	docs = DocDb.selectAllFull();        
+			            request.setAttribute("docs", docs);
+			            session.setAttribute("docs", docs);
+			        } else {
+			        	docs = DocDb.selectAllFull(Integer.parseInt(filter_docs));
+			            request.setAttribute("docs", docs);
+			            session.setAttribute("docs", docs);
+			        }	
+
+					
 					
 					System.out.println("размер массива из селекта : " + docs.size());
 					request.setAttribute("docs_size", docs.size());
-					request.setAttribute("docs", docs);
+					//request.setAttribute("docs", docs);
 					request.setAttribute("user", user);
-					session.setAttribute("docs", docs); // присваиваем сессии для выгрузки отчёта
+					//session.setAttribute("docs", docs); // присваиваем сессии для выгрузки отчёта
 					session.setAttribute("user", user); // присваиваем сессии для использовании при редактировании документа
 					RequestDispatcher dispatcher //
 					= this.getServletContext()//

@@ -43,6 +43,7 @@ public class JurTaskServlet extends HttpServlet {
 		String login = null;
 		String loginedUser = null;
 		int id_department = 0;
+        String filter_docs = "0";
 		try {
 			// получаем сессию
 			HttpSession session = request.getSession();
@@ -93,13 +94,40 @@ public class JurTaskServlet extends HttpServlet {
 				System.out.println("i: " + i);
 				System.out.println("размер массива: " + docs.size());
 				//ArrayList<String> ifo_arraylist_str = new ArrayList<String>();
+				
+/*
 				docs = DocDb.selectForCurUser_Full(users);
+	            request.setAttribute("docs", docs);
+	            session.setAttribute("docs", docs);
+*/ 
+	            
+		        try {
+		        	filter_docs = request.getParameter("filter_docs");
+		        	if (filter_docs==null) {
+		                filter_docs = "*";
+		        	}
+		        	System.out.println(filter_docs);
+		        }catch (NullPointerException e) {
+		        	System.out.println("Параметр не найден!" + e);
+		        }	            
+	            
+				
+		        if (filter_docs.equals("*")) {
+		        	docs = DocDb.selectForCurUser_Full(users);         
+		            request.setAttribute("docs", docs);
+		            session.setAttribute("docs", docs);
+		        } else {
+		        	docs = DocDb.selectForCurUser_Full(users, Integer.parseInt(filter_docs));
+		            request.setAttribute("docs", docs);
+		            session.setAttribute("docs", docs);
+		        }	
+				
 
 				System.out.println("размер массива из селекта : " + docs.size());
 				request.setAttribute("docs_size", docs.size());
-				request.setAttribute("docs", docs);
+				//request.setAttribute("docs", docs);
 				request.setAttribute("user", user);
-				session.setAttribute("docs", docs); // присваиваем сессии для выгрузки отчёта
+				//session.setAttribute("docs", docs); // присваиваем сессии для выгрузки отчёта
 				session.setAttribute("user", user); // присваиваем сессии для использовании при редактировании документа
 				//RequestDispatcher dispatcher = null;
 				RequestDispatcher dispatcher //

@@ -96,6 +96,7 @@ public class LoginPageServlet extends HttpServlet {
                 session.setAttribute("loginedUserSecond", user.getSecond());
                 session.setAttribute("id_department", user.getId_department());
                 session.setAttribute("id_creator", user.getId());
+                session.setAttribute("user", user); // присваиваем сессии для использовании при редактировании документа
                 //out.println("Session data are set");
                 System.out.println(user.getName());
                 System.out.println(user.getSecond());

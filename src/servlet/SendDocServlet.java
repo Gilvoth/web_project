@@ -84,6 +84,7 @@ public class SendDocServlet extends HttpServlet {
         	System.out.println ("id= " + id + "  " + "id_user= "+ id_user);
         	
         	User userModel = UserDb.selectone(login);
+        	//создаем уведомление, что документ отправлен (тип уведомления №2 - отправлен )
         	Notification notification = new Notification(userModel.getId(), 2, Calendar.Date(), id, Integer.parseInt(id_user) );
         	int id_notification = NotiificationDb.insert(notification);
         	System.out.println (String.valueOf(id_notification));
