@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.User;
+import utils.AuthUtil;
 import utils.UserDb;
 
 /**
@@ -58,7 +59,7 @@ public class LoginPageServlet extends HttpServlet {
 //        users.add(new User(UserDb.selectone(login)));
         //User user = new User(UserDb.selectone(login));
         User user = UserDb.selectone(login);
-        //users.add(user);
+
         if(user != null) {
         System.out.println("Создан объект user!!");
         }else
@@ -85,7 +86,12 @@ public class LoginPageServlet extends HttpServlet {
         //// получаем объект name
         String name = (String) session.getAttribute("login");
 //        String second = (String) session.getAttribute("second");
-         
+        boolean confirmed = AuthUtil.checkUser(user); //проверяем авторизован ли
+        if(!confirmed) {
+        	System.out.println("Пользователь не подтверждён!!!");
+        	doGet(req, resp);
+        	return;
+        	}
         //PrintWriter out = resp.getWriter();
         try {
             // если объект ранее не установлен

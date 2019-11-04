@@ -1,11 +1,10 @@
 package utils;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import model.User; // our model User
-import config.SecurityConfig; // our roles
 
 public class DataDao {
 
@@ -18,16 +17,16 @@ static {
 private static void initUsers() {
 	 
     // This user has a role as ASUP.
-    User asup = new User(1,"Анатолий Николаевич","Желизнык","1","1", 10, SecurityConfig.ROLE_ASUP);
+//    User asup = new User(1,"Анатолий Николаевич","Желизнык","1","1", 10, SecurityConfig.ROLE_ASUP);
     //users.add(new User(UserDb.selectone(0)));
     //User asup = new User(1,"а","fio","1","а", 10, SecurityConfig.ROLE_ASUP);
     //User users = UserDb.selectUser();
     // This user has a role Jurist.
     //User jur = new User(3,"Наталья Алексеевна","Курникова","3","3", 30, SecurityConfig.ROLE_JURIST);
-    User jur = new User(3,"Наталья Алексеевна","Курникова","3","3", 30, SecurityConfig.ROLE_JURIST);
+//    User jur = new User(3,"Наталья Алексеевна","Курникова","3","3", 30, SecurityConfig.ROLE_JURIST);
 
-    mapUsers.put(asup.getName(), asup); // insert data on the map
-    mapUsers.put(jur.getName(), jur); //
+//    mapUsers.put(asup.getName(), asup); // insert data on the map
+//    mapUsers.put(jur.getName(), jur); //
  }
 
  // Find a User by userName and password.

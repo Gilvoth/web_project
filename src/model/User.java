@@ -11,12 +11,15 @@ public class User {
 	private String password;
     private int id_department;
     private ArrayList<String> roles;
+    private String dep_name;
+    private boolean confirmed;
 
 
     public User() {}    //как в Metanit инициализируем   
     public User(User user) {}    //как в Metanit инициализируем
  
-    public User(int id, String name, String second, String login, String password, int id_department, String...roles) {
+//для взятия массива с формы редактирования ролей    
+    public User(int id, String name, String second, String login, String password, int id_department, String[] roles, boolean confirmed) {
 
         this.id = id;
     	this.name = name;
@@ -30,10 +33,13 @@ public class User {
            for (String r : roles) {
               this.roles.add(r); }
            }
+        this.confirmed = confirmed;
            
     }
 
-    public User(int id, String name, String second, String login, String password, int id_department, ArrayList<String> roles) {
+
+//редактирование в setroleedit    
+    public User(int id, String name, String second, String login, String password, int id_department, ArrayList<String> roles, boolean confirmed) {
         this.id = id;
     	this.name = name;
     	this.second = second;
@@ -46,7 +52,7 @@ public class User {
            for (String r : roles) {
               this.roles.add(r); }
            }
-           
+        this.confirmed = confirmed;
     } 
     
     public User(String name, String second, String login, String password, int id_department, ArrayList<String> roles) {
@@ -121,5 +127,35 @@ public class User {
     public void setRoles(ArrayList<String> roles) {
         this.roles = roles;
      }
+	public String getDep_name() {
+		return dep_name;
+	}
+	public void setDep_name(String dep_name) {
+		this.dep_name = dep_name;
+	}
+
+    public User(int id, String name, String second, String login, String password, int id_department, ArrayList<String> roles, String dep_name, boolean confirmed) {
+        this.id = id;
+    	this.name = name;
+    	this.second = second;
+    	this.login = login;
+    	this.password = password;
+        this.id_department = id_department; 
+        
+        this.roles = new ArrayList<String>(); // aka ROLES
+        if (roles != null) {
+           for (String r : roles) {
+              this.roles.add(r); }
+           }
+        this.dep_name = dep_name;
+        this.confirmed = confirmed;
+    }
     
+	public boolean isConfirmed() {
+		return confirmed;
+	}
+	public void setConfirmed(boolean confirmed) {
+		this.confirmed = confirmed;
+	} 	
+	
 }

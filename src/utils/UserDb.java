@@ -48,7 +48,8 @@ public class UserDb extends HttpServlet {
         ResultSet resultset = null;
 		try {
 			resultset = statement.executeQuery(
-			        "SELECT * FROM users ORDER BY id");
+			        "SELECT users.id, users.name,second,login,pass,id_department,role, departments.name as dep_name, users.confirmed FROM users "
+			        + "LEFT JOIN departments ON departments.id = users.id_department ORDER BY users.id");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -70,10 +71,12 @@ public class UserDb extends HttpServlet {
                 String[] role_arr = (String[])role.getArray();
                 ArrayList<String> role_arraylist= new ArrayList<String>();
                 Collections.addAll(role_arraylist, role_arr);
-                //System.out.println("отработала коллекция");
+                
+                String dep_name = resultset.getString("dep_name");
+                boolean confirmed = resultset.getBoolean("confirmed");
 
                 
-                User user = new User(id, name, second, login, password, id_department, role_arraylist);
+                User user = new User(id, name, second, login, password, id_department, role_arraylist, dep_name, confirmed);
                 users.add(user);
 
 					
@@ -105,7 +108,7 @@ public class UserDb extends HttpServlet {
 		Connection conn = DbFilter.getConn();
 
 		//Выполним запрос
-		String sqlquery = "SELECT * FROM users WHERE login = ?";
+		String sqlquery = "SELECT id,name,second,login,pass,id_department,role, confirmed FROM users WHERE login = ?";
         try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
             preparedStatement.setString(1, login);
             ResultSet resultset = preparedStatement.executeQuery();
@@ -121,9 +124,9 @@ public class UserDb extends HttpServlet {
                 String[] role_arr = (String[])role.getArray();
                 ArrayList<String> role_arraylist= new ArrayList<String>();
                 Collections.addAll(role_arraylist, role_arr);
+                boolean confirmed = resultset.getBoolean("confirmed");
                 
-                
-	                user = new User(id, name, second, login, password, id_department, role_arraylist);
+	                user = new User(id, name, second, login, password, id_department, role_arraylist, confirmed);
 	                //users.add(user);
 						
 				    System.out.println(//arrayList+
@@ -157,7 +160,7 @@ public class UserDb extends HttpServlet {
     public static int update(User user) {
     	Connection conn = DbFilter.getConn();       
         String sql = "UPDATE users SET name = ?, second = ?, login = ?, pass = ?, "
-        		+ "id_department = ?, role = ? WHERE id = ?";
+        		+ "id_department = ?, role = ?, confirmed = ?  WHERE id = ?";
                 try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){
                 	
 					preparedStatement.setString(1, user.getName());
@@ -167,8 +170,10 @@ public class UserDb extends HttpServlet {
 					preparedStatement.setInt(5, user.getId_department());
 					ArrayList<String> list = new ArrayList<String>(user.getRoles());// realization feature PG JDBC 
 					Array array = conn.createArrayOf("text", list.toArray());// realization feature PG JDBC
-					preparedStatement.setArray(6, array);					
-					preparedStatement.setInt(7, user.getId());
+					preparedStatement.setArray(6, array);
+					preparedStatement.setBoolean(7, user.isConfirmed());
+					preparedStatement.setInt(8, user.getId());
+
  
                     return  preparedStatement.executeUpdate();
                     
@@ -251,7 +256,7 @@ public class UserDb extends HttpServlet {
 		Connection conn = DbFilter.getConn();
 
 		//Выполним запрос
-		String sqlquery = "SELECT * FROM users WHERE id = ?";
+		String sqlquery = "SELECT id,name,second,login,pass,id_department,role, confirmed FROM users WHERE id = ?";
         try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
             preparedStatement.setInt(1, id);
             ResultSet resultset = preparedStatement.executeQuery();
@@ -267,9 +272,9 @@ public class UserDb extends HttpServlet {
                 String[] role_arr = (String[])role.getArray();
                 ArrayList<String> role_arraylist= new ArrayList<String>();
                 Collections.addAll(role_arraylist, role_arr);
+                boolean confirmed = resultset.getBoolean("confirmed");
                 
-                
-	                user = new User(id, name, second, login, password, id_department, role_arraylist);
+	                user = new User(id, name, second, login, password, id_department, role_arraylist, confirmed);
 	                //users.add(user);
 						
 				    System.out.println(//arrayList+

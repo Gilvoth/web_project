@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,8 +28,11 @@
 				<input name="id_department" value="${user.id_department}" /><br><br>
 				<label>Роли</label><br>
 				<%-- <input name="roles" value="${user.roles}" /><br><br> --%>
-				<input type="checkbox" name="role" value="ROLE_ASUP"  />роль ROLE_ASUP
-				<input type="checkbox" name="role" value="ROLE_JUR"  />роль ROLE_JUR	
+				<input type="checkbox" name="role" value="ROLE_ASUP" />роль ROLE_ASUP
+				<input type="checkbox" name="role" value="ROLE_JUR"  />роль ROLE_JUR
+				<br>
+				<label>Статус подтверждения</label><br>	
+				<input type="checkbox" name="confirmed" value="true"  ${user.confirmed == true ? 'checked' : ' '}  /> Подтверждён
 				<br><br>
 				<input type="submit" class="btn btn-dark" value="Отредактировать" />
 			</form>		

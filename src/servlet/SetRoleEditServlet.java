@@ -71,15 +71,14 @@ public class SetRoleEditServlet extends HttpServlet {
             String[] role = {""};
             role = request.getParameterValues("role");//read role from html form input (name role)
             ArrayList<String> role_arr = new ArrayList<String>(Arrays.asList(role));
-
-            
-            User user = new User(id, name, second, login, password, id_department, role_arr);
+            boolean confirmed = Boolean.parseBoolean(request.getParameter("confirmed"));
+            User user = new User(id, name, second, login, password, id_department, role_arr, confirmed);
             
             UserDb.update(user);
             response.sendRedirect(request.getContextPath() + "/SetRoleServlet");
         }
         catch(Exception ex) {
-             
+        	
             getServletContext().getRequestDispatcher("/WEB-INF/view/notfound.jsp").forward(request, response);   
         }
 		

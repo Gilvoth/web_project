@@ -29,7 +29,12 @@ public class AuthUtil  {
         User loginedUser = (User) session.getAttribute("loginedUser");
         return loginedUser;
     }
-     
+
+    // Проверка пользователя на статус "подтвержденный"
+    public static boolean checkUser(User user) {
+        boolean confirmed = user.isConfirmed();
+        return confirmed;
+    }
 
 
 }
