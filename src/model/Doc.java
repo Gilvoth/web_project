@@ -31,6 +31,7 @@ private boolean paid;
 private String add_agr;
 private BigDecimal price_add_agr;
 private ArrayList<Integer> ifo;
+private ArrayList<String> protocol;
 
 	
 	public Doc() {}
@@ -295,8 +296,27 @@ private ArrayList<Integer> ifo;
 	public void setIfo(ArrayList<Integer> ifo) {
 		this.ifo = ifo;
 	}
-	
 
+	public ArrayList<String> getProtocol() {
+		return protocol;
+	}
+
+	public void setProtocol(ArrayList<String> protocol) {
+		this.protocol = protocol;
+	}
+	
+//Чтение протокола
+	public Doc(int id, ArrayList<String> protocol) {
+		// TODO Auto-generated constructor stub
+    	this.id = id;
+        
+        this.protocol = new ArrayList<String>(); // aka 
+        if (protocol != null) {
+           for (String p : protocol) {
+              this.protocol.add(p); }
+           }
+        
+	}	
 	
 	
 }

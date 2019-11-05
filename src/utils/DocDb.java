@@ -1994,6 +1994,50 @@ public class DocDb {
     }
     
 //  ***********************************************************************************************************************************      
+  //***********************************************************************************************************************************
+    public static Doc selectProtocol(int id) {
+		Connection conn = DbFilter.getConn();
+    	Doc doc = null;
+		//Выполним запрос
+		String sqlquery =					
+				"SELECT \r\n" + 
+				"documents.id as \"id\",\r\n" + 
+				"documents.protocol as \"protocol\"\r\n" + 
+				"FROM documents\r\n" +
+				"WHERE documents.id = ?";
+		
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
+            preparedStatement.setInt(1, id);
+            ResultSet resultset = preparedStatement.executeQuery();		
+			if (resultset.next()) {
+		        int id_doc = resultset.getInt("id");
+		        
+		        Array protocol = resultset.getArray("protocol");
+                String[] protocol_arr = (String[])protocol.getArray();
+                ArrayList<String> protocol_arraylist= new ArrayList<String>();
+                Collections.addAll(protocol_arraylist, protocol_arr);
+
+                doc = new Doc (id_doc, protocol_arraylist);
+                
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        finally 
+	        {
+/*        	try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();		
+			}							*/
+			} 		    	
+    	
+    	return doc;
+    	
+    }	
+//********************************************************************************************************************************
     
     
 }

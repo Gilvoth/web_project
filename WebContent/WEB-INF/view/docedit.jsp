@@ -209,7 +209,9 @@
 			</div>
 			<div class="col-md-6 col-md-offset-4">	
 				<label>Сумма по доп. соглашению</label><br>
-				<input name="price_add_agr" value="${doc.price_add_agr}" /><input name="price_add_agr2" value="${doc.price_add_agr}" type = "hidden"/><br><br>				
+				<input name="price_add_agr" value="${doc.price_add_agr}" /><input name="price_add_agr2" value="${doc.price_add_agr}" type = "hidden"/><br><br>
+				
+			
 			</div>
 		</div>
 		
@@ -219,6 +221,11 @@
 		<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/DocEndServlet?id=${doc.id}">
 		<input type="submit" class="btn btn-dark" value="Работа над документом завершена" <c:if test="${doc.receiver_list[0]!=username}"> disabled </c:if> >  
 		</form>
+		<br>
+<%-- 		<form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/ProtocolEditServlet?id=${doc.id}">
+			<input type="submit" class="btn-sm btn-dark" value="Протокол разногласий">  
+		</form> --%>
+		<a href='<c:url value="/ProtocolEditServlet?id=${doc.id}" />'  class="btn-sm btn-dark" role="button">Протокол разногласий</a>	
 		<br>
 		<br>
 		
