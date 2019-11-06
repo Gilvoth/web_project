@@ -2038,6 +2038,33 @@ public class DocDb {
     	
     }	
 //********************************************************************************************************************************
-    
+    public static int updateProtocol(int id, List<ArrayList<String>> protocol) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET protocol =? WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){            	
+                	Array protocolPg = conn.createArrayOf("text", protocol.toArray());
+					preparedStatement.setArray(1, protocolPg);
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение protocol в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();
+                    
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally 
+    	        {/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	
+                
+                
+              
+        return 0;
+    }
+//  ***********************************************************************************************************************************    
     
 }

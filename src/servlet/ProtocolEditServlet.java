@@ -1,6 +1,11 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,8 +69,30 @@ public class ProtocolEditServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
+		int id_user = 1;
+		try {
+			String protocol = request.getParameter("protocol");
+			String protocol2 = protocol + "второй";
+			System.out.println("protocol документа из ProtocolEditServlet " + protocol);
+			List<String> protocolRecord = new ArrayList<String>();
+			protocolRecord.add(String.valueOf(id_user));
+			protocolRecord.add(protocol);
+							List<String> protocolRecord2 = new ArrayList<String>();
+							protocolRecord2.add(String.valueOf(id_user));
+							protocolRecord2.add(protocol2);
+			List<ArrayList<String>> protocolRecordGeneral = new ArrayList<ArrayList<String>>();
+			protocolRecordGeneral.add((ArrayList<String>) protocolRecord);
+							protocolRecordGeneral.add((ArrayList<String>) protocolRecord2);													
+			System.out.println("protocolRecordGeneral документа из ProtocolEditServlet " + protocolRecordGeneral);
+        
+			
+			DocDb.updateProtocol(6, protocolRecordGeneral);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		doGet(request, response);
+		//doGet(request, response);
 	}
 
 }

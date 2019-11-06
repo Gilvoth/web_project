@@ -17,11 +17,12 @@
 		<div class="col-xl-10">    
       	<h3>Протокол разногласий</h3>
       	
-<label>Содержание</label><br>
-<p><textarea rows="15" cols="75" name="protocol" placeholder="Введите информацию">${doc.protocol}</textarea></p>
+
 
 <br>
 <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/ProtocolEditServlet?id=${doc.id}">
+<label>Содержание</label><br>
+<p><textarea rows="15" cols="75" name="protocol" placeholder="Введите информацию">${doc.protocol}</textarea></p>
 <input type="submit" class="btn btn-dark" value="Сохранить">  
 </form>
 <br>      	
