@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Doc;
 import model.Notification;
+import model.User;
 import utils.Calendar;
 import utils.DocDb;
 import utils.NotiificationDb;
@@ -47,14 +48,21 @@ public class ProtocolEditServlet extends HttpServlet {
 			System.out.println("id документа из ProtocolEditServlet " + id);
 
 			Doc doc = DocDb.selectProtocol(id);
-        	request.setAttribute("doc", doc);
+			if (!doc.equals(null)) {
+				request.setAttribute("doc", doc);
+			}
+			else {
+				System.out.println("Протокол пустой!");
+			}
 
 			
 			getServletContext().getRequestDispatcher("/WEB-INF/view/protocoledit.jsp").forward(request, response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			getServletContext().getRequestDispatcher("/WEB-INF/view/notfound.jsp").forward(request, response);
+			//e.printStackTrace();
+			//getServletContext().getRequestDispatcher("/WEB-INF/view/notfound.jsp").forward(request, response);
+			System.out.println("Протокол пустой!");
+			getServletContext().getRequestDispatcher("/WEB-INF/view/protocoledit.jsp").forward(request, response);
 		} 
 		
 		
@@ -69,14 +77,22 @@ public class ProtocolEditServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		int id_user = 1;
+		
+        // получаем сессию
+        HttpSession session = request.getSession();
+        //// получаем объект User
+        User user = (User) session.getAttribute("user");
+		
+		int id_user = user.getId();
 		try {
+			int id_document = Integer.parseInt(request.getParameter("id_document"));
 			String protocol = request.getParameter("protocol");
 			String protocol2 = protocol + "второй";
+			System.out.println("id_document документа из ProtocolEditServlet " + id_document);
 			System.out.println("protocol документа из ProtocolEditServlet " + protocol);
-			List<String> protocolRecord = new ArrayList<String>();
-			protocolRecord.add(String.valueOf(id_user));
-			protocolRecord.add(protocol);
+				List<String> protocolRecord = new ArrayList<String>();
+				protocolRecord.add(String.valueOf(id_user));
+				protocolRecord.add(protocol);
 							List<String> protocolRecord2 = new ArrayList<String>();
 							protocolRecord2.add(String.valueOf(id_user));
 							protocolRecord2.add(protocol2);
@@ -86,7 +102,7 @@ public class ProtocolEditServlet extends HttpServlet {
 			System.out.println("protocolRecordGeneral документа из ProtocolEditServlet " + protocolRecordGeneral);
         
 			
-			DocDb.updateProtocol(6, protocolRecordGeneral);
+			DocDb.updateProtocol(id_document, protocolRecordGeneral);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
