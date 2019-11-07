@@ -20,7 +20,9 @@
 
 
 <br>
-<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/ProtocolEditServlet?id_document=${doc.id}">
+
+<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/ProtocolEditServlet">
+<input name= "id_document" value="${id_document}" readonly title="нельзя редактировать"/><br><br>
 <label>Содержание</label><br>
 <p><textarea rows="15" cols="75" name="protocol" placeholder="Введите информацию">${doc.protocol}</textarea></p>
 <input type="submit" class="btn btn-dark" value="Сохранить">  

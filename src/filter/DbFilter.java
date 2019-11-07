@@ -74,8 +74,8 @@ public class DbFilter implements Filter {
         login = (String) session.getAttribute("login");
         //// получаем объект logineduser
         loginedUser = (String) session.getAttribute("loginedUser");
-        System.out.println("полученный логин из сессии" + login);
-        System.out.println("полученный логинUser из сессии" + loginedUser);
+        //System.out.println("полученный логин из сессии" + login);
+        //System.out.println("полученный логинUser из сессии" + loginedUser);
         
         if (login == null ) {System.out.println("Зайдите пользователем!!"); 
         //String path = req.getContextPath() + "/LoginPageServlet";
@@ -122,7 +122,7 @@ public class DbFilter implements Filter {
 			e.printStackTrace();    }
     	}
 
-        System.out.println("DB Filter has been finished!");
+        //System.out.println("DB Filter has been finished!");
 		// pass the request along the filter chain
 		chain.doFilter(req, resp);
 	}
@@ -137,7 +137,7 @@ public class DbFilter implements Filter {
 	public void connectDb ()
 	{
 		if (java.lang.System.getProperty("os.name").equals("Windows 7"))
-		{System.out.println("Операционная система Windows 7!");
+		{//System.out.println("Операционная система Windows 7!");
 		String url = "jdbc:postgresql://127.0.0.1:5432/web_db";
         String username = "admin";
         String password = "web_pg";               
@@ -145,7 +145,7 @@ public class DbFilter implements Filter {
     	//////////////////////////////////////////////////////////////////////////////////
         try {
         Class.forName("org.postgresql.Driver");
-        System.out.println("PostgreSQL JDBC Driver successfully connected");
+        //System.out.println("PostgreSQL JDBC Driver successfully connected");
         // Создать объект Connection подключенный к database.
         conn = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException e) {
@@ -160,7 +160,7 @@ public class DbFilter implements Filter {
 		
 		}
 		else {
-			System.out.println("Операционная система Windows 10!");
+			//System.out.println("Операционная система Windows 10!");
 	    	String url = "jdbc:postgresql://10.72.0.128:5432/web_db";
 	        String username = "admin";
 	        String password = "web_pg";      
@@ -168,7 +168,7 @@ public class DbFilter implements Filter {
 	    	//////////////////////////////////////////////////////////////////////////////////
 	        try {
 	        Class.forName("org.postgresql.Driver");
-	        System.out.println("PostgreSQL JDBC Driver successfully connected");
+	        //System.out.println("PostgreSQL JDBC Driver successfully connected");
 	        // Создать объект Connection подключенный к database.
 	        conn = DriverManager.getConnection(url, username, password);
 	        } catch (ClassNotFoundException e) {

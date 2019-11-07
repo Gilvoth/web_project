@@ -1994,7 +1994,6 @@ public class DocDb {
     }
     
 //  ***********************************************************************************************************************************      
-  //***********************************************************************************************************************************
     public static Doc selectProtocol(int id) {
 		Connection conn = DbFilter.getConn();
     	Doc doc = null;
@@ -2018,14 +2017,14 @@ public class DocDb {
                 String[] protocol_arr = (String[])protocol.getArray();
                 //ArrayList<String> protocol_arraylist= new ArrayList<String>();
                 Collections.addAll(protocol_arraylist, protocol_arr);
-                if (protocol_arraylist.equals(null)) {
-                	protocol_arraylist.add("Протокол пустой");
-                }
+                //if (protocol_arraylist.equals(null)) {
+                //	protocol_arraylist.add("Протокол пустой");
+                //}
                 doc = new Doc (id_doc, protocol_arraylist);
                 
 			}else {
-				protocol_arraylist.add("Протокол пустой");
-				doc = new Doc (id_doc, protocol_arraylist);
+				//protocol_arraylist.add("Протокол пустой");
+				//doc = new Doc (id_doc, protocol_arraylist);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -2047,12 +2046,13 @@ public class DocDb {
 //********************************************************************************************************************************
     public static int updateProtocol(int id, List<ArrayList<String>> protocol) {
     	Connection conn = DbFilter.getConn();       
-        String sql = "UPDATE documents SET protocol = ((Select protocol FROM documents WHERE id =? ) + ?) WHERE id = ?";
+        //String sql = "UPDATE documents SET protocol = ((Select protocol FROM documents WHERE id =? ) + ?) WHERE id = ?";
+    	String sql = "UPDATE documents SET protocol = ? WHERE id = ?";
                 try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){            	
-                	Array protocolPg = conn.createArrayOf("text", protocol.toArray());
-                	preparedStatement.setInt(1, id);
-                	preparedStatement.setArray(2, protocolPg);
-					preparedStatement.setInt(3, id);
+                	Array protocolPg = conn.createArrayOf("text[]", protocol.toArray());
+                	//preparedStatement.setInt(1, id);
+                	preparedStatement.setArray(1, protocolPg);
+					preparedStatement.setInt(2, id);
 					System.out.println("Запрос на изменение protocol в документе выполнен!!");
                     return  preparedStatement.executeUpdate();
                     
