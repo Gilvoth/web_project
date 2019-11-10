@@ -48,7 +48,7 @@ public class ProtocolEditServlet extends HttpServlet {
 			System.out.println("id документа из ProtocolEditServlet " + id);
 
 			Doc doc = DocDb.selectProtocol(id); // 07-11-2019 разобраться с нулём здесь!!!
-			if (!doc.equals(null)) {
+				if (!doc.equals(null)) {
 				request.setAttribute("doc", doc);
 				request.setAttribute("id_document", id);
 			}
@@ -65,7 +65,7 @@ public class ProtocolEditServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			//getServletContext().getRequestDispatcher("/WEB-INF/view/notfound.jsp").forward(request, response);
-			System.out.println("Протокол пустой!");
+			System.out.println("Протокол пустой!");request.setAttribute("id_document", id);
 			getServletContext().getRequestDispatcher("/WEB-INF/view/protocoledit.jsp").forward(request, response);
 		} 
 		
@@ -89,12 +89,12 @@ public class ProtocolEditServlet extends HttpServlet {
 		
 		int id_user = user.getId();
 		try {
-			//int id = Integer.parseInt(request.getParameter("id"));
-			int id_document = Integer.parseInt((String) request.getAttribute("id_document"));
+			int id_document = Integer.parseInt(request.getParameter("id_document"));
+			//int id_document = Integer.parseInt((String) request.getAttribute("id_document"));
 			//String protocol = request.getParameter("protocol");
-			String protocol = (String) request.getAttribute("protocol");
+			String protocol = (String) request.getParameter("protocol");
 			String protocol2 = protocol + "второй";
-			request.setAttribute("id", id_document);
+			request.setAttribute("id_document", id_document);
 			System.out.println("id документа из ProtocolEditServlet " + id_document);
 			System.out.println("protocol документа из ProtocolEditServlet " + protocol);
 				List<String> protocolRecord = new ArrayList<String>();

@@ -2001,31 +2001,29 @@ public class DocDb {
     	int id_doc = 0;
 		//Выполним запрос
 		String sqlquery =					
-				"SELECT \r\n" + 
+				/*"SELECT \r\n" + 
 				"documents.id as \"id\",\r\n" + 
 				"documents.protocol as \"protocol\"\r\n" + 
 				"FROM documents\r\n" +
-				"WHERE documents.id = ?";
+				"WHERE documents.id = ?";*/
+		"SELECT	documents.id, documents.protocol as \"protocol\" FROM documents WHERE documents.id = ?";
 		
         try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
             preparedStatement.setInt(1, id);
             ResultSet resultset = preparedStatement.executeQuery();		
-			if (resultset.next()) {
+            while (resultset.next()) {
 		        id_doc = resultset.getInt("id");
 		        
-		        Array protocol = resultset.getArray("protocol");
+		        Array protocol = resultset.getArray("protocol"); // 09112019 делает массив [0][1] из символов char [1,1,,22,3]
                 String[] protocol_arr = (String[])protocol.getArray();
                 //ArrayList<String> protocol_arraylist= new ArrayList<String>();
                 Collections.addAll(protocol_arraylist, protocol_arr);
                 //if (protocol_arraylist.equals(null)) {
                 //	protocol_arraylist.add("Протокол пустой");
                 //}
-                doc = new Doc (id_doc, protocol_arraylist);
-                
-			}else {
-				//protocol_arraylist.add("Протокол пустой");
-				//doc = new Doc (id_doc, protocol_arraylist);
-			}
+                doc = new Doc (id, protocol_arraylist);
+                //return doc;
+				}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -2049,8 +2047,9 @@ public class DocDb {
         //String sql = "UPDATE documents SET protocol = ((Select protocol FROM documents WHERE id =? ) + ?) WHERE id = ?";
     	String sql = "UPDATE documents SET protocol = ? WHERE id = ?";
                 try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){            	
-                	Array protocolPg = conn.createArrayOf("text[]", protocol.toArray());
+                	Array protocolPg = conn.createArrayOf("text", protocol.toArray());
                 	//preparedStatement.setInt(1, id);
+                	//preparedStatement.setArray(1, protocolPg);
                 	preparedStatement.setArray(1, protocolPg);
 					preparedStatement.setInt(2, id);
 					System.out.println("Запрос на изменение protocol в документе выполнен!!");
