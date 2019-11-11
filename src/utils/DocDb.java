@@ -1997,31 +1997,23 @@ public class DocDb {
     public static Doc selectProtocol(int id) {
 		Connection conn = DbFilter.getConn();
     	Doc doc = null;
-    	ArrayList<String> protocol_arraylist= new ArrayList<String>();
-    	int id_doc = 0;
+    	int id_protocol = 0;
 		//Выполним запрос
 		String sqlquery =					
-				/*"SELECT \r\n" + 
-				"documents.id as \"id\",\r\n" + 
-				"documents.protocol as \"protocol\"\r\n" + 
-				"FROM documents\r\n" +
-				"WHERE documents.id = ?";*/
-		"SELECT	documents.id, documents.protocol as \"protocol\" FROM documents WHERE documents.id = ?";
+		"SELECT	documents.id, documents.id_protocol as \"id_protocol\" FROM documents WHERE documents.id = ?";
 		
         try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
             preparedStatement.setInt(1, id);
             ResultSet resultset = preparedStatement.executeQuery();		
             while (resultset.next()) {
-		        id_doc = resultset.getInt("id");
-		        
-		        Array protocol = resultset.getArray("protocol"); // 09112019 делает массив [0][1] из символов char [1,1,,22,3]
-                String[] protocol_arr = (String[])protocol.getArray();
-                //ArrayList<String> protocol_arraylist= new ArrayList<String>();
-                Collections.addAll(protocol_arraylist, protocol_arr);
-                //if (protocol_arraylist.equals(null)) {
-                //	protocol_arraylist.add("Протокол пустой");
-                //}
-                doc = new Doc (id, protocol_arraylist);
+		        id = resultset.getInt("id");
+		        id_protocol = resultset.getInt("id_protocol");	        
+
+                if (id_protocol==0) {
+                	//id_protocol=1999;
+                	System.out.print("Протокол пустой");
+                }
+                doc = new Doc (id, id_protocol);
                 //return doc;
 				}
 		} catch (SQLException e) {
@@ -2041,7 +2033,7 @@ public class DocDb {
     	return doc;
     	
     }	
-//********************************************************************************************************************************
+//********************************************************************************************
     public static int updateProtocol(int id, List<ArrayList<String>> protocol) {
     	Connection conn = DbFilter.getConn();       
         //String sql = "UPDATE documents SET protocol = ((Select protocol FROM documents WHERE id =? ) + ?) WHERE id = ?";

@@ -47,26 +47,17 @@ public class ProtocolEditServlet extends HttpServlet {
 			id = Integer.parseInt(request.getParameter("id"));
 			System.out.println("id документа из ProtocolEditServlet " + id);
 
-			Doc doc = DocDb.selectProtocol(id); // 07-11-2019 разобраться с нулём здесь!!!
+			Doc doc = DocDb.selectProtocol(id);
 				if (!doc.equals(null)) {
-				request.setAttribute("doc", doc);
+				request.setAttribute("id_protocol", doc.getId_protocol());
 				request.setAttribute("id_document", id);
-			}
-			else {
-				request.setAttribute("doc", doc);
-				request.setAttribute("id_document", id);
-				System.out.println("Протокол пустой! doGet");
-
-			}
-
+				}
 			
 			getServletContext().getRequestDispatcher("/WEB-INF/view/protocoledit.jsp").forward(request, response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-			//getServletContext().getRequestDispatcher("/WEB-INF/view/notfound.jsp").forward(request, response);
-			System.out.println("Протокол пустой!");request.setAttribute("id_document", id);
-			getServletContext().getRequestDispatcher("/WEB-INF/view/protocoledit.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/WEB-INF/view/notfound.jsp").forward(request, response);		
 		} 
 		
 		
@@ -90,32 +81,20 @@ public class ProtocolEditServlet extends HttpServlet {
 		int id_user = user.getId();
 		try {
 			int id_document = Integer.parseInt(request.getParameter("id_document"));
-			//int id_document = Integer.parseInt((String) request.getAttribute("id_document"));
-			//String protocol = request.getParameter("protocol");
-			String protocol = (String) request.getParameter("protocol");
-			String protocol2 = protocol + "второй";
-			request.setAttribute("id_document", id_document);
+			int id_protocol = Integer.parseInt(request.getParameter("id_protocol"));
+			String protocol_content = (String) request.getParameter("protocol_content");
+			System.out.println("id_user из ProtocolEditServlet " + id_user);
+			System.out.println("id_protocol из ProtocolEditServlet " + id_protocol);
 			System.out.println("id документа из ProtocolEditServlet " + id_document);
-			System.out.println("protocol документа из ProtocolEditServlet " + protocol);
-				List<String> protocolRecord = new ArrayList<String>();
-				protocolRecord.add(String.valueOf(id_user));
-				protocolRecord.add(protocol);
-							List<String> protocolRecord2 = new ArrayList<String>();
-							protocolRecord2.add(String.valueOf(id_user));
-							protocolRecord2.add(protocol2);
-			List<ArrayList<String>> protocolRecordGeneral = new ArrayList<ArrayList<String>>();
-			protocolRecordGeneral.add((ArrayList<String>) protocolRecord);
-							protocolRecordGeneral.add((ArrayList<String>) protocolRecord2);													
-			System.out.println("protocolRecordGeneral документа из ProtocolEditServlet " + protocolRecordGeneral);
-        
-			
-			DocDb.updateProtocol(id_document, protocolRecordGeneral);
+			System.out.println("protocol_content документа из ProtocolEditServlet " + protocol_content);      
+			response.sendRedirect(
+					request.getContextPath() + "/ProtocolEditServlet?id=" + id_document);
+			//DocDb.updateProtocol(id_document, protocolRecordGeneral);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			getServletContext().getRequestDispatcher("/WEB-INF/view/notfound.jsp").forward(request, response);
 		}
-		
-		//doGet(request, response);
 	}
 
 }

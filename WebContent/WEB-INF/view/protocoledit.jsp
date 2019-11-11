@@ -22,9 +22,12 @@
 <br>
 
 <form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/ProtocolEditServlet">
+<label>id документа</label><br>
 <input name= "id_document" value="${id_document}" readonly title="нельзя редактировать"/><br><br>
+<label>id протокола</label><br>
+<input name= "id_protocol" value="${id_protocol}" readonly title="нельзя редактировать"/><br><br>
 <label>Содержание</label><br>
-<p><textarea rows="15" cols="75" name="protocol" placeholder="Введите информацию">${protocol}</textarea></p>
+<p><textarea rows="15" cols="75" name="protocol_content" placeholder="Введите информацию"></textarea></p>
 <input type="submit" class="btn btn-dark" value="Сохранить">  
 </form>
 <br>      	
