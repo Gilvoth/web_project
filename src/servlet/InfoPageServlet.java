@@ -30,7 +30,8 @@ public class InfoPageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//String infomessage = (String) request.getAttribute("infomessage");
-		String infomessage = "Операция завершена успешно - документ помечен как Завершенный";
+		String infomessage =  request.getParameter("infomessage");
+		//String infomessage = "Операция завершена успешно - документ помечен как Завершенный";
 		request.setAttribute("infomessage", infomessage);
 		/*
 		 * RequestDispatcher dispatcher // = this.getServletContext()//

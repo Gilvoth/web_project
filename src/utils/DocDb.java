@@ -1997,7 +1997,8 @@ public class DocDb {
     public static Doc selectProtocol(int id) {
 		Connection conn = DbFilter.getConn();
     	Doc doc = null;
-    	int id_protocol = 0;
+    	int id_doc = 0;
+    	
 		//Выполним запрос
 		String sqlquery =					
 		"SELECT	documents.id, documents.id_protocol as \"id_protocol\" FROM documents WHERE documents.id = ?";
@@ -2006,14 +2007,18 @@ public class DocDb {
             preparedStatement.setInt(1, id);
             ResultSet resultset = preparedStatement.executeQuery();		
             while (resultset.next()) {
-		        id = resultset.getInt("id");
-		        id_protocol = resultset.getInt("id_protocol");	        
+            	id_doc = resultset.getInt("id");
+		        Array id_protocol = resultset.getArray("id_protocol");
+                Integer[] id_protocol_arr = (Integer[])id_protocol.getArray();
+                ArrayList<Integer> id_protocol_arraylist= new ArrayList<Integer>();
+                Collections.addAll(id_protocol_arraylist, id_protocol_arr);
+		        
 
-                if (id_protocol==0) {
-                	//id_protocol=1999;
-                	System.out.print("Протокол пустой");
-                }
-                doc = new Doc (id, id_protocol);
+	                if (id_protocol_arraylist.equals(null)) {
+	                	//id_protocol=1999;
+	                	System.out.print("Протокол пустой");
+	                }
+	            doc = new Doc (id_doc, id_protocol_arraylist);
                 //return doc;
 				}
 		} catch (SQLException e) {

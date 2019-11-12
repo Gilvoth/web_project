@@ -225,7 +225,7 @@
 <%-- 		<form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/ProtocolEditServlet?id=${doc.id}">
 			<input type="submit" class="btn-sm btn-dark" value="Протокол разногласий">  
 		</form> --%>
-		<a href='<c:url value="/ProtocolEditServlet?id=${doc.id}" />'  class="btn-sm btn-dark" role="button">Протокол разногласий</a>	
+		<a href='<c:url value="/ProtocolViewServlet?id=${doc.id}" />'  class="btn-sm btn-dark" role="button">Протокол разногласий</a>	
 		<br>
 		<br>
 		

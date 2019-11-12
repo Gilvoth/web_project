@@ -1,11 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,23 +9,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Doc;
-import model.Notification;
 import model.User;
-import utils.Calendar;
 import utils.DocDb;
-import utils.NotiificationDb;
 
 /**
- * Servlet implementation class ProtocolEditServlet
+ * Servlet implementation class ProtocolViewServlet
  */
-@WebServlet("/ProtocolEditServlet")
-public class ProtocolEditServlet extends HttpServlet {
+@WebServlet("/ProtocolViewServlet")
+public class ProtocolViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProtocolEditServlet() {
+    public ProtocolViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,12 +34,12 @@ public class ProtocolEditServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		request.setCharacterEncoding("UTF-8");
-		int id_document = 0;
+		int id = 0;
 		try {
-			id_document = Integer.parseInt(request.getParameter("id_document"));
-			System.out.println("id документа из ProtocolEditServlet " + id_document);
+			id = Integer.parseInt(request.getParameter("id"));
+			System.out.println("id документа из ProtocolEditServlet " + id);
 
-			Doc doc = DocDb.selectProtocol(id_document);
+			Doc doc = DocDb.selectProtocol(id);
 				if (!doc.equals(null)) {
 				
 	                if (doc.getId_protocol().equals(null)) {
@@ -56,10 +48,10 @@ public class ProtocolEditServlet extends HttpServlet {
 	                }else
 	                	request.setAttribute("id_protocol", doc.getId_protocol());
 				
-				request.setAttribute("id_document", id_document);
+				request.setAttribute("id_document", id);
 				}
 			
-			getServletContext().getRequestDispatcher("/WEB-INF/view/protocoledit.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/WEB-INF/view/protocolview.jsp").forward(request, response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();

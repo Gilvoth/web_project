@@ -1,6 +1,6 @@
 package utils;
 
-import java.io.IOException;
+
 import javax.servlet.http.HttpServlet;
 
 import javax.servlet.http.HttpSession;

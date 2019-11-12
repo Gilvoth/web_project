@@ -31,7 +31,7 @@ private boolean paid;
 private String add_agr;
 private BigDecimal price_add_agr;
 private ArrayList<Integer> ifo;
-private int id_protocol;
+private ArrayList<Integer> id_protocol;
 
 	
 	public Doc() {}
@@ -297,22 +297,23 @@ private int id_protocol;
 		this.ifo = ifo;
 	}
 
-	
-//Чтение протокола
-	public Doc(int id, int id_protocol) {
-		// TODO Auto-generated constructor stub
-    	this.id = id;       
-        this.id_protocol = id_protocol; // aka 
-        
-	}
 
-	public int getId_protocol() {
+	public ArrayList<Integer> getId_protocol() {
 		return id_protocol;
 	}
 
-	public void setId_protocol(int id_protocol) {
+	public void setId_protocol(ArrayList<Integer> id_protocol) {
 		this.id_protocol = id_protocol;
 	}	
 	
+//Чтение протокола
+	public Doc(int id, ArrayList<Integer> id_protocol) {
+		// TODO Auto-generated constructor stub
+    	this.id = id;       
+        this.setId_protocol(id_protocol); // aka 
+        
+	}
+
+
 	
 }
