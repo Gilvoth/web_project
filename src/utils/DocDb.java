@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -1993,51 +1994,7 @@ public class DocDb {
     	
     }
     
-//  ***********************************************************************************************************************************      
-    public static Doc selectProtocol(int id) {
-		Connection conn = DbFilter.getConn();
-    	Doc doc = null;
-    	int id_doc = 0;
-    	
-		//Выполним запрос
-		String sqlquery =					
-		"SELECT	documents.id, documents.id_protocol as \"id_protocol\" FROM documents WHERE documents.id = ?";
-		
-        try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
-            preparedStatement.setInt(1, id);
-            ResultSet resultset = preparedStatement.executeQuery();		
-            while (resultset.next()) {
-            	id_doc = resultset.getInt("id");
-		        Array id_protocol = resultset.getArray("id_protocol");
-                Integer[] id_protocol_arr = (Integer[])id_protocol.getArray();
-                ArrayList<Integer> id_protocol_arraylist= new ArrayList<Integer>();
-                Collections.addAll(id_protocol_arraylist, id_protocol_arr);
-		        
-
-	                if (id_protocol_arraylist.equals(null)) {
-	                	//id_protocol=1999;
-	                	System.out.print("Протокол пустой");
-	                }
-	            doc = new Doc (id_doc, id_protocol_arraylist);
-                //return doc;
-				}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        finally 
-	        {
-/*        	try {
-				conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();		
-			}							*/
-			} 		    	
-    	
-    	return doc;
-    	
-    }	
+	
 //********************************************************************************************
     public static int updateProtocol(int id, List<ArrayList<String>> protocol) {
     	Connection conn = DbFilter.getConn();       
@@ -2070,5 +2027,78 @@ public class DocDb {
         return 0;
     }
 //  ***********************************************************************************************************************************    
+    public static int insertProtocol(String content, int id_user) throws FileNotFoundException {
+    	Connection conn = DbFilter.getConn(); 
+    	
+        try{
+            
+            PreparedStatement ps=conn.prepareStatement(  
+		            "insert into protocols (id, content, date, id_user)"+
+		            "values (nextval('seq_pk_id_protocols'),?,?,?)"
+            		);  
+            ps.setString(1, content);
+            ps.setDate(2, (Date) utils.Calendar.DateS());
+            ps.setInt(3, id_user);
+            ps.executeUpdate();  
+    		        System.out.println("запрос выполнен успешно!!!");
+    		 
+        }catch(Exception ex){
+        	ex.printStackTrace();
+        	System.out.println(ex);}  
+        
+        finally 
+        {
+        	try {        	
+			conn.close();			
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}                                   
+        return 0;
+    }   
+//  ********************************************************************************************************************    
+  //выборка коллекции "протокол" документа
+    public static ArrayList<Integer> selectIdProtocols(int id_doc) {
+    	Connection conn = DbFilter.getConn();
+        ArrayList<Integer> id_protocol_list = null;
+		//Выполним запрос
+		String sqlquery =
+		  "SELECT " +        
+		  "documents.id_protocol       "+
+		  "FROM documents       "+
+		  "WHERE documents.id = ?; ";		      
+		
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){
+            preparedStatement.setInt(1, id_doc);
+            ResultSet resultset = preparedStatement.executeQuery();		
+    			while (resultset.next()) {    		        
+    		        Array id_protocol = resultset.getArray("id_protocol");
+                    Integer[] id_protocol_arr = (Integer[])id_protocol.getArray();
+                    id_protocol_list= new ArrayList<Integer>();
+                    Collections.addAll(id_protocol_list, id_protocol_arr);
+                    System.out.println("отработала коллекция"); 
+	                	}    	       
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        finally 
+	        {
+/*        	try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();		
+			}							*/
+			} 		    	
+    	
+    	return id_protocol_list;
+    	
+    }    
+//******************************************************************************************************************************** 
+
+//********************************************************************************************************************************     
     
 }

@@ -11,7 +11,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import model.Department;
 import model.User;
+import utils.DepartmentDb;
 import utils.UserDb;
 
 
@@ -44,6 +47,8 @@ public class RegistrationPageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		ArrayList<Department> departments = DepartmentDb.selectAll();
+		req.setAttribute("departments", departments);
 		/*
 		Connection conn = DbFilter.getConn();
 		

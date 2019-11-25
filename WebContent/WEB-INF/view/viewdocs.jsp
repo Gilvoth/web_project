@@ -117,7 +117,7 @@
      <div class="col-xl-3">
      	<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/ViewDocsServlet?path=${filepath}">
 		<input type="submit" class="btn btn-dark" value="Выгрузить список документов в виде отчета">
-		<input type="text" name="filepath" placeholder="Путь выгрузки отчета"/>
+		<input type="text" name="filepath" placeholder="Путь выгрузки отчета" title="Например D:\temp" />
 		</form> 
 	 </div>
 	<div class="col-xl-3">

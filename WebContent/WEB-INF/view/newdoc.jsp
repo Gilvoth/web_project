@@ -30,9 +30,11 @@
 		
 		<table>
 		<tr>
-		<td><label>Тип документа</label> </td>
-		<td>
+		<td><label>Тип документа</label> 
 		<button type="button" class="btn btn-default btn-sm" onclick="javascript:document.location.href='${pageContext.request.contextPath}/NewType_docsServlet'"><span class="glyphicon glyphicon-plus"></span>+ </button>
+		</td>
+		<td>
+		
 		</td>
 		<td></td><td> <label>Рекомендуемая дата выполнения</label></td>
 		</tr>
@@ -47,12 +49,19 @@
 		</td>
 		<td><pre>            </pre></td>
 		<td></td>
-		<td><input type="date" name="rec_date" value="" placeholder="необязательный">  </td>
+		<td><input type="date" name="rec_date" value="" placeholder="необязательный">  
+
+  
+		</td>
 		</tr>
 		</table>
 		                 
 		 <br>
-		<label>Контрагент</label><br>
+		<label>Контрагент</label> 
+
+		<button type="button" class="btn btn-default btn-sm" onclick="javascript:document.location.href='${pageContext.request.contextPath}/NewContractorServlet'"><span class="glyphicon glyphicon-plus"></span>+ </button>
+
+		<br>
 		<!-- <input name="id_contractor2" value="" /><br><br>   -->      
 		                 <select name = "id_contractor">
 		                 <c:forEach var="contractor" items="${contractors}">
@@ -62,7 +71,7 @@
 		
 		
 		<label>Название</label><br>
-		<input name="name" value="${user.name}" required    placeholder="Введите название" size = "45"/><br><br> <!-- required -->
+		<input name="name" value="" required    placeholder="Введите название" size = "45"/><br><br> <!-- required -->
 		
 		<label>Комментарии к содержимому</label>
 		<p><textarea rows="5" cols="45" name="content"> </textarea></p>
@@ -74,14 +83,18 @@
 		<input name="current_dep" value="${id_department}" readonly title="нельзя редактировать" type="hidden"/>
 		<input name="current_dep2" value="${department.getName()}" readonly title="нельзя редактировать" /><br><br>
 		
-		<label>Статус срочности</label><br>
+		<label>Статус актуальности</label>
+		<button type="button" class="btn btn-default btn-sm" onclick="javascript:document.location.href='${pageContext.request.contextPath}/NewUrgencyServlet'"><span class="glyphicon glyphicon-plus"></span>+ </button>
+		<br>
 		                 <select name = "id_urgency">
 		                 <c:forEach var="urgency" items="${urgencies}">
 		                 <option value="<c:out value="${urgency.id}"/>"><c:out value="${urgency.name}" /></option>
 		                 </c:forEach>
 		                 </select><br><br>
 
-		<label>ТРУ</label><br>
+		<label>ТРУ</label>
+		<button type="button" class="btn btn-default btn-sm" onclick="javascript:document.location.href='${pageContext.request.contextPath}/NewTruServlet'"><span class="glyphicon glyphicon-plus"></span>+ </button>
+		<br>
 		                 <select name = "id_tru">
 		                 <c:forEach var="tru" items="${trues}">
 		                 <option value="<c:out value="${tru.id}"/>"><c:out value="${tru.name}" /></option>
@@ -99,11 +112,13 @@
 		                 <option value="<c:out value="${division.id}"/>"><c:out value="${division.name}" /></option>
 		                 </c:forEach>
 		                 </select><br><br>
-		<label>Источник финансирования</label><br>	
+		<label>Источник финансирования</label>
+		<button type="button" class="btn btn-default btn-sm" onclick="javascript:document.location.href='${pageContext.request.contextPath}/NewIfoServlet'"><span class="glyphicon glyphicon-plus"></span>+ </button>
+		<br>	
 		                 <!-- <select name = "id_ifo"> -->
 		                 <c:forEach var="ifo" items="${ifoes}">
 		                <%--  <option value="<c:out value="${ifo.id}"/>"><c:out value="${ifo.name}" /></option> --%>
-		                 <input type="checkbox" name="id_ifo" value="<c:out value="${ifo.id}"/>"/> <c:out value="${ifo.name}" />
+		                 <input type="checkbox" name="id_ifo" value="<c:out value="${ifo.id}"/>"  <c:if test="${ifo.name == 'н/д'}"> checked </c:if>   /> <c:out value="${ifo.name}" />
 		                 </c:forEach>
 		                 <!-- </select> --><br><br>
 		                 

@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -37,14 +38,20 @@
 			            </tr>
 			            <tr>
 			               <td>Отдел</td>
-			               <td><input type="text" name="id_department" value= "${user.id_department}" /> </td>
+			               <td><%-- <input type="text" name="id_department2" value= "${user.id_department}" /> --%> 
+		                 <select name = "id_department">
+		                 <c:forEach var="department" items="${departments}">
+		                 <option value="<c:out value="${department.id}"/>"><c:out value="${department.name}" /></option>
+		                 </c:forEach>
+		                 </select>			               
+			               </td>
 			            </tr>          
 			                  
 			            <tr>
 			               <td colspan ="2">
 			                  <input type="submit" class="btn-sm btn-dark" value= "Зарегистрировать" />
 			
-			                  <button type="button" class="btn-sm btn-dark" role ="button" onclick="javascript:document.location.href='${pageContext.request.contextPath}/LoginPageServlet"> Отмена </button> 
+<%-- <button type="button" class="btn-sm btn-dark" role ="button" onclick="javascript:document.location.href='${pageContext.request.contextPath}/LoginPageServlet"> Отмена </button> --%> 
 			               </td>
 			            </tr>
 			         </table>

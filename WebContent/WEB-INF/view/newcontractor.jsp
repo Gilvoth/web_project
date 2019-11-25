@@ -33,9 +33,10 @@
 			<input name="comment" value="${contractor.comment}" /><br><br>
 			<input type="submit" class="btn btn-dark" value="Создать" />
 			</form>
-			<form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/EmployeeTaskServlet">
+<%-- 			<form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/EmployeeTaskServlet">
 			<input type="submit" class="btn btn-dark" value="Назад">  
-			</form>
+			</form> --%>
+			<input type="submit" class="btn-sm btn-dark" value="Назад" onCLick="history.back()"> 
 			<br>
 			<br>
 			<form method="GET" accept-charset="UTF-8" action="${pageContext.request.contextPath}/">

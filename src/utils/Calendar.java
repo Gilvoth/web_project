@@ -4,9 +4,10 @@ package utils;
 import java.util.Date;
 //import java.util.Calendar;
 import java.util.GregorianCalendar;
-
-
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 public class Calendar {
 
@@ -26,6 +27,16 @@ public Calendar() {
         String str_c = dateFormat.format( currentDate );
         return  str_c;
     }
+    
+    public static java.sql.Date DateS()
+    {
+
+    	LocalDate todayLocalDate = LocalDate.now( ZoneId.of( "America/Montreal" ) );  // Use proper "continent/region" time zone names; never use 3-4 letter codes like "EST" or "IST".
+    	java.sql.Date sqlDate = java.sql.Date.valueOf( todayLocalDate );
+        return  sqlDate;
+    }    
+    
+    
     public static String Date_data()
     {
         // календарь на текущую дату

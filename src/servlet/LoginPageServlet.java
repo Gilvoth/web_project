@@ -89,6 +89,9 @@ public class LoginPageServlet extends HttpServlet {
         boolean confirmed = AuthUtil.checkUser(user); //проверяем авторизован ли
         if(!confirmed) {
         	System.out.println("Пользователь не подтверждён!!!");
+        	String infomessage = "Пользователь не подтверждён!!!";
+        	//getServletContext().getRequestDispatcher("/WEB-INF/view/infopage.jsp?infomessage="+ infomessage).forward(req, resp);
+        	
         	doGet(req, resp);
         	return;
         	}

@@ -28,7 +28,13 @@
 		        <br />
 		        <input type="file" name="filepath"  accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" />
 		<input type="submit" class="btn btn-dark" value="Загрузить изображение в документ" <c:if test="${doc.receiver_list[0]!=username}"> disabled </c:if> >  
-		</form> 
+		</form>
+		
+				
+		<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/ScanImageServlet">
+		<input type="submit" class="btn-sm btn-dark" value="Сканирование изображения документа">  
+		</form>
+		
 		</c:if>
 				
 		
@@ -41,10 +47,6 @@
 			}
 			</script>
 		<button class="btn btn-dark" onclick="ViewDoc()">Просмотр изображения документа</button>
-
-		<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/ScanImageServlet">
-		<input type="submit" class="btn-sm btn-dark" value="Сканирование изображения документа">  
-		</form>
 <!-- 		<button class="btn btn-dark" onclick="ScanDoc()">Сканирование изображения документа</button>
 			<script>
 			function ScanDoc() {
