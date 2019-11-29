@@ -63,7 +63,7 @@ public class Type_docsDb {
 
             try {
           	
-            	ResultSet resultSet = statement.executeQuery("Select name FROM type_docs");
+            	ResultSet resultSet = statement.executeQuery("Select name FROM type_docs ORDER BY name");
     			while (resultSet.next()) {
     		        
     		        String name =  resultSet.getString("name");
@@ -104,7 +104,7 @@ public class Type_docsDb {
             
 			try {
 				ResultSet resultSet = statement.executeQuery
-						("Select id,name FROM type_docs");
+						("Select id,name FROM type_docs ORDER BY name");
     			while (resultSet.next()) {
     		        int id = resultSet.getInt("id");
     		        String name =  resultSet.getString("name");

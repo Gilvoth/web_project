@@ -16,12 +16,14 @@
 		<div class="col-xl-1"></div>		
 		<div class="col-xl-10">
 			<table border = "1">
-			<tr><th>Контрагент</th></tr>
+			<tr><th>Контрагент</th>  <th> <input class="form-control" id="myInput" type="text" placeholder="Поиск совпадений в списке документов.."> </th> </tr>
+			 <tbody id="myTable">
 			<c:forEach var="contractor2" items="${contractors}">
 			 <tr>
 				<td>${contractor2}</td>
 			</tr>
 			</c:forEach>
+			 </tbody>
 			</table>
 			<br>
 			<br>
@@ -45,6 +47,17 @@
 		</div>
 </div>		 
 <br>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
 <br>
 </body>
 </html>

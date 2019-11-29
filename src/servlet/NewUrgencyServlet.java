@@ -73,7 +73,9 @@ public class NewUrgencyServlet extends HttpServlet {
     	    try{
     	    	Urgency urgency = new Urgency (id, name);
     	    	UrgencyDb.insert(urgency);
-    	    	
+    	    	response.sendRedirect(
+    					request.getContextPath() + "/InfoPageServlet?infomessage=" + 
+    	    					"Success!!");
     	    }catch(Exception ex){ex.printStackTrace();}         
         		}
         PrintWriter writer = response.getWriter();
@@ -82,11 +84,12 @@ public class NewUrgencyServlet extends HttpServlet {
         writer.println("<p>Имя: " + name + "</p>");
         writer.println("<a href=/web_app>Главная страница</a>");
         writer.println("<br>");        
-        writer.println("<form method=[GET] "+
-    		 "accept-charset=[UTF-8] "+
-    				"action=EmployeeTaskServlet>"+
-    						"<input type=\"submit\" value=\"Назад\">"+
-    						 "</form>"); 
+		/*
+		 * writer.println("<form method=[GET] "+ "accept-charset=[UTF-8] "+
+		 * "action=EmployeeTaskServlet>"+ "<input type=\"submit\" value=\"Назад\">"+
+		 * "</form>");
+		 */
+        writer.println("<input type=\"submit\" class=\"btn-sm btn-dark\" value=\"Назад\" onCLick=\"history.back()\"> ");
 			}
 	
 

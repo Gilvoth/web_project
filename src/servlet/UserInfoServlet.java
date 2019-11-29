@@ -41,21 +41,18 @@ public class UserInfoServlet extends HttpServlet {
         int id_department;
         String login;
         String loginedUser;
-        String filter_docs = "0";
-
+        //String filter_docs = "0";
+        String filter_docs = "";
 		try {
 		// получаем сессию
         HttpSession session = request.getSession();
         //// получаем объект id_department
         id_department = (int) session.getAttribute("id_department");
-        System.out.println("Текущий отдел - " + id_department);
         //// получаем объект login
         login = (String) session.getAttribute("login");
         //// получаем объект logineduser
         loginedUser = (String) session.getAttribute("loginedUser");
-        System.out.println("полученный логин из сессии " + login);
-        System.out.println("полученный логинUser из сессии " + loginedUser);
-        System.out.println("полученный id " + UserDb.selectoneInt(loginedUser));
+        System.out.println("полученный id User " + UserDb.selectoneInt(loginedUser));
         int id_user = UserDb.selectoneInt(loginedUser);
 
         try {
@@ -63,7 +60,7 @@ public class UserInfoServlet extends HttpServlet {
         	if (filter_docs==null) {
                 filter_docs = "*";
         	}
-        	System.out.println(filter_docs);
+        	System.out.println("filter_docs "+filter_docs);
         }catch (NullPointerException e) {
         	System.out.println("Параметр не найден!" + e);
         }
@@ -76,10 +73,12 @@ public class UserInfoServlet extends HttpServlet {
         	List<Fdoc> docs = DocDb.selectForCurUser_Full(id_user);         
             request.setAttribute("docs", docs);
             session.setAttribute("docs", docs);
+            request.setAttribute("filter_docs", "*");
         } else {
         	List<Fdoc> docs = DocDb.selectForCurUser_Full(id_user, Integer.parseInt(filter_docs));
             request.setAttribute("docs", docs);
             session.setAttribute("docs", docs);
+            request.setAttribute("filter_docs", filter_docs);
         }
 
         }catch ( Exception e) {

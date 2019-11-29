@@ -14,6 +14,6 @@
       <br/><br/>
        
       <h3>${infomessage}</h3>
-             
+      <input type="submit" class="btn-sm btn-dark" value="Назад" onCLick="history.back()">        
    </body>
 </html>

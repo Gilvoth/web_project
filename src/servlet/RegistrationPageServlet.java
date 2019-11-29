@@ -141,8 +141,11 @@ public class RegistrationPageServlet extends HttpServlet {
     	    	UserDb.insert(user);
     	    	
     	    }catch(Exception ex){ex.printStackTrace();} 
-
-        PrintWriter writer = resp.getWriter();
+	    	resp.sendRedirect(
+					req.getContextPath() + "/InfoPageServlet?infomessage=" + 
+	    					"Success!!");
+/*	    	
+        PrintWriter writer = resp.getWriter();      
         writer.println("<p>Пользователь с этими данными успешно зарегистрирован в системе!"+"</p>");
         writer.println("<p>Имя: " + name + "</p>");
         writer.println("<p>Фамилия: " + second + "</p>");
@@ -155,7 +158,7 @@ public class RegistrationPageServlet extends HttpServlet {
  				"action=LoginPageServlet>"+
  						"<input type=\"submit\" value=\"Назад\">"+
  						 "</form>");
-			  
+*/			  
 		  
 		  
         	}

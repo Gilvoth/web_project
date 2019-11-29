@@ -28,13 +28,13 @@
 <br> 
 
 <div class="container">
-  <form method="GET" accept-charset="UTF-8"  action="${pageContext.request.contextPath}/UserInfoServlet">
+  <form method="GET" accept-charset="UTF-8"  action="${pageContext.request.contextPath}/UserInfoServlet?filter_docs=${filter_docs}">
     <div class="form-group">
       <label for="sel1"> Дополнительный фильтр:</label>
       <select class="form-control-mg" id="sel1" name="filter_docs">
         <option value="*">Без фильтрации</option>
-        <option value="1"   <c:if test="${filter_docs} == 1 "> selected </c:if> >Завершенные документы</option>
-        <option value="0">Незавершенные документы</option>
+        <option value="1" <c:if test="${filter_docs == '1'}"> selected </c:if> >Завершенные документы</option>
+        <option value="0" <c:if test="${filter_docs == '0'}"> selected </c:if> >Незавершенные документы</option>
       </select>
       <button type="submit" class="btn-sm btn-dark">Применить фильтр</button>
     </div>
@@ -55,6 +55,8 @@
     </div>
   </div>
 </div>
+
+<c:if test="${filter_docs} == 1 "> selected </c:if> 
 -->
 
 
@@ -63,9 +65,9 @@
 <div class="row justify-content-md-center"> <!-- делаем таблицу адаптивной table-responsive -->
 <table border="1" class="table table-bordered table-hover table-responsive table-sm px-3">
 <thead>
-<tr  bgcolor="#C0C0C0" ><th>id</th><th>Тип</th><th>Контрагент</th><th>Название(Предмет)</th><!-- <th>Комментарии</th> --><th>Автор(Отв.)</th>
-<th>Статус актуальности</th><th>Дата создания</th><!-- <th>Закончен ли</th> --><!-- <th>Рек. дата</th> --><!-- <th>Получатели</th><th>Отправители</th> --><th>Текущий отдел</th>
-<!-- <th>Дата реестр</th> --><!-- <th>ТРУ</th> --><th>Закон</th><!-- <th>Подразд.</th> --><th>Сумма</th><th>Оплата</th><th>ИФО</th><th>Доп согл.</th><th>Сумма по доп согл.</th>
+<tr  bgcolor="#C0C0C0" ><th>id</th><th>Номер договора</th><!-- <th>Тип</th> --><th>Контрагент</th><th>Название(Предмет)</th><!-- <th>Комментарии</th> --><th>Автор(Отв.)</th>
+<th>Статус актуальности</th><th>Дата создания</th><th>Дата заключения</th><!-- <th>Закончен ли</th> --><!-- <th>Рек. дата</th> --><!-- <th>Получатели</th><th>Отправители</th> --><th>Текущий отдел</th>
+<!-- <th>Дата реестр</th> --><!-- <th>ТРУ</th> --><!-- <th>Закон</th> --><!-- <th>Подразд.</th> --><th>Сумма</th><th>Оплата</th><th>ИФО</th><th>Доп согл.</th><th>Сумма по доп согл.</th>
 <th>Прикр.</th><th>Ред.</th><th>Отпр.</th>
 </tr>
 </thead>
@@ -73,7 +75,8 @@
  <tbody id="myTable">
  <tr <c:if test="${doc.receiver_list[1]==null}"> class="bold" </c:if> <c:if test="${doc.status_finished==1}"> class="yellow" </c:if> >
  	<td><a href='<c:url value="/SendDocServlet?id=${doc.id}" />'> ${doc.id}</a></td>
-	<td>${doc.id_type}</td>
+ 	<td></td>
+<%-- 	<td>${doc.id_type}</td> --%>
 	<td>${doc.id_contractor}</td>
     <td>${doc.name}</td>
 <%--     <td>${doc.content}</td> --%>
@@ -81,6 +84,7 @@
         ${doc.creator_second}</td>
     <td>${doc.urgency}</td>
     <td>${doc.date_cre}</td>
+    <td></td>
 <%--     <td>${doc.status_finished}</td> --%>
 <%--     <td>${doc.rec_date}</td> --%>
 <%--     <td >${doc.receiver_list}</td>
@@ -89,7 +93,7 @@
     
 <%-- 	<td>${doc.date_registry}</td> --%>
 <%--     <td>${doc.tru}</td> --%>
-    <td>${doc.law}</td>
+<%--     <td>${doc.law}</td> --%>
 <%--     <td>${doc.division}</td> --%>
     <td>${doc.price}</td>
     <td>

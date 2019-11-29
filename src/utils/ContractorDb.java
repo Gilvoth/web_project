@@ -65,7 +65,7 @@ public class ContractorDb {
 
             try {
           	
-            	ResultSet resultSet = statement.executeQuery("Select name FROM contractor");
+            	ResultSet resultSet = statement.executeQuery("Select name FROM contractor ORDER BY name");
     			while (resultSet.next()) {
     		        
     		        String name =  resultSet.getString("name");
@@ -110,7 +110,7 @@ public class ContractorDb {
             
 			try {
 				ResultSet resultSet = statement.executeQuery
-						("Select * FROM contractor");
+						("Select * FROM contractor  ORDER BY name");
     			while (resultSet.next()) {
     		        int id = resultSet.getInt("id");
     		        String name =  resultSet.getString("name");

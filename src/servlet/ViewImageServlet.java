@@ -116,7 +116,7 @@ public class ViewImageServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-		String id = null;
+/*		String id = null;
 		try {
 			id = request.getParameter("id");
 		} catch (Exception e) {
@@ -188,7 +188,7 @@ public class ViewImageServlet extends HttpServlet {
     	}else
     		System.out.println("Отсутствует параметр!!!");
 
-	
+*/	
 
 	}
 		

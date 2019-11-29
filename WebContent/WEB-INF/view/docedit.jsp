@@ -43,7 +43,7 @@
 		<div class="row">    
 			<script>
 			function ViewDoc() {
-			  var myWindow = window.open("${pageContext.request.contextPath}/ViewImageServlet?id=${doc.id}", "", "width=600,height=800");
+			  var myWindow = window.open("${pageContext.request.contextPath}/ViewImageServlet?id=${doc.id}", "", "width=1200,height=800");
 			}
 			</script>
 		<button class="btn btn-dark" onclick="ViewDoc()">Просмотр изображения документа</button>
@@ -133,8 +133,9 @@
 				<input name="creator_name" value="${doc.creator_name}&nbsp;${doc.creator_second}" />
 				<br><br>
 				<label>Рекомендуемая дата выполнения</label><br>
-				<input name="rec_date" value="${doc.rec_date}" />
+				<input name="rec_date"  type="date" value="${doc.rec_date}" />
 				<input name="rec_date2" value="${doc.rec_date}" type = "hidden"/>
+				
 				<br><br>
 		</div>
 		</div>
