@@ -1,6 +1,7 @@
 package model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList; //for roles
 
 
@@ -32,6 +33,8 @@ private String add_agr;
 private BigDecimal price_add_agr;
 private ArrayList<Integer> ifo;
 private ArrayList<Integer> id_protocol;
+private LocalDate date_concluded;
+private int num;
 
 	
 	public Doc() {}
@@ -39,7 +42,7 @@ private ArrayList<Integer> id_protocol;
 	public Doc(int id_type, int id_contractor, String name, String content, int creator, int id_urgency,
 			String date_cre, int status_finished, String rec_date, ArrayList<String> receiver_list,
 			ArrayList<String> sender_list, int current_dep, String date_registry, int id_tru, int id_law, int id_division, 
-			BigDecimal price, boolean paid, String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo) {
+			BigDecimal price, boolean paid, String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo, LocalDate date_concluded, int num) {
 		// TODO Auto-generated constructor stub
     	this.id_type = id_type;
     	this.id_contractor = id_contractor;
@@ -78,8 +81,10 @@ private ArrayList<Integer> id_protocol;
            for (Integer r : ifo) {
               this.ifo.add(r); }
            }
-        
+        this.date_concluded = date_concluded;
+        this.num = num;        
 	}
+	
 /*
 	public Doc(int id, int id_type, int id_contractor, String name, String content, int creator, int id_urgency,
 			String date_cre, int status_finished, String rec_date, ArrayList<String> receiver_list,
@@ -314,6 +319,21 @@ private ArrayList<Integer> id_protocol;
         
 	}
 
+	public LocalDate getDate_concluded() {
+		return date_concluded;
+	}
+
+	public void setDate_concluded(LocalDate date_concluded) {
+		this.date_concluded = date_concluded;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
 
 	
 }

@@ -75,7 +75,7 @@
  <tbody id="myTable">
  <tr <c:if test="${doc.receiver_list[1]==null}"> class="bold" </c:if> <c:if test="${doc.status_finished==1}"> class="yellow" </c:if> >
  	<td><a href='<c:url value="/SendDocServlet?id=${doc.id}" />'> ${doc.id}</a></td>
- 	<td></td>
+ 	<td>${doc.num}</td>
 <%-- 	<td>${doc.id_type}</td> --%>
 	<td>${doc.id_contractor}</td>
     <td>${doc.name}</td>
@@ -84,7 +84,7 @@
         ${doc.creator_second}</td>
     <td>${doc.urgency}</td>
     <td>${doc.date_cre}</td>
-    <td></td>
+    <td>${doc.date_concluded} или ${doc.date_concluded.getDayOfMonth()}.${doc.date_concluded.getMonthValue()}.${doc.date_concluded.getYear()}</td>
 <%--     <td>${doc.status_finished}</td> --%>
 <%--     <td>${doc.rec_date}</td> --%>
 <%--     <td >${doc.receiver_list}</td>

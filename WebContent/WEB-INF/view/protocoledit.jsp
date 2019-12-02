@@ -39,7 +39,7 @@
 <c:forEach var="selected_protocol" items="${protocols}"> 
 <input name= "selected_protocol" value="${selected_protocol.getId()}" readonly title="нельзя редактировать"/>
 <input name= "selected_protocol" value="${selected_protocol.getContent()}" readonly title="нельзя редактировать"/>
-<input name= "selected_protocol" value="${selected_protocol.getDate()}" readonly title="нельзя редактировать"/>
+<input name= "selected_protocol" value="${selected_protocol.getDate().getDayOfMonth()}.${selected_protocol.getDate().getMonthValue()}.${selected_protocol.getDate().getYear()}" readonly title="нельзя редактировать"/>
 <input name= "selected_protocol" value="${selected_protocol.getId_user()}" readonly title="нельзя редактировать"/>
 <br>
 </c:forEach>

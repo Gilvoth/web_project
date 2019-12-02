@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -151,7 +152,8 @@ public class NewDocServlet extends HttpServlet {
 		String add_agr =  null; 
 		BigDecimal price_add_agr =  null;	
 		ArrayList<Integer> ifo =  null;
-
+		LocalDate date_concluded = null;
+		int num = 0;
         
         
         try {
@@ -197,9 +199,7 @@ public class NewDocServlet extends HttpServlet {
 	        
 	        Integer[] id_ifo_integer = Arrays.stream( id_ifo_int ).boxed().toArray( Integer[]::new );	        
 	        ifo = new ArrayList<Integer>(Arrays.asList(id_ifo_integer));
-		 
-        
-
+    
         
         }catch(Exception ex){ex.printStackTrace();} 
         
@@ -220,14 +220,11 @@ public class NewDocServlet extends HttpServlet {
     	        sender_list.add(0, String.valueOf(creator));
     	        sender_list.add(1, null);
     	        
-    	        //ArrayList<Integer> ifo = new ArrayList<Integer>();
-    	        //ifo.add(0, null);
-    	        //ifo.add(1, null);
-    	        
+   	        
     	    	Doc doc = new Doc (id_type, id_contractor, name, content, creator, 
     	    			id_urgency, date_cre, status_finished, rec_date, receiver_list, sender_list, current_dep,
     	    			date_registry, id_tru, id_law, id_division, price,
-    	    			 paid, add_agr, price_add_agr, ifo);
+    	    			 paid, add_agr, price_add_agr, ifo, date_concluded, num);
     	    	DocDb.insert(doc);
 
     	    	

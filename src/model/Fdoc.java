@@ -1,6 +1,7 @@
 package model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList; //for roles
 
 
@@ -37,7 +38,8 @@ private String add_agr;
 private BigDecimal price_add_agr;
 private ArrayList<Integer> ifo;
 private ArrayList<String> ifo_str;
-
+private LocalDate date_concluded;
+private int num;
 
 public byte[] getBlob() {
 	return blob;
@@ -373,7 +375,7 @@ public void setSender_list(ArrayList<String> sender_list) {
 			String date_cre, int status_finished, String rec_date, ArrayList<String> receiver_list,
 			ArrayList<String> sender_list, String dep, byte[] blob, String date_registry, int id_tru, String tru, 
 			int id_law, String law, int id_division, String division, BigDecimal price, boolean paid,
-			String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo) {
+			String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo, LocalDate date_concluded, int num) {
 		// TODO Auto-generated constructor stub
 		this.setId(id);
 		this.setId_type(id_type);
@@ -418,6 +420,8 @@ public void setSender_list(ArrayList<String> sender_list) {
               this.ifo.add(r); }
            } 
         
+        this.date_concluded = date_concluded;
+        this.num = num; 
 	}
 
 
@@ -460,12 +464,32 @@ public void setSender_list(ArrayList<String> sender_list) {
 		this.ifo_str = ifo_str;
 	}	
 
+	public LocalDate getDate_concluded() {
+		return date_concluded;
+	}
+
+
+	public void setDate_concluded(LocalDate date_concluded) {
+		this.date_concluded = date_concluded;
+	}
+
+
+	public int getNum() {
+		return num;
+	}
+
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
+
 	public Fdoc(int id, int id_type_int, String id_type, String id_contractor, String name, String content, String creator_name, String creator_second, 
 			int id_urgency, String urgency,
 			String date_cre, int status_finished, String rec_date, ArrayList<String> receiver_list,
 			ArrayList<String> sender_list, String dep, byte[] blob, String date_registry, int id_tru, String tru, 
 			int id_law, String law, int id_division, String division, BigDecimal price, boolean paid,
-			String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo, ArrayList<String> ifo_str) {
+			String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo, ArrayList<String> ifo_str, LocalDate date_concluded, int num) {
 		// TODO Auto-generated constructor stub
 		this.setId(id);
 		this.setId_type(id_type);
@@ -515,6 +539,9 @@ public void setSender_list(ArrayList<String> sender_list) {
            for (String r : ifo_str) {
               this.ifo_str.add(r); }
            } 
+        
+        this.date_concluded = date_concluded;
+        this.num = num; 
         
 	}	
 	

@@ -1,15 +1,14 @@
 package model;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
+
 
 public class Protocol {
 	
 private int id;
 private String content;
-private java.sql.Date date;
+//private java.sql.Date date;
+private LocalDate date;
 private int id_user;
 
 	public Protocol() {}
@@ -20,11 +19,11 @@ private int id_user;
 		//this.date = new java.sql.Date(id_user);
 		//Date utilDate;
 		//java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-		this.date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		//02 12 2019 this.date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 		this.id_user = id_user;
 	}
 
-	public Protocol(int id, String content, java.sql.Date date, int id_user) { // for select
+	public Protocol(int id, String content, LocalDate date, int id_user) { // for select
 		this.id = id;
     	this.content = content;
     	this.date = date;
@@ -48,11 +47,11 @@ private int id_user;
 		this.content = content;
 	}
 
-	public java.sql.Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(java.sql.Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

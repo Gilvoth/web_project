@@ -50,7 +50,7 @@ public class ProtocolDb {
 				 * if (id_protocol_arraylist.equals(null)) { //id_protocol=1999;
 				 * System.out.print("Протокол пустой"); }
 				 */
-            	protocol = new Protocol (id_protocol, content, date, id_user);
+            	protocol = new Protocol (id_protocol, content, date.toLocalDate(), id_user);
                 //return protocol;
 				}
 		} catch (SQLException e) {
@@ -103,7 +103,7 @@ public class ProtocolDb {
 				 * if (id_protocol_arraylist.equals(null)) { //id_protocol=1999;
 				 * System.out.print("Протокол пустой"); }
 				 */
-            	protocol = new Protocol (id_protocol, content, date, id_user);
+            	protocol = new Protocol (id_protocol, content, date.toLocalDate(), id_user);
                 //return protocol;
 				}
 		} catch (SQLException e) {
