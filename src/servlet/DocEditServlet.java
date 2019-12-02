@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.Connection;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -166,6 +167,8 @@ public class DocEditServlet extends HttpServlet {
 		
         try {
         	int id = Integer.parseInt(request.getParameter("id"));
+        	int num = Integer.parseInt(request.getParameter("num"));            
+        	int num2 = Integer.parseInt(request.getParameter("num2"));
             String doc_urgency = request.getParameter("doc_urgency");
             String urgency = request.getParameter("urgency");
             //int id_urgency = Integer.parseInt (request.getParameter("id_urgency"));
@@ -212,8 +215,9 @@ public class DocEditServlet extends HttpServlet {
             System.out.println("ifo = " + ifo);
             System.out.println("ifo_arr_check = " + ifo_arr_check);
 
-            
-
+            String date_concluded = request.getParameter("date_concluded");            
+            String date_concluded2 = request.getParameter("date_concluded2");
+            LocalDate localDate_concluded = LocalDate.parse(date_concluded);
             
             if (!doc_urgency.equals(urgency) )
             {
@@ -242,7 +246,7 @@ public class DocEditServlet extends HttpServlet {
             {	
             	DocDb.updateRecDate(id, rec_date);
             	System.out.println("Изменилась рек. дата!");            	
-            }
+            }          
             
             if (!doc_tru.equals(tru))
             {	
@@ -298,6 +302,19 @@ public class DocEditServlet extends HttpServlet {
 				        DocDb.updateIfo(id, ifo_list);
 					  }
 			}
+			
+			if (!date_concluded.equals(date_concluded2))
+            {	
+            	DocDb.updateDate_concluded(id, localDate_concluded);
+            	System.out.println("Изменилась дата заключения документа!");            	
+            }
+			
+			if (num != num2)
+            {	
+            	DocDb.updateNum(id, num);
+            	System.out.println("Изменился номер документа!");            	
+            }
+            
 
 			 
 

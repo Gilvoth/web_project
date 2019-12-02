@@ -351,8 +351,9 @@ public class DocDb {
 				  "documents.paid as      paid     ,      "+
 				  "documents.id_ifo ,      "+
 				  "documents.add_agr as      add_agr     ,    "+  
-				  "documents.price_add_agr   as      price_add_agr      "+     
-
+				  "documents.price_add_agr   as      price_add_agr,      "+     
+				  "documents.date_concluded,       "+
+				  "documents.num       "+
 				"FROM documents\r\n" +
 				"LEFT JOIN contractor ON documents.id_contractor = contractor.id \r\n" + 
 				"LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id\r\n" + 
@@ -2118,7 +2119,61 @@ public class DocDb {
     	
     }    
 //******************************************************************************************************************************** 
-
+    public static int updateDate_concluded(int id, LocalDate date_concluded) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET date_concluded =? WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+				
+					//preparedStatement.setString(1, date_concluded);
+					preparedStatement.setDate(1, java.sql.Date.valueOf (date_concluded));
+					//ps.setDate(23, java.sql.Date.valueOf(doc.getDate_concluded()));
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение date_concluded в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();
+                    
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally 
+    	        {/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	
+                
+                
+              
+        return 0;
+    }
+//  
 //********************************************************************************************************************************     
-    
+    public static int updateNum(int id, int num) {
+    	Connection conn = DbFilter.getConn();       
+        String sql = "UPDATE documents SET num =? WHERE id = ?";
+                try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+					preparedStatement.setInt(1, num);
+					preparedStatement.setInt(2, id);
+					System.out.println("Запрос на изменение num в документе выполнен!!");
+                    return  preparedStatement.executeUpdate();                    
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }        
+                finally 
+    	        {/*try {
+    				conn.close();
+    			} catch (SQLException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}*/
+    			} 	
+                
+                
+              
+        return 0;
+    }
+//      
 }

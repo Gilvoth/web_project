@@ -71,13 +71,25 @@
 		<br><br>
 		<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/DocEditServlet">
 		<div class="container">  
+		
+		<div class="row">
+		<div class="col-md-4">
+		<label>ID</label>
+<%-- 	<c:set var="id_doc" scope="session" value="${doc.id}" /> --%>
+		<input value="${doc.id}" name="id" readonly title="нельзя редактировать" size = "2"/>
+		<c:set var="id_doc" scope="session" value="${doc.id}" />
+				
+		</div>
+		<div class="col-md-6 col-md-offset-4">
+		</div>
+		</div>
+		<br>
 		<div class="row">
 			<div class="col-md-4">
-				<label>ID</label>  
+				<label>Номер договора</label>    
 				<br>
-				<c:set var="id_doc" scope="session" value="${doc.id}" />
-				<input value="${doc.id}" name="id" readonly title="нельзя редактировать" />
-				<c:set var="id_doc" scope="session" value="${doc.id}" />
+				<input value="${doc.num}" name="num" size = "7"/>
+				<input value="${doc.num}" name="num2" size = "7"  type = "hidden"/>
 				<br><br>
 				<label>Тип документа</label>
 				<br>
@@ -118,6 +130,18 @@
 				<input value="${doc.name}" name="name" />
 				<input value="${doc.name}" name="name2" type = "hidden"/>
 				<br><br>
+		</div>
+		<div class="col-md-4">
+				<label>Автор (Ответственный)</label><br>
+				<input name="creator_name" value="${doc.creator_name}&nbsp;${doc.creator_second}" />
+				<br><br>
+		</div>		
+		<div class="col-md-4">
+		</div>		
+		</div>
+		
+		<div class="row">
+		<div class="col-md-4">
 				<label>Статус актуальности</label><br>
 				<input name="id_urgency" value="${doc.id_urgency}" type = "hidden"/> <!-- поменять имя и принять параметр в метод пост -->
 				<input name="doc_urgency" value="${doc.urgency}" type = "hidden" /> <!-- поменять имя и принять параметр в метод пост -->
@@ -128,18 +152,20 @@
 				</select>
 				<br><br>
 		</div>
-		<div class="col-md-6 col-md-offset-4">
-				<label>Автор (Ответственный)</label><br>
-				<input name="creator_name" value="${doc.creator_name}&nbsp;${doc.creator_second}" />
-				<br><br>
+		<div class="col-md-4">
 				<label>Рекомендуемая дата выполнения</label><br>
 				<input name="rec_date"  type="date" value="${doc.rec_date}" />
-				<input name="rec_date2" value="${doc.rec_date}" type = "hidden"/>
-				
+				<input name="rec_date2" value="${doc.rec_date}" type = "hidden"/>				
 				<br><br>
+		</div>		
+		<div class="col-md-4">
+				<label>Дата заключения</label><br>
+				<input name="date_concluded"  type="date" value="${doc.date_concluded}" />
+				<input name="date_concluded2" value="${doc.date_concluded}" type = "hidden"/>				
+				<br><br>
+		</div>		
 		</div>
-		</div>
-		
+				
 		<div class="row">
 			<div class="col-md-4">
 				<label>ТРУ</label><br>

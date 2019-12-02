@@ -152,7 +152,7 @@ public class NewDocServlet extends HttpServlet {
 		String add_agr =  null; 
 		BigDecimal price_add_agr =  null;	
 		ArrayList<Integer> ifo =  null;
-		LocalDate date_concluded = null;
+		LocalDate date_concluded = LocalDate.of(2099, 12, 31);
 		int num = 0;
         
         
