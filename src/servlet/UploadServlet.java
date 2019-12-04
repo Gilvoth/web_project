@@ -1,12 +1,17 @@
 package servlet;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import utils.DocDb;
 //import com.oreilly.servlet.MultipartRequest;  
@@ -15,6 +20,9 @@ import utils.DocDb;
  * Servlet implementation class UploadServlet
  */
 @WebServlet("/UploadServlet")
+@MultipartConfig(fileSizeThreshold=1024*1024*10, 	// 10 MB   //04/12/2019 
+maxFileSize=1024*1024*50,      	// 50 MB
+maxRequestSize=1024*1024*100)   	// 100 MB
 public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -42,13 +50,19 @@ public class UploadServlet extends HttpServlet {
 		//doGet(request, response);
 		request.setCharacterEncoding("UTF-8");
 		String id = null;
-		String filepath = null;
+		//String filepath = null;
+		ByteArrayInputStream filecontent = null;
 		try {
 			id = request.getParameter("id");
-			filepath = request.getParameter("filepath");
-			//file = request.getPart("file");
+			//filepath = request.getParameter("filepath");
+			Part filePart = request.getPart("filepath");
 			System.out.println("id " + id);
-			System.out.println("filepath " + filepath);
+			//System.out.println("filepath " + filepath);
+			System.out.println("filePart " + filePart);
+			filecontent = (ByteArrayInputStream) filePart.getInputStream();
+
+			
+			
 			//doGet(request, response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -59,7 +73,7 @@ public class UploadServlet extends HttpServlet {
 		
     	if (id!=null) {
     		//Connection conn = DbFilter.getConn();
-            DocDb.insertBlob(Integer.parseInt(id), filepath);
+            DocDb.insertBlob(Integer.parseInt(id), filecontent);
             System.out.println("Запрос на вставку выполнен");
             String path = request.getContextPath() + "/DocEditServlet?id="+id;
             response.sendRedirect(path);

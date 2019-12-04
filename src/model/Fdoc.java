@@ -39,7 +39,7 @@ private BigDecimal price_add_agr;
 private ArrayList<Integer> ifo;
 private ArrayList<String> ifo_str;
 private LocalDate date_concluded;
-private int num;
+private String num;
 
 public byte[] getBlob() {
 	return blob;
@@ -375,7 +375,7 @@ public void setSender_list(ArrayList<String> sender_list) {
 			String date_cre, int status_finished, String rec_date, ArrayList<String> receiver_list,
 			ArrayList<String> sender_list, String dep, byte[] blob, String date_registry, int id_tru, String tru, 
 			int id_law, String law, int id_division, String division, BigDecimal price, boolean paid,
-			String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo, LocalDate date_concluded, int num) {
+			String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo, LocalDate date_concluded, String num) {
 		// TODO Auto-generated constructor stub
 		this.setId(id);
 		this.setId_type(id_type);
@@ -474,12 +474,12 @@ public void setSender_list(ArrayList<String> sender_list) {
 	}
 
 
-	public int getNum() {
+	public String getNum() {
 		return num;
 	}
 
 
-	public void setNum(int num) {
+	public void setNum(String num) {
 		this.num = num;
 	}
 
@@ -489,7 +489,7 @@ public void setSender_list(ArrayList<String> sender_list) {
 			String date_cre, int status_finished, String rec_date, ArrayList<String> receiver_list,
 			ArrayList<String> sender_list, String dep, byte[] blob, String date_registry, int id_tru, String tru, 
 			int id_law, String law, int id_division, String division, BigDecimal price, boolean paid,
-			String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo, ArrayList<String> ifo_str, LocalDate date_concluded, int num) {
+			String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo, ArrayList<String> ifo_str, LocalDate date_concluded, String num) {
 		// TODO Auto-generated constructor stub
 		this.setId(id);
 		this.setId_type(id_type);

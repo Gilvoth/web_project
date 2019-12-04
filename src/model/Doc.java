@@ -34,7 +34,7 @@ private BigDecimal price_add_agr;
 private ArrayList<Integer> ifo;
 private ArrayList<Integer> id_protocol;
 private LocalDate date_concluded;
-private int num;
+private String num;
 
 	
 	public Doc() {}
@@ -42,7 +42,7 @@ private int num;
 	public Doc(int id_type, int id_contractor, String name, String content, int creator, int id_urgency,
 			String date_cre, int status_finished, String rec_date, ArrayList<String> receiver_list,
 			ArrayList<String> sender_list, int current_dep, String date_registry, int id_tru, int id_law, int id_division, 
-			BigDecimal price, boolean paid, String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo, LocalDate date_concluded, int num) {
+			BigDecimal price, boolean paid, String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo, LocalDate date_concluded, String num) {
 		// TODO Auto-generated constructor stub
     	this.id_type = id_type;
     	this.id_contractor = id_contractor;
@@ -327,11 +327,11 @@ private int num;
 		this.date_concluded = date_concluded;
 	}
 
-	public int getNum() {
+	public String getNum() {
 		return num;
 	}
 
-	public void setNum(int num) {
+	public void setNum(String num) {
 		this.num = num;
 	}
 

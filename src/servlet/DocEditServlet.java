@@ -167,11 +167,10 @@ public class DocEditServlet extends HttpServlet {
 		
         try {
         	int id = Integer.parseInt(request.getParameter("id"));
-        	int num = Integer.parseInt(request.getParameter("num"));            
-        	int num2 = Integer.parseInt(request.getParameter("num2"));
+        	String num = request.getParameter("num");            
+        	String num2 = request.getParameter("num2");
             String doc_urgency = request.getParameter("doc_urgency");
             String urgency = request.getParameter("urgency");
-            //int id_urgency = Integer.parseInt (request.getParameter("id_urgency"));
             String doc_id_type = request.getParameter("doc_id_type");
             String id_type = request.getParameter("id_type");
             String content = request.getParameter("content");
@@ -309,7 +308,7 @@ public class DocEditServlet extends HttpServlet {
             	System.out.println("Изменилась дата заключения документа!");            	
             }
 			
-			if (num != num2)
+			if (!num.equals(num2))
             {	
             	DocDb.updateNum(id, num);
             	System.out.println("Изменился номер документа!");            	

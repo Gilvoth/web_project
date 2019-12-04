@@ -1,5 +1,6 @@
 package utils;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -83,7 +84,7 @@ public class DocDb {
 			ps.setArray(22, array3);
 
 			ps.setDate(23, java.sql.Date.valueOf(doc.getDate_concluded()));
-			ps.setInt(24, doc.getNum());
+			ps.setString(24, doc.getNum());
 			
 			
             ps.executeUpdate();  
@@ -426,7 +427,7 @@ public class DocDb {
                     ifo_arraylist_str.add(ifo_str);
                 	}
                 LocalDate date_concluded = resultset.getDate("date_concluded").toLocalDate();
-                int num = resultset.getInt("num");
+                String num = resultset.getString("num");
 				/*
 				 * fdoc = new Fdoc (id_doc, id_type_int, type, contractor, name, content,
 				 * creator_name,creator_second, id_urgency, urgency, date_cre, status_finished,
@@ -515,23 +516,23 @@ public class DocDb {
     }
 //  ***********************************************************************************************************************************    
     
-    public static int insertBlob(int id, String filepath) throws FileNotFoundException {
+    public static int insertBlob(int id, ByteArrayInputStream filepath) throws FileNotFoundException {
     	Connection conn = DbFilter.getConn(); 
     	String sql = "UPDATE documents SET blob =? WHERE id = ?";
         try{
             
-        	File file = new File(filepath);
-            FileInputStream fis = new FileInputStream(file);
+        	//File file = new File(filepath);
+            //FileInputStream fis = new FileInputStream(file);
         	
             
             PreparedStatement ps=conn.prepareStatement(sql);  
 	        
 
-			ps.setBinaryStream(1, fis, (int)file.length()); // BLOB
+			ps.setBinaryStream(1, filepath);//fis, (int)file.length()); // BLOB
 			//ps.setBlob(1, file);
             ps.setInt(2, id);			
             ps.executeUpdate();  
-            fis.close();
+            filepath.close();
     		        System.out.println("запрос BLOB выполнен успешно!!!");
     		 
         }catch(Exception ex){
@@ -1041,11 +1042,11 @@ public class DocDb {
 	                	}
 	                
 	                LocalDate date_concluded = resultset.getDate("date_concluded").toLocalDate();
-	                int num = resultset.getInt("num");
+	                String num = resultset.getString("num");
 	                
                     fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                     		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
-                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, ifo_arraylist_str, date_concluded, num);
+                    		date_registry,id_tru,tru,id_law,law,id_division, division, price,paid,add_agr,price_add_agr,ifo_arraylist, ifo_arraylist_str, date_concluded, num);
 
                 fdocs.add(fdoc);
                 
@@ -1193,7 +1194,7 @@ public class DocDb {
     	                	}    		        
     	                
     	            LocalDate date_concluded = resultset.getDate("date_concluded").toLocalDate();
-    	            int num = resultset.getInt("num");  		        
+    	            String num = resultset.getString("num");  		        
     		        
                     fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                     		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
@@ -1344,7 +1345,7 @@ public class DocDb {
     	                    ifo_arraylist_str.add(ifo_str);
     	                	}    		        
     	            LocalDate date_concluded = resultset.getDate("date_concluded").toLocalDate();
-    	            int num = resultset.getInt("num");
+    	            String num = resultset.getString("num");
     		        
                     fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                     		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
@@ -1489,7 +1490,7 @@ public class DocDb {
 	                    ifo_arraylist_str.add(ifo_str);
 	                	}
 	                LocalDate date_concluded = resultset.getDate("date_concluded").toLocalDate();
-	                int num = resultset.getInt("num");
+	                String num = resultset.getString("num");
                     fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                     		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
                     		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, ifo_arraylist_str, date_concluded, num);
@@ -1846,7 +1847,7 @@ public class DocDb {
 	                    ifo_arraylist_str.add(ifo_str);
 	                	}
 	                LocalDate date_concluded = resultset.getDate("date_concluded").toLocalDate();
-	                int num = resultset.getInt("num");
+	                String num = resultset.getString("num");
                     fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                     		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
                     		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, ifo_arraylist_str, date_concluded, num);
@@ -1989,7 +1990,7 @@ public class DocDb {
 	                    ifo_arraylist_str.add(ifo_str);
 	                	}
 	                LocalDate date_concluded = resultset.getDate("date_concluded").toLocalDate();
-	                int num = resultset.getInt("num");
+	                String num = resultset.getString("num");
                     fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                     		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
                     		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, ifo_arraylist_str, date_concluded, num);
@@ -2150,11 +2151,11 @@ public class DocDb {
     }
 //  
 //********************************************************************************************************************************     
-    public static int updateNum(int id, int num) {
+    public static int updateNum(int id, String num) {
     	Connection conn = DbFilter.getConn();       
         String sql = "UPDATE documents SET num =? WHERE id = ?";
                 try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
-					preparedStatement.setInt(1, num);
+					preparedStatement.setString(1, num);
 					preparedStatement.setInt(2, id);
 					System.out.println("Запрос на изменение num в документе выполнен!!");
                     return  preparedStatement.executeUpdate();                    

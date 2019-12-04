@@ -23,10 +23,10 @@
 		<br>
 		
 		<c:if test="${empty doc.blob}">    
-		<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UploadServlet?id=${doc.id}">
+		<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UploadServlet?id=${doc.id}" enctype="multipart/form-data">
 		        Выберите изображение для загрузки:
 		        <br />
-		        <input type="file" name="filepath"  accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" />
+		        <input type="file" name="filepath"  accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" multiple="multiple" />
 		<input type="submit" class="btn btn-dark" value="Загрузить изображение в документ" <c:if test="${doc.receiver_list[0]!=username}"> disabled </c:if> >  
 		</form>
 		
@@ -56,10 +56,10 @@
 		</div><br>
 		
 		<div class="row">
-		<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UploadServlet?id=${doc.id}">
+		<form method="POST" accept-charset="UTF-8" action="${pageContext.request.contextPath}/UploadServlet?id=${doc.id}" enctype="multipart/form-data">
 		Выберите изображение для замены существующего:
 		<br />
-		<input type="file" name="filepath"  accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" />
+		<input type="file" name="filepath"  accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" multiple="multiple"/>
 		<input type="submit" class="btn-sm btn-secondary" value="Замена изображения в текущем документе" <c:if test="${doc.receiver_list[0]!=username}"> disabled </c:if> >  
 		</form>
 		</div>
