@@ -1,7 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,8 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Doc;
 import model.Fdoc;
 import utils.DocDb;
+import utils.SumPriceDocs;
 import utils.UserDb;
 import utils.CreateReport;
 
@@ -70,7 +74,17 @@ public class UserInfoServlet extends HttpServlet {
         //ArrayList<Fdoc> docs = DocDb.selectForDep(id_department);
         //ArrayList<Fdoc> docs = DocDb.selectForCurUser_Full(id_user);
         if (filter_docs.equals("*")) {
-        	List<Fdoc> docs = DocDb.selectForCurUser_Full(id_user);         
+        	List<Fdoc> docs = DocDb.selectForCurUser_Full(id_user);
+        	List<Doc> sumPriceDocs = SumPriceDocs.sumPrices();
+        	for (Fdoc doc :docs) {        		
+        		for (int i=0; i < sumPriceDocs.size(); i++) {
+        		if (doc.getNum().equals(sumPriceDocs.get(i).getNum())) {
+        			doc.setPrice(sumPriceDocs.get(i).getPrice());  
+        			}
+        		}
+        	} 	
+        	
+        	
             request.setAttribute("docs", docs);
             session.setAttribute("docs", docs);
             request.setAttribute("filter_docs", "*");

@@ -19,6 +19,7 @@ import model.Contractor;
 import model.Department;
 import model.Division;
 import model.Doc;
+import model.Fdoc;
 import model.Ifo;
 import model.Law;
 import model.Tru;
@@ -75,7 +76,8 @@ public class NewDocServlet extends HttpServlet {
 			List<Law> laws = LawDb.selectModel();
 			List<Division> divisions = DivisionDb.selectModel();
 			List<Ifo> ifoes = IfoDb.selectModel();
-			Department department = DepartmentDb.selectone(id_department);			
+			Department department = DepartmentDb.selectone(id_department);
+			List<Fdoc> allDocs = DocDb.selectAllFull();
 			if (!type_docs.isEmpty()) {
 				System.out.println("Взят тип документа!!");
 			request.setAttribute("type_docs", type_docs);
@@ -108,7 +110,12 @@ public class NewDocServlet extends HttpServlet {
 			if (!ifoes.isEmpty()) {
 				System.out.println("Взят ifoes!!");
 			request.setAttribute("ifoes", ifoes);
-				}	
+				}
+			if (!allDocs.isEmpty()) {
+				System.out.println("Взят allDocs!!");
+				request.setAttribute("allDocs", allDocs);
+				}
+			 
 			
 		}catch(Exception ex){ex.printStackTrace();
 		} finally{

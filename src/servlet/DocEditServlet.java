@@ -66,9 +66,11 @@ public class DocEditServlet extends HttpServlet {
 				List<Law> laws = LawDb.selectModel();
 				List<Division> divisions = DivisionDb.selectModel();	
 				List<Ifo> ifoes = IfoDb.selectModel();
+				List<Fdoc> allDocs = DocDb.selectAllFull();
 				
 	            if(doc!=null) {
 	                request.setAttribute("doc", doc);
+	                request.setAttribute("allDocs", allDocs);
 	                request.setAttribute("image", doc.getBlob()); 
 	                request.setAttribute("type_docs", type_docs);
 	                request.setAttribute("contractors", contractors);

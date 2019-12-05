@@ -973,7 +973,8 @@ public class DocDb {
 		  "LEFT JOIN tru ON documents.id_tru = tru.id        "+
 		  "LEFT JOIN law ON documents.id_law = law.id        "+
 		  "LEFT JOIN division ON documents.id_division = division.id  		"+
-		  "WHERE documents.receiver_list[1] = ?::varchar ORDER BY documents.id; ";
+		  //"WHERE documents.receiver_list[1] = ?::varchar ORDER BY documents.id; ";
+		  "WHERE documents.receiver_list[1] = ?::varchar ORDER BY documents.num, documents.id; ";
 		      
 		
         try (PreparedStatement preparedStatement = conn.prepareStatement(sqlquery)){

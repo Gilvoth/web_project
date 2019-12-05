@@ -177,7 +177,9 @@
 				</select>
 				<br><br>
 				<label>Сумма</label><br>
-				<input name="price" value="${doc.price}" pattern = "\d+(\.\d{2})?"/><input name="price2" value="${doc.price}" type = "hidden"/><br><br>
+				<%-- <input name="price" value="${doc.price}" pattern = "\d+(\.\d{2})?"/> --%>
+				<input name="price" value="${doc.price}" />
+				<input name="price2" value="${doc.price}" type = "hidden"/><br><br>
 						
 			</div>
 			<div class="col-md-4">
@@ -236,12 +238,19 @@
 				
 				<input type="submit" class="btn btn-dark" value="Сохранить"  <c:if test="${doc.receiver_list[0]!=username}"> disabled </c:if>  />
 			</div>
-			<div class="col-md-6 col-md-offset-4">	
+			<div class="col-md-4">	
 				<label>Сумма по доп. соглашению</label><br>
-				<input name="price_add_agr" value="${doc.price_add_agr}" /><input name="price_add_agr2" value="${doc.price_add_agr}" type = "hidden"/><br><br>
-				
-			
+				<input name="price_add_agr" value="${doc.price_add_agr}" /><input name="price_add_agr2" value="${doc.price_add_agr}" type = "hidden"/><br><br>					
 			</div>
+			<div class="col-md-4">	
+				<label>Основной договор</label><br>
+				
+				<select name = "id_contract"> <!-- id основного договора для привязки -->
+				<c:forEach var="allDoc" items="${allDocs}">
+				<option value="<c:out value="${allDoc.id}"/>"><c:out value="${allDoc.num} ${allDoc.id_contractor} ${allDoc.date_concluded}" /></option>
+				</c:forEach>
+				</select>					
+			</div>			
 		</div>
 		
 		</div>

@@ -65,7 +65,7 @@
 <div class="row justify-content-md-center"> <!-- делаем таблицу адаптивной table-responsive -->
 <table border="1" class="table table-bordered table-hover table-responsive table-sm px-3">
 <thead>
-<tr  bgcolor="#C0C0C0" ><th>id</th><th>Номер договора</th><!-- <th>Тип</th> --><th>Контрагент</th><th>Название(Предмет)</th><!-- <th>Комментарии</th> --><th>Автор(Отв.)</th>
+<tr  bgcolor="#C0C0C0" ><th>id</th><th>Номер договора</th><th>Тип</th><th>Контрагент</th><th>Название(Предмет)</th><!-- <th>Комментарии</th> --><th>Автор(Отв.)</th>
 <th>Статус актуальности</th><th>Дата создания</th><th>Дата заключения</th><!-- <th>Закончен ли</th> --><!-- <th>Рек. дата</th> --><!-- <th>Получатели</th><th>Отправители</th> --><th>Текущий отдел</th>
 <!-- <th>Дата реестр</th> --><!-- <th>ТРУ</th> --><!-- <th>Закон</th> --><!-- <th>Подразд.</th> --><th>Сумма</th><th>Оплата</th><th>ИФО</th><th>Доп согл.</th><th>Сумма по доп согл.</th>
 <th>Прикр.</th><th>Ред.</th><th>Отпр.</th>
@@ -76,7 +76,7 @@
  <tr <c:if test="${doc.receiver_list[1]==null}"> class="bold" </c:if> <c:if test="${doc.status_finished==1}"> class="yellow" </c:if> >
  	<td><a href='<c:url value="/SendDocServlet?id=${doc.id}" />'> ${doc.id}</a></td>
  	<td>${doc.num}</td>
-<%-- 	<td>${doc.id_type}</td> --%>
+ 	<td>${doc.id_type}</td>
 	<td>${doc.id_contractor}</td>
     <td>${doc.name}</td>
 <%--     <td>${doc.content}</td> --%>

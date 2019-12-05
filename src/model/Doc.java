@@ -39,6 +39,11 @@ private String num;
 	
 	public Doc() {}
 
+	public Doc(String num, BigDecimal price) {
+		this.setPrice(price);
+		this.num = num; 
+	}
+	
 	public Doc(int id_type, int id_contractor, String name, String content, int creator, int id_urgency,
 			String date_cre, int status_finished, String rec_date, ArrayList<String> receiver_list,
 			ArrayList<String> sender_list, int current_dep, String date_registry, int id_tru, int id_law, int id_division, 
