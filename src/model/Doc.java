@@ -35,7 +35,7 @@ private ArrayList<Integer> ifo;
 private ArrayList<Integer> id_protocol;
 private LocalDate date_concluded;
 private String num;
-
+private BigDecimal price_total;
 	
 	public Doc() {}
 
@@ -47,7 +47,8 @@ private String num;
 	public Doc(int id_type, int id_contractor, String name, String content, int creator, int id_urgency,
 			String date_cre, int status_finished, String rec_date, ArrayList<String> receiver_list,
 			ArrayList<String> sender_list, int current_dep, String date_registry, int id_tru, int id_law, int id_division, 
-			BigDecimal price, boolean paid, String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo, LocalDate date_concluded, String num) {
+			BigDecimal price, boolean paid, String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo, 
+			LocalDate date_concluded, String num, BigDecimal price_total) {
 		// TODO Auto-generated constructor stub
     	this.id_type = id_type;
     	this.id_contractor = id_contractor;
@@ -87,7 +88,8 @@ private String num;
               this.ifo.add(r); }
            }
         this.date_concluded = date_concluded;
-        this.num = num;        
+        this.num = num;      
+        this.price_total = price_total;
 	}
 	
 /*
@@ -338,6 +340,14 @@ private String num;
 
 	public void setNum(String num) {
 		this.num = num;
+	}
+
+	public BigDecimal getPrice_total() {
+		return price_total;
+	}
+
+	public void setPrice_total(BigDecimal price_total) {
+		this.price_total = price_total;
 	}
 
 	

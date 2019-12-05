@@ -176,7 +176,7 @@
 				</c:forEach>                            
 				</select>
 				<br><br>
-				<label>Сумма</label><br>
+				<label>Сумма   &nbsp; (Общая сумма ${doc.price_total} ) </label><br>
 				<%-- <input name="price" value="${doc.price}" pattern = "\d+(\.\d{2})?"/> --%>
 				<input name="price" value="${doc.price}" />
 				<input name="price2" value="${doc.price}" type = "hidden"/><br><br>

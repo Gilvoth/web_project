@@ -40,6 +40,7 @@ private ArrayList<Integer> ifo;
 private ArrayList<String> ifo_str;
 private LocalDate date_concluded;
 private String num;
+private BigDecimal price_total;
 
 public byte[] getBlob() {
 	return blob;
@@ -484,12 +485,13 @@ public void setSender_list(ArrayList<String> sender_list) {
 	}
 
 
-	public Fdoc(int id, int id_type_int, String id_type, String id_contractor, String name, String content, String creator_name, String creator_second, 
-			int id_urgency, String urgency,
+	public Fdoc(int id, int id_type_int, String id_type, String id_contractor, String name, String content, String creator_name, 
+			String creator_second, int id_urgency, String urgency,
 			String date_cre, int status_finished, String rec_date, ArrayList<String> receiver_list,
 			ArrayList<String> sender_list, String dep, byte[] blob, String date_registry, int id_tru, String tru, 
 			int id_law, String law, int id_division, String division, BigDecimal price, boolean paid,
-			String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo, ArrayList<String> ifo_str, LocalDate date_concluded, String num) {
+			String add_agr, BigDecimal price_add_agr, ArrayList<Integer> ifo, ArrayList<String> ifo_str, LocalDate date_concluded, 
+			String num, BigDecimal price_total) {
 		// TODO Auto-generated constructor stub
 		this.setId(id);
 		this.setId_type(id_type);
@@ -542,7 +544,17 @@ public void setSender_list(ArrayList<String> sender_list) {
         
         this.date_concluded = date_concluded;
         this.num = num; 
-        
+        this.price_total = price_total;
+	}
+
+
+	public BigDecimal getPrice_total() {
+		return price_total;
+	}
+
+
+	public void setPrice_total(BigDecimal price_total) {
+		this.price_total = price_total;
 	}	
 	
 }

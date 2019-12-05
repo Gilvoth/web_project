@@ -43,8 +43,8 @@ public class DocDb {
             PreparedStatement ps=conn.prepareStatement(  
 		            "insert into documents (id, id_type_docs, id_contractor, name, "
 		            + "content, creator, id_urgency, date_cre, status_finished, rec_date, receiver_list, sender_list, current_dep, blob,"
-		            + "date_registry, id_tru, id_law, id_division, price, paid, add_agr, price_add_agr, id_ifo, date_concluded, num)"+
-		            "values (nextval('seq_pk_id_docs'),?,?,?,?,?,?, ?, ?, ?, ?, ?, ?, ?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
+		            + "date_registry, id_tru, id_law, id_division, price, paid, add_agr, price_add_agr, id_ifo, date_concluded, num, price_total)"+
+		            "values (nextval('seq_pk_id_docs'),?,?,?,?,?,?, ?, ?, ?, ?, ?, ?, ?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
 	        
             ps.setInt(1, doc.getId_type());
             ps.setInt(2, doc.getId_contractor());
@@ -85,6 +85,7 @@ public class DocDb {
 
 			ps.setDate(23, java.sql.Date.valueOf(doc.getDate_concluded()));
 			ps.setString(24, doc.getNum());
+			ps.setBigDecimal(25, doc.getPrice_total());
 			
 			
             ps.executeUpdate();  
@@ -354,7 +355,8 @@ public class DocDb {
 				  "documents.add_agr as      add_agr     ,    "+  
 				  "documents.price_add_agr   as      price_add_agr,      "+     
 				  "documents.date_concluded,       "+
-				  "documents.num       "+
+				  "documents.num,       "+
+				  "documents.price_total       "+				  
 				"FROM documents\r\n" +
 				"LEFT JOIN contractor ON documents.id_contractor = contractor.id \r\n" + 
 				"LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id\r\n" + 
@@ -428,6 +430,7 @@ public class DocDb {
                 	}
                 LocalDate date_concluded = resultset.getDate("date_concluded").toLocalDate();
                 String num = resultset.getString("num");
+                BigDecimal price_total = resultset.getBigDecimal("price_total");
 				/*
 				 * fdoc = new Fdoc (id_doc, id_type_int, type, contractor, name, content,
 				 * creator_name,creator_second, id_urgency, urgency, date_cre, status_finished,
@@ -436,7 +439,8 @@ public class DocDb {
                 
                 fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                 		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
-                		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, ifo_arraylist_str, date_concluded, num);
+                		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, ifo_arraylist_str, 
+                		date_concluded, num, price_total);
                 
 			}
 		} catch (SQLException e) {
@@ -963,7 +967,8 @@ public class DocDb {
 		  "documents.price_add_agr   as      price_add_agr     , "+     
 		  "documents.date_concluded,       "+
 		  "documents.num,       "+
-		  "documents.id_ifo       "+
+		  "documents.id_ifo,       "+
+		  "documents.price_total       "+
 		  "FROM documents       "+
 		  "LEFT JOIN contractor ON documents.id_contractor = contractor.id  "+      
 		  "LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id     "+  
@@ -1044,10 +1049,12 @@ public class DocDb {
 	                
 	                LocalDate date_concluded = resultset.getDate("date_concluded").toLocalDate();
 	                String num = resultset.getString("num");
+	                BigDecimal price_total = resultset.getBigDecimal("price_total");
 	                
                     fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                     		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
-                    		date_registry,id_tru,tru,id_law,law,id_division, division, price,paid,add_agr,price_add_agr,ifo_arraylist, ifo_arraylist_str, date_concluded, num);
+                    		date_registry,id_tru,tru,id_law,law,id_division, division, price,paid,add_agr,price_add_agr,ifo_arraylist, 
+                    		ifo_arraylist_str, date_concluded, num, price_total);
 
                 fdocs.add(fdoc);
                 
@@ -1109,7 +1116,8 @@ public class DocDb {
 		  "documents.price_add_agr   as      price_add_agr     , "+     
 		  "documents.date_concluded,       "+
 		  "documents.num,       "+
-		  "documents.id_ifo       "+
+		  "documents.id_ifo,       "+
+		  "documents.price_total       "+
 		  "FROM documents       "+
 		  "LEFT JOIN contractor ON documents.id_contractor = contractor.id  "+      
 		  "LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id     "+  
@@ -1196,10 +1204,12 @@ public class DocDb {
     	                
     	            LocalDate date_concluded = resultset.getDate("date_concluded").toLocalDate();
     	            String num = resultset.getString("num");  		        
-    		        
+    	            BigDecimal price_total = resultset.getBigDecimal("price_total");
+    	            
                     fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                     		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
-                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, ifo_arraylist_str, date_concluded, num);
+                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, 
+                    		ifo_arraylist_str, date_concluded, num, price_total);
 
                 fdocs.add(fdoc);
                 
@@ -1260,7 +1270,8 @@ public class DocDb {
 		  "documents.price_add_agr   as      price_add_agr     , "+
 		  "documents.date_concluded,       "+
 		  "documents.num,       "+
-		  "documents.id_ifo       "+
+		  "documents.id_ifo,       "+
+		  "documents.price_total       "+
 		  "FROM documents       "+
 		  "LEFT JOIN contractor ON documents.id_contractor = contractor.id  "+      
 		  "LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id     "+  
@@ -1347,10 +1358,12 @@ public class DocDb {
     	                	}    		        
     	            LocalDate date_concluded = resultset.getDate("date_concluded").toLocalDate();
     	            String num = resultset.getString("num");
-    		        
+    	            BigDecimal price_total = resultset.getBigDecimal("price_total");
+    	            
                     fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                     		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
-                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, ifo_arraylist_str, date_concluded, num);
+                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, 
+                    		ifo_arraylist_str, date_concluded, num, price_total);
 
                 fdocs.add(fdoc);
                 
@@ -1412,7 +1425,8 @@ public class DocDb {
 		  "documents.price_add_agr   as      price_add_agr     , "+     
 		  "documents.date_concluded,       "+
 		  "documents.num,       "+
-		  "documents.id_ifo       "+
+		  "documents.id_ifo,       "+
+		  "documents.price_total       "+
 		  "FROM documents       "+
 		  "LEFT JOIN contractor ON documents.id_contractor = contractor.id  "+      
 		  "LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id     "+  
@@ -1492,9 +1506,12 @@ public class DocDb {
 	                	}
 	                LocalDate date_concluded = resultset.getDate("date_concluded").toLocalDate();
 	                String num = resultset.getString("num");
+	                BigDecimal price_total = resultset.getBigDecimal("price_total");
+	                
                     fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                     		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
-                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, ifo_arraylist_str, date_concluded, num);
+                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, 
+                    		ifo_arraylist_str, date_concluded, num, price_total);
 
                 fdocs.add(fdoc);
                 
@@ -1773,7 +1790,8 @@ public class DocDb {
 		  "documents.price_add_agr   as      price_add_agr     , "+     
 		  "documents.date_concluded,       "+
 		  "documents.num,       "+
-		  "documents.id_ifo       "+
+		  "documents.id_ifo,       "+
+		  "documents.price_total       "+
 		  "FROM documents       "+
 		  "LEFT JOIN contractor ON documents.id_contractor = contractor.id  "+      
 		  "LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id     "+  
@@ -1849,9 +1867,12 @@ public class DocDb {
 	                	}
 	                LocalDate date_concluded = resultset.getDate("date_concluded").toLocalDate();
 	                String num = resultset.getString("num");
+	                BigDecimal price_total = resultset.getBigDecimal("price_total");
+	                
                     fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                     		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
-                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, ifo_arraylist_str, date_concluded, num);
+                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, 
+                    		ifo_arraylist_str, date_concluded, num, price_total);
 
                 fdocs.add(fdoc);
                 
@@ -1914,7 +1935,8 @@ public class DocDb {
 		  "documents.price_add_agr   as      price_add_agr     , "+     
 		  "documents.date_concluded,       "+
 		  "documents.num,       "+
-		  "documents.id_ifo       "+
+		  "documents.id_ifo,       "+
+		  "documents.price_total       "+
 		  "FROM documents       "+
 		  "LEFT JOIN contractor ON documents.id_contractor = contractor.id  "+      
 		  "LEFT JOIN type_docs ON documents.id_type_docs = type_docs.id     "+  
@@ -1992,9 +2014,12 @@ public class DocDb {
 	                	}
 	                LocalDate date_concluded = resultset.getDate("date_concluded").toLocalDate();
 	                String num = resultset.getString("num");
+	                BigDecimal price_total = resultset.getBigDecimal("price_total");
+	                
                     fdoc = new Fdoc (id, id_type_int, type, contractor, name, content, creator_name,creator_second, 
                     		id_urgency, urgency, date_cre, status_finished, rec_date, receiver_arraylist, sender_arraylist, dep, blob,
-                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, ifo_arraylist_str, date_concluded, num);
+                    		date_registry,id_tru,tru,id_law,law,id_division,division,price,paid,add_agr,price_add_agr,ifo_arraylist, 
+                    		ifo_arraylist_str, date_concluded, num, price_total);
 
                 fdocs.add(fdoc);
                 
@@ -2177,5 +2202,42 @@ public class DocDb {
               
         return 0;
     }
-//      
+  //********************************************************************************************************************************     
+    public static void updatePriceTotal() throws SQLException {
+    	List<Fdoc> allDocs = DocDb.selectAllFull();
+    	//подсчёт сумм контрактов и вывод в поле
+    	List<Doc> sumPriceDocs = SumPriceDocs.sumPrices();
+    	for (Fdoc doc :allDocs) {        		
+    		for (int i=0; i < sumPriceDocs.size(); i++) {
+    		if (doc.getNum().equals(sumPriceDocs.get(i).getNum())) {    			
+    			doc.setPrice_total(sumPriceDocs.get(i).getPrice());
+    			
+    			updatePriceTotalCur(doc.getId(),sumPriceDocs.get(i).getPrice());    			
+    			}
+    		}
+    	}
+         
+              
+        return;
+    }
+    
+// ********************************************************************************************************************************
+    public static int updatePriceTotalCur(int id, BigDecimal price_total) throws SQLException {    	
+	Connection conn = DbFilter.getConn();    	
+    String sql = "UPDATE documents SET price_total = ? WHERE id = ?";
+            try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){               	
+				preparedStatement.setBigDecimal(1, price_total);
+				preparedStatement.setInt(2, id);
+				System.out.println("Запрос на изменение price_total в документе выполнен!!");
+                return  preparedStatement.executeUpdate();                    
+        
+    } catch(SQLException ex){
+        System.out.println(ex);
+    }        
+            finally 
+	        {
+				//conn.close();
+			}
+      return 0;     
+    }
 }

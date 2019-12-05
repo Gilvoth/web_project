@@ -75,11 +75,14 @@ public class UserInfoServlet extends HttpServlet {
         //ArrayList<Fdoc> docs = DocDb.selectForCurUser_Full(id_user);
         if (filter_docs.equals("*")) {
         	List<Fdoc> docs = DocDb.selectForCurUser_Full(id_user);
+        	
+        	//подсчёт сумм контрактов и вывод в поле
         	List<Doc> sumPriceDocs = SumPriceDocs.sumPrices();
         	for (Fdoc doc :docs) {        		
         		for (int i=0; i < sumPriceDocs.size(); i++) {
         		if (doc.getNum().equals(sumPriceDocs.get(i).getNum())) {
-        			doc.setPrice(sumPriceDocs.get(i).getPrice());  
+        			doc.setPrice_total(sumPriceDocs.get(i).getPrice());
+        			DocDb.updatePriceTotal();
         			}
         		}
         	} 	

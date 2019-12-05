@@ -161,6 +161,7 @@ public class NewDocServlet extends HttpServlet {
 		ArrayList<Integer> ifo =  null;
 		LocalDate date_concluded = LocalDate.of(2099, 12, 31);
 		String num = null;
+		BigDecimal price_total = null;
         
         
         try {
@@ -231,7 +232,7 @@ public class NewDocServlet extends HttpServlet {
     	    	Doc doc = new Doc (id_type, id_contractor, name, content, creator, 
     	    			id_urgency, date_cre, status_finished, rec_date, receiver_list, sender_list, current_dep,
     	    			date_registry, id_tru, id_law, id_division, price,
-    	    			 paid, add_agr, price_add_agr, ifo, date_concluded, num);
+    	    			 paid, add_agr, price_add_agr, ifo, date_concluded, num, price_total);
     	    	DocDb.insert(doc);
 
     	    	
