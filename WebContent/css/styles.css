@@ -34,4 +34,8 @@ background-color: #FFD700;
 
 .unvisible{display:none}
 
-
+.block2 { 
+    width: 300px; 
+    background: #ffffff; 
+    padding: 5px; 
+    border: solid 1px #ff0000; 

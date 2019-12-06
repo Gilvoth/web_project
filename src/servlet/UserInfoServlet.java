@@ -82,7 +82,8 @@ public class UserInfoServlet extends HttpServlet {
         		for (int i=0; i < sumPriceDocs.size(); i++) {
         		if (doc.getNum().equals(sumPriceDocs.get(i).getNum())) {
         			doc.setPrice_total(sumPriceDocs.get(i).getPrice());
-        			DocDb.updatePriceTotal();
+        			//производим полный пересчёт сумм
+        			/*DocDb.updatePriceTotal();*/
         			}
         		}
         	} 	

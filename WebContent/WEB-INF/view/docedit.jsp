@@ -223,33 +223,36 @@
 </c:forEach>
 
 <br>
-
-
-				
-
 			</div>
 		</div>
+		
+  		
 		<div class="row">
 			<div class="col-md-4">
-				<label>Доп. соглашение</label><br>
-				<input name="add_agr" value="${doc.add_agr}" /><input name="add_agr2" value="${doc.add_agr}" type = "hidden"/><br><br>
+				<div  class="block2">
+				<label >Доп. соглашение</label><br>
+				<input name="add_agr" value="${doc.add_agr}" disabled /><input name="add_agr2" value="${doc.add_agr}" type = "hidden"/><br><br>
+				</div>
 				<label>Отдел</label><br>
-				<input name="dep" value="${doc.dep}" readonly title="нельзя редактировать"/><br><br>
-				
+				<input name="dep" value="${doc.dep}" readonly title="нельзя редактировать"/><br><br>				
 				<input type="submit" class="btn btn-dark" value="Сохранить"  <c:if test="${doc.receiver_list[0]!=username}"> disabled </c:if>  />
-			</div>
-			<div class="col-md-4">	
-				<label>Сумма по доп. соглашению</label><br>
-				<input name="price_add_agr" value="${doc.price_add_agr}" /><input name="price_add_agr2" value="${doc.price_add_agr}" type = "hidden"/><br><br>					
-			</div>
-			<div class="col-md-4">	
-				<label>Основной договор</label><br>
 				
+			</div>
+			<div class="col-md-4">
+				<div  class="block2">	
+				<label>Сумма по доп. соглашению</label><br>
+				<input name="price_add_agr" value="${doc.price_add_agr}" disabled/><input name="price_add_agr2" value="${doc.price_add_agr}" type = "hidden"/><br><br>
+				</div>					
+			</div>
+			<div class="col-md-4">	
+				<div  class="block2">
+				<label>Основной договор</label><br>				
 				<select name = "id_contract"> <!-- id основного договора для привязки -->
 				<c:forEach var="allDoc" items="${allDocs}">
 				<option value="<c:out value="${allDoc.id}"/>"><c:out value="${allDoc.num} ${allDoc.id_contractor} ${allDoc.date_concluded}" /></option>
 				</c:forEach>
-				</select>					
+				</select>
+				</div>					
 			</div>			
 		</div>
 		

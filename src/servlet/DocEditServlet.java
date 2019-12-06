@@ -269,7 +269,9 @@ public class DocEditServlet extends HttpServlet {
             if (!price.equals(price2))
             {	
             	DocDb.updatePrice(id, new BigDecimal(price));
-            	System.out.println("Изменилась сумма!");            	
+            	System.out.println("Изменилась сумма!");
+    			//производим полный пересчёт сумм
+    			DocDb.updatePriceTotal();
             }
             
             if (!add_agr.equals(add_agr2))

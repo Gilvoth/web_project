@@ -1752,6 +1752,7 @@ public class DocDb {
     }
     
 //  ***********************************************************************************************************************************      
+    //Выводим полный список договоров
     public static ArrayList<Fdoc> selectAllFull() {
     	ArrayList<Fdoc> fdocs = new ArrayList<Fdoc>();
     	Connection conn = DbFilter.getConn();
