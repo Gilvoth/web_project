@@ -208,7 +208,8 @@ public class NewDocServlet extends HttpServlet {
 	        Integer[] id_ifo_integer = Arrays.stream( id_ifo_int ).boxed().toArray( Integer[]::new );	        
 	        ifo = new ArrayList<Integer>(Arrays.asList(id_ifo_integer));
     
-        
+	     num = request.getParameter("id_contract");
+	     
         }catch(Exception ex){ex.printStackTrace();} 
         
         if (name.isEmpty()==true | content.isEmpty()==true) 

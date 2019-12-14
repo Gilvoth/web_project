@@ -11,13 +11,14 @@
 <body>
  <jsp:include page="_menu.jsp"></jsp:include>
 
-
-<style>
-   <%@include file='../../css/styles.css' %>
-</style>
-
-
+<!-- <script type="text/javascript" src="../../javascript/changeView.js"></script> -->
+<script type="text/javascript">
+    <%@include file="../../javascript/changeView.js"%>
+</script>
+<!-- <script src="../../javascript/changeView.js" type="text/javascript"></script> -->
 <br>
+
+
 
 
 <div class="container"> 
@@ -40,22 +41,35 @@
 		</tr>
 		<tr>
 		<td>
-		                 <select name = "id_type">
-		                 <c:forEach var="type_doc" items="${type_docs}">
-		                 
+		                 <!-- <select name = "id_type" onchange="if (this.value == 'Доп.соглашение'){change('typeList'); } ; if (this.value == 'Договор') {change2('typeList');}" > -->
+		                 <select name = "id_type" onchange="if (this.value == '5'){change('typeList'); } ; if (this.value == '1') {change2('typeList');}" >
+		                 <!-- <select name = "id_type" onchange="alert(this.value);" > -->
+		                 <c:forEach var="type_doc" items="${type_docs}">		                 
 		                 <option value="<c:out value="${type_doc.id}"/>"><c:out value="${type_doc.name}" /></option>
 		                 </c:forEach>
 		                 </select>
+<div style="display:none" id="typeList" >				
+<label>Основной договор</label><br>				
+ 				<select name = "id_contract" > <!-- id основного договора для привязки -->
+				<c:forEach var="allDoc" items="${allDocs}">
+				<option value="<c:out value="${allDoc.num}"/>"><c:out value="${allDoc.num} ${allDoc.id_contractor} ${allDoc.date_concluded}" /></option>
+				</c:forEach>
+				</select>
+</div>		                 
+		                 
 		</td>
 		<td><pre>            </pre></td>
-		<td></td>
+		<td>
+
+
+		
+		</td>
 		<td><input type="date" name="rec_date" value="" placeholder="необязательный">  
 
   
 		</td>
 		</tr>
 		</table>
-		                 
 		 <br>
 		<label>Контрагент</label> 
 

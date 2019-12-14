@@ -295,7 +295,7 @@ public class DocEditServlet extends HttpServlet {
             	DocDb.updatePaid(id, false);
             	System.out.println("Изменился факт проплаты false!"); 
             }
-            
+
 			if (ifo_arr!=null) {
 				  if (!ifo_arr.equals(ifo_arr_check)) {
 					  System.out.println("Изменились ИФО!");
@@ -305,6 +305,7 @@ public class DocEditServlet extends HttpServlet {
 				        DocDb.updateIfo(id, ifo_list);
 					  }
 			}
+
 			
 			if (!date_concluded.equals(date_concluded2))
             {	
@@ -322,9 +323,10 @@ public class DocEditServlet extends HttpServlet {
 			 
 
             doGet(request, response);
+            //getServletContext().getRequestDispatcher("/WEB-INF/view/docedit.jsp").forward(request, response);
         }catch (Exception ex)
         {
-        	
+        	System.out.println(ex);
         }
 		
 		

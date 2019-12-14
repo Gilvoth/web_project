@@ -10,6 +10,9 @@
 </head>
 <body>
 <jsp:include page="_menu.jsp"></jsp:include>
+<script type="text/javascript">
+    <%@include file="../../javascript/changeView.js"%>
+</script>
 <br><br>
 
 <c:set var="username" scope="session" value="${user.id}" />
@@ -95,12 +98,28 @@
 				<br>
 				<input value="${doc.id_type_int}" name="id_type_int"  type = "hidden"/>
 				<input value="${doc.id_type}" name="doc_id_type"  type = "hidden"/>
-				<select name = "id_type">
-				<c:forEach var="type_doc" items="${type_docs}">
-				<option value="<c:out value="${type_doc}"/>"     ${doc.id_type == type_doc ? 'selected' : ' '} ><c:out value="${type_doc}" /></option>
+				
+
+					<select name = "id_type" onchange="if (this.value == 'Доп.соглашение'){change('typeList'); } ; if (this.value == 'Договор') {change2('typeList');}" >
+					<c:forEach var="type_doc" items="${type_docs}">
+					<option value="<c:out value="${type_doc}"/>"     ${doc.id_type == type_doc ? 'selected' : ' '} ><c:out value="${type_doc}" /></option>
+					</c:forEach>
+					</select>
+					
+<div style="display:none" id="typeList" >				
+				<label>Основной договор</label><br>				
+				<select name = "id_contract" > <!-- id основного договора для привязки -->
+				<c:forEach var="allDoc" items="${allDocs}">
+				<option value="<c:out value="${allDoc.id}"/>"><c:out value="${allDoc.num} ${allDoc.id_contractor} ${allDoc.date_concluded}" /></option>
 				</c:forEach>
 				</select>
+</div>				
 				<br><br>
+				
+
+			
+				
+				
 				<label>Контрагент</label><br>
 				<input value="${doc.id_contractor}" name="id_contractor" readonly title="нельзя редактировать" />
 				<%--                         <select name = "id_contractor2">
@@ -231,7 +250,7 @@
 			<div class="col-md-4">
 				<div  class="block2">
 				<label >Доп. соглашение</label><br>
-				<input name="add_agr" value="${doc.add_agr}" disabled /><input name="add_agr2" value="${doc.add_agr}" type = "hidden"/><br><br>
+				<input name="add_agr" value="${doc.add_agr}"  /><input name="add_agr2" value="${doc.add_agr}" type = "hidden"/><br><br>
 				</div>
 				<label>Отдел</label><br>
 				<input name="dep" value="${doc.dep}" readonly title="нельзя редактировать"/><br><br>				
@@ -241,7 +260,7 @@
 			<div class="col-md-4">
 				<div  class="block2">	
 				<label>Сумма по доп. соглашению</label><br>
-				<input name="price_add_agr" value="${doc.price_add_agr}" disabled/><input name="price_add_agr2" value="${doc.price_add_agr}" type = "hidden"/><br><br>
+				<input name="price_add_agr" value="${doc.price_add_agr}"/><input name="price_add_agr2" value="${doc.price_add_agr}" type = "hidden"/><br><br>
 				</div>					
 			</div>
 			<div class="col-md-4">	
@@ -285,6 +304,10 @@
 		</div>
 	</div>
 </div> 
+
+
+
+
 <br><br>
 </body>
 </html>

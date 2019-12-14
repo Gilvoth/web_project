@@ -25,13 +25,15 @@
 	 <div class="col-xl-1"></div>
   </div>
 </div>
-<br> 
-
-<div class="container">
+<br>
+ 
+<a href="#" onclick="change('filter')" class="btn-sm btn-dark" role="button" >Доп фильтры</a>
+<br/>
+<div class="container" style="display:none" id="filter">
   <form method="GET" accept-charset="UTF-8"  action="${pageContext.request.contextPath}/UserInfoServlet?filter_docs=${filter_docs}">
     <div class="form-group">
       <label for="sel1"> Дополнительный фильтр:</label>
-      <select class="form-control-mg" id="sel1" name="filter_docs">
+      <select class="form-control-mg" name="filter_docs">
         <option value="*">Без фильтрации</option>
         <option value="1" <c:if test="${filter_docs == '1'}"> selected </c:if> >Завершенные документы</option>
         <option value="0" <c:if test="${filter_docs == '0'}"> selected </c:if> >Незавершенные документы</option>
@@ -39,7 +41,17 @@
       <button type="submit" class="btn-sm btn-dark">Применить фильтр</button>
     </div>
   </form>
-</div>      
+</div>
+<script>
+function change(idName) {
+  if(document.getElementById(idName).style.display=='none') {
+    document.getElementById(idName).style.display = '';
+  } else {
+    document.getElementById(idName).style.display = 'none';
+  }
+  return false;
+}
+</script>      
 <!-- 
 <div class="container">
    <div class="dropdown">
@@ -67,7 +79,7 @@
 <thead>
 <tr  bgcolor="#C0C0C0" ><th>id</th><th>Номер договора</th><th>Тип</th><th>Контрагент</th><th>Название(Предмет)</th><!-- <th>Комментарии</th> --><th>Автор(Отв.)</th>
 <th>Статус актуальности</th><th>Дата создания</th><th>Дата заключения</th><!-- <th>Закончен ли</th> --><!-- <th>Рек. дата</th> --><!-- <th>Получатели</th><th>Отправители</th> --><th>Текущий отдел</th>
-<!-- <th>Дата реестр</th> --><!-- <th>ТРУ</th> --><!-- <th>Закон</th> --><!-- <th>Подразд.</th> --><th>Общая сумма</th><th>Сумма</th><th>Оплата</th><th>ИФО</th><th>Доп согл.</th><th>Сумма по доп согл.</th>
+<!-- <th>Дата реестр</th> --><!-- <th>ТРУ</th> --><!-- <th>Закон</th> --><!-- <th>Подразд.</th> --><th>Общая сумма</th><th>Сумма</th><th>Оплата</th><th>ИФО</th><!-- <th>Доп согл.</th><th>Сумма по доп согл.</th> -->
 <th>Прикр.</th><th>Ред.</th><th>Отпр.</th>
 </tr>
 </thead>
@@ -84,7 +96,8 @@
         ${doc.creator_second}</td>
     <td>${doc.urgency}</td>
     <td>${doc.date_cre}</td>
-    <td>${doc.date_concluded} или ${doc.date_concluded.getDayOfMonth()}.${doc.date_concluded.getMonthValue()}.${doc.date_concluded.getYear()}</td>
+    <%-- <td>${doc.date_concluded} или ${doc.date_concluded.getDayOfMonth()}.${doc.date_concluded.getMonthValue()}.${doc.date_concluded.getYear()}</td> --%>
+    <td>${doc.date_concluded.getDayOfMonth()}.${doc.date_concluded.getMonthValue()}.${doc.date_concluded.getYear()}</td>
 <%--     <td>${doc.status_finished}</td> --%>
 <%--     <td>${doc.rec_date}</td> --%>
 <%--     <td >${doc.receiver_list}</td>
@@ -104,8 +117,8 @@
 <%--     <td>${doc.ifo}</td> --%>
      <td>${doc.ifo_str}</td> 
     
-    <td>${doc.add_agr}</td>
-    <td>${doc.price_add_agr}</td>
+<%--     <td>${doc.add_agr}</td>
+    <td>${doc.price_add_agr}</td> --%>
     <td><c:if test="${empty doc.blob}"> Не Загружен</c:if>
     <c:if test="${doc.blob!=null}">Загружен</c:if></td>    
     <td><a href='<c:url value="/DocEditServlet?id=${doc.id}" />'  class="btn-sm btn-dark" role="button">Ред.</a> </td>
