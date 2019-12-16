@@ -59,8 +59,58 @@
 <br>
 <br>
 <br>
-
 </div>
+
+<div id="clock">
+    <!-- This element's contents will be replaced React component. -->
+</div>
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+    <!-- Load our React component. -->
+    <!-- <script type="text/babel" src="js.js"></script> -->
+<script type="text/babel">
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {date: new Date()};
+  }
+  
+  componentDidMount() { //запускает таймер
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+
+  componentWillUnmount() {
+clearInterval(this.timerID); //очищает
+  }
+
+  tick() { // этот метод устанавливает состоянию новую дату
+    this.setState({
+      date: new Date()
+    });
+  }
+  
+  render() {
+    return (
+      <div>
+        <h5 align = 'center' > {this.state.date.toLocaleTimeString()}.</h5>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <Clock />,
+  document.getElementById('clock')
+);
+</script>
 
    </body>
 </html>

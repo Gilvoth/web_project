@@ -11,11 +11,12 @@
 <body>
  <jsp:include page="_menu.jsp"></jsp:include>
 
-<!-- <script type="text/javascript" src="../../javascript/changeView.js"></script> -->
+<!-- <script type="text/javascript" src="../../javascript/changeView.js"></script> error script-->
+
 <script type="text/javascript">
     <%@include file="../../javascript/changeView.js"%>
 </script>
-<!-- <script src="../../javascript/changeView.js" type="text/javascript"></script> -->
+
 <br>
 
 

@@ -11,7 +11,9 @@
    </head>
 <body>
 <jsp:include page="_menu.jsp"></jsp:include>
-
+<script type="text/javascript">
+    <%@include file="../../javascript/changeView.js"%>
+</script>
 
 <div class="container">  
    <div class="row">
@@ -42,16 +44,7 @@
     </div>
   </form>
 </div>
-<script>
-function change(idName) {
-  if(document.getElementById(idName).style.display=='none') {
-    document.getElementById(idName).style.display = '';
-  } else {
-    document.getElementById(idName).style.display = 'none';
-  }
-  return false;
-}
-</script>      
+    
 <!-- 
 <div class="container">
    <div class="dropdown">
