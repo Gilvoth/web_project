@@ -43,8 +43,8 @@
 		<tr>
 		<td>
 		                 <!-- <select name = "id_type" onchange="if (this.value == 'Доп.соглашение'){change('typeList'); } ; if (this.value == 'Договор') {change2('typeList');}" > -->
-		                 <select name = "id_type" onchange="if (this.value == '5'){change('typeList'); } ; if (this.value == '1') {change2('typeList');}" >
-		                 <!-- <select name = "id_type" onchange="alert(this.value);" > -->
+		                 <select name = "id_type" onchange="if (this.value === '4'){change('typeList');} else {change2('typeList');}" >
+
 		                 <c:forEach var="type_doc" items="${type_docs}">		                 
 		                 <option value="<c:out value="${type_doc.id}"/>"><c:out value="${type_doc.name}" /></option>
 		                 </c:forEach>

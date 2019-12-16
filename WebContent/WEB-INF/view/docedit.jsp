@@ -100,7 +100,7 @@
 				<input value="${doc.id_type}" name="doc_id_type"  type = "hidden"/>
 				
 
-					<select name = "id_type" onchange="if (this.value == 'Доп.соглашение'){change('typeList'); } ; if (this.value == 'Договор') {change2('typeList');}" >
+					<select name = "id_type" onchange="if (this.value === 'Доп.соглашение') {change('typeList');} else {change2('typeList');}">
 					<c:forEach var="type_doc" items="${type_docs}">
 					<option value="<c:out value="${type_doc}"/>"     ${doc.id_type == type_doc ? 'selected' : ' '} ><c:out value="${type_doc}" /></option>
 					</c:forEach>

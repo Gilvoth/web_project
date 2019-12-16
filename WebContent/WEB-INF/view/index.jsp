@@ -7,7 +7,7 @@
 <html>
    <head>
       <meta charset="UTF-8">
-      <title>Home Page</title>
+      <title>Учёт договоров</title>
    </head>
    <body>
     
@@ -17,14 +17,16 @@
     <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
-          
-<script type="text/javascript">
+    
+    <script src="https://unpkg.com/babel-standalone@6/babel.js"></script>      
+<script type="text/babel">
     <%@include file="../../javascript/clock.js"%>
 </script>      
 <div class="container">
 		<div class="col-xl-1"></div>		
 		<div class="col-xl-10">    
-      	<h3>Главная страница</h3>
+      	<h3>Учёт договоров</h3>
+      	<br/>
 	      	<div id="clock">
 	    	<!-- This element's contents will be replaced React component. -->
 			</div>
